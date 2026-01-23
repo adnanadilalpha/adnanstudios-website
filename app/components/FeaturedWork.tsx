@@ -1,5 +1,6 @@
 import { motion } from 'motion/react';
 import { ArrowRight, ExternalLink } from 'lucide-react';
+import Image from 'next/image';
 
 interface Project {
   id: string;
@@ -37,10 +38,10 @@ const projects: Project[] = [
       author: 'Ali Shabbar',
       role: 'CEO, DeafTawk'
     },
-    image: 'https://images.unsplash.com/photo-1749353709979-7f169131254e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxzaWduJTIwbGFuZ3VhZ2UlMjBpbnRlcnByZXRlcnxlbnwxfHx8fDE3NjcyODIzNTB8MA&ixlib=rb-4.1.0&q=80&w=1080',
+    image: '/images/deaftawk.webp',
     links: {
-      caseStudy: '#',
-      liveDemo: '#'
+      caseStudy: '/case-studies/deaftawk',
+      liveDemo: 'https://b2b.deaftawk.com/signup'
     }
   },
   {
@@ -59,32 +60,32 @@ const projects: Project[] = [
       author: 'Muhammad Ashar',
       role: 'CTO, OneScreen'
     },
-    image: 'https://images.unsplash.com/photo-1673515335586-f9f662c01482?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxvbmxpbmUlMjBxdWl6JTIwbGVhcm5pbmd8ZW58MXx8fHwxNzY3MjgyMzUxfDA&ixlib=rb-4.1.0&q=80&w=1080',
+    image: '/images/quiz.webp',
     links: {
-      caseStudy: '#',
-      liveDemo: '#'
+      caseStudy: '/case-studies/quizwiz',
+      liveDemo: 'https://quizwiz2.onescreensolutions.com/'
     }
   },
   {
-    id: 'dubdubai',
-    title: 'DubDubai Marketplace',
-    category: 'E-commerce',
+    id: 'stock',
+    title: 'Private Subscriber Product',
+    category: 'FinTech',
     year: '2025',
-    description: 'UAE Free Classifieds Platform - A Dubai focused classifieds site for Cars, Property, Jobs, Pets & more free ads, secure listings',
+    description: 'Subscriber-Only Platform - Designed a product experience for a restricted-access platform, explicitly available only to subscribers',
     stats: [
-      { value: '2025', label: 'launched' },
-      { value: '8+', label: 'categories' },
-      { value: '8k+', label: 'listings' }
+      { value: '120+', label: 'active users' },
+      { value: 'Next week', label: 'launch scheduled' },
+      { value: 'Restricted', label: 'subscriber access' }
     ],
     testimonial: {
-      quote: 'Adnan\'s expertise in e-commerce and UX design helped us create a secure, user-friendly platform that meets the needs of our local market.',
-      author: 'Maherzad G.Sanai',
-      role: 'CEO, DubDubai'
+      quote: 'Designed for constrained environments, shipping under fixed timelines, building for real users not hypothetical personas.',
+      author: 'Product Team',
+      role: 'Private Subscriber Product'
     },
-    image: 'https://images.unsplash.com/photo-1726796065574-c9075a0ca791?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxkdWJhaSUyMG1hcmtldHBsYWNlJTIwc2hvcHBpbmd8ZW58MXx8fHwxNzY3MjgyMzUxfDA&ixlib=rb-4.1.0&q=80&w=1080',
+    image: '/images/stock.webp',
     links: {
-      caseStudy: '#',
-      liveDemo: '#'
+      caseStudy: '/case-studies/stock',
+      liveDemo: 'https://app.myweeklystock.com/'
     }
   }
 ];
@@ -118,11 +119,15 @@ export function FeaturedWork() {
               className="grid lg:grid-cols-2 gap-12 items-center"
             >
               <div className={`${index % 2 === 1 ? 'lg:order-2' : ''}`}>
-                <div className="aspect-[4/3] bg-gray-100 rounded-lg overflow-hidden">
-                  <img 
+                <div className="aspect-[4/3] bg-gray-100 rounded-lg overflow-hidden relative">
+                  <Image 
                     src={project.image} 
-                    alt={project.title}
-                    className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
+                    alt={`${project.title} - ${project.description}`}
+                    fill
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                    className="object-cover hover:scale-105 transition-transform duration-500"
+                    loading={index === 0 ? 'eager' : 'lazy'}
+                    priority={index === 0}
                   />
                 </div>
               </div>
@@ -167,9 +172,11 @@ export function FeaturedWork() {
                   {project.links.liveDemo && (
                     <a 
                       href={project.links.liveDemo}
+                      target="_blank"
+                      rel="noopener noreferrer"
                       className="inline-flex items-center gap-2 px-6 py-3 border-2 border-gray-900 rounded-full hover:bg-gray-900 hover:text-white transition-colors"
                     >
-                      Live Demo
+                      Live Website
                       <ExternalLink className="w-4 h-4" />
                     </a>
                   )}

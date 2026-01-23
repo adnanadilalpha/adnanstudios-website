@@ -1,7 +1,7 @@
 'use client';
 
 import { motion, AnimatePresence } from 'motion/react';
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Send, X } from 'lucide-react';
 
 interface ContactModalProps {
@@ -17,21 +17,71 @@ export function ContactModal({ isOpen, onClose }: ContactModalProps) {
     budget: '',
     details: ''
   });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
+  const [errorMessage, setErrorMessage] = useState('');
+  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
+
+  // Cleanup timeout on unmount
+  useEffect(() => {
+    return () => {
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current);
+      }
+    };
+  }, []);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value
     });
+    // Reset status when user starts typing again
+    if (submitStatus !== 'idle') {
+      setSubmitStatus('idle');
+      setErrorMessage('');
+    }
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log('Form submitted:', formData);
-    // Handle form submission here
-    alert('Thank you for reaching out! I\'ll get back to you soon.');
-    setFormData({ name: '', email: '', projectType: '', budget: '', details: '' });
-    onClose();
+    setIsSubmitting(true);
+    setSubmitStatus('idle');
+    setErrorMessage('');
+
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || 'Failed to send message');
+      }
+
+      setSubmitStatus('success');
+      setFormData({ name: '', email: '', projectType: '', budget: '', details: '' });
+      
+      // Close modal after 2 seconds on success
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current);
+      }
+      timeoutRef.current = setTimeout(() => {
+        onClose();
+        setSubmitStatus('idle');
+      }, 2000);
+
+    } catch (error) {
+      setSubmitStatus('error');
+      setErrorMessage(error instanceof Error ? error.message : 'Something went wrong. Please try again.');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -166,12 +216,46 @@ export function ContactModal({ isOpen, onClose }: ContactModalProps) {
                     />
                   </div>
 
+                  {/* Status Messages */}
+                  {submitStatus === 'success' && (
+                    <div className="mb-4 sm:mb-6 p-4 bg-green-50 border-2 border-green-200 rounded-lg">
+                      <p className="text-green-800 text-sm sm:text-base font-medium text-center">
+                        ✅ Message sent successfully! Check your email for confirmation.
+                      </p>
+                    </div>
+                  )}
+
+                  {submitStatus === 'error' && (
+                    <div className="mb-4 sm:mb-6 p-4 bg-red-50 border-2 border-red-200 rounded-lg">
+                      <p className="text-red-800 text-sm sm:text-base font-medium text-center">
+                        ❌ {errorMessage}
+                      </p>
+                    </div>
+                  )}
+
                   <button
                     type="submit"
-                    className="w-full bg-[#34A983] text-white py-3 sm:py-4 rounded-xl hover:bg-[#2A8A6B] transition-colors flex items-center justify-center gap-2 group shadow-lg hover:shadow-xl text-sm sm:text-base"
+                    disabled={isSubmitting || submitStatus === 'success'}
+                    className="w-full bg-[#34A983] text-white py-3 sm:py-4 rounded-xl hover:bg-[#2A8A6B] transition-all flex items-center justify-center gap-2 group shadow-lg hover:shadow-xl text-sm sm:text-base disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-[#34A983]"
                   >
-                    Send Message
-                    <Send className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                    {isSubmitting ? (
+                      <>
+                        <svg className="animate-spin h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                          <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                          <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                        </svg>
+                        Sending...
+                      </>
+                    ) : submitStatus === 'success' ? (
+                      <>
+                        ✓ Sent Successfully
+                      </>
+                    ) : (
+                      <>
+                        Send Message
+                        <Send className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                      </>
+                    )}
                   </button>
                 </form>
               </motion.div>

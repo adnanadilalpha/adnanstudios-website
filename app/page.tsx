@@ -5,8 +5,9 @@ import { Navigation } from './components/Navigation';
 import { Hero } from './components/Hero';
 import { FeaturedWork } from './components/FeaturedWork';
 import { Work } from './components/Work';
-import { Packages } from './components/Packages';
 import { DesignProcess } from './components/DesignProcess';
+import { ScheduleCall } from './components/ScheduleCall';
+import { Packages } from './components/Packages';
 import { ContactModal } from './components/ContactModal';
 import { Footer } from './components/Footer';
 
@@ -23,6 +24,7 @@ export default function Home() {
       <FeaturedWork />
       <Work />
       <DesignProcess />
+      <ScheduleCall />
       <Packages onContactClick={openContactModal} />
       <Footer />
       

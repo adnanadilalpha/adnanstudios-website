@@ -9,16 +9,20 @@ interface HeroProps {
 
 export function Hero({ onContactClick }: HeroProps) {
   const scrollToProjects = () => {
-    const element = document.getElementById('projects');
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
+    if (typeof window !== 'undefined') {
+      const element = document.getElementById('projects');
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+      }
     }
   };
 
   const scrollToPackages = () => {
-    const element = document.getElementById('packages');
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
+    if (typeof window !== 'undefined') {
+      const element = document.getElementById('packages');
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+      }
     }
   };
 
@@ -141,7 +145,11 @@ export function Hero({ onContactClick }: HeroProps) {
             <div className="text-lg tracking-tight">DeafTawk</div>
             <div className="text-lg tracking-tight">QuizWiz</div>
             <div className="text-lg tracking-tight">OneScreen</div>
-            <div className="text-lg tracking-tight">DubDubai</div>
+            <div className="text-lg tracking-tight">iCan Tutoring</div>
+            <div className="text-lg tracking-tight">LockN</div>
+            <div className="text-lg tracking-tight">Letaide</div>
+            <div className="text-lg tracking-tight">ScaleX</div>
+            <div className="text-lg tracking-tight">MWS</div>
           </div>
         </motion.div>
       </div>
@@ -160,7 +168,7 @@ export function Hero({ onContactClick }: HeroProps) {
             ))}
           </div>
           <p className="text-xs text-gray-600 mb-3">
-            "We initially aimed for 60 minutes. Now it's 30 seconds."
+            "Incredible work with this B2B we won the Global MediaTech Pitch Day would love to work again"
           </p>
           <div className="flex items-center gap-2">
             <div className="w-8 h-8 rounded-full bg-gradient-to-br from-blue-400 to-blue-600 flex items-center justify-center text-white text-xs">

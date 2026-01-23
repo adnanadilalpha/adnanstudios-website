@@ -19,23 +19,32 @@ export function Navigation({ onContactClick }: NavigationProps) {
   const navOpacity = useTransform(scrollYProgress, [0, 0.1], [1, 0.98]);
 
   useEffect(() => {
+    let ticking = false;
+    
     const handleScroll = () => {
-      setScrolled(window.scrollY > 50);
-      
-      // Detect active section
-      const sections = ['hero', 'projects', 'process', 'packages'];
-      const scrollPosition = window.scrollY + window.innerHeight / 3;
-      
-      for (let i = sections.length - 1; i >= 0; i--) {
-        const element = document.getElementById(sections[i]);
-        if (element && element.offsetTop <= scrollPosition) {
-          setActiveSection(sections[i]);
-          break;
-        }
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          setScrolled(window.scrollY > 50);
+          
+          // Detect active section
+          const sections = ['hero', 'projects', 'process', 'packages'];
+          const scrollPosition = window.scrollY + window.innerHeight / 3;
+          
+          for (let i = sections.length - 1; i >= 0; i--) {
+            const element = document.getElementById(sections[i]);
+            if (element && element.offsetTop <= scrollPosition) {
+              setActiveSection(sections[i]);
+              break;
+            }
+          }
+          
+          ticking = false;
+        });
+        ticking = true;
       }
     };
     
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
     handleScroll();
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
@@ -77,10 +86,22 @@ export function Navigation({ onContactClick }: NavigationProps) {
             transition={{ duration: 0.3 }}
             className="relative bg-white/90 backdrop-blur-xl border border-gray-200/60 rounded-full shadow-lg w-[70vw]"
           >
-          {/* Desktop & Tablet Layout */}
-          <div className="hidden md:grid grid-cols-3 items-center gap-6 px-6 md:px-8 py-3.5">
-            {/* Navigation Items - Left */}
-            <nav className="flex items-center gap-1 justify-start">
+          {/* Desktop Layout (lg and above) */}
+          <div className="hidden lg:flex items-center justify-between gap-6 px-6 lg:px-8 py-3.5">
+            {/* Logo - Left */}
+            <div className="flex-shrink-0">
+              <motion.button
+                onClick={() => scrollToSection('hero')}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="flex-shrink-0"
+              >
+                <Logo className="w-9 h-7 text-[#34A983] transition-colors duration-200" />
+              </motion.button>
+            </div>
+
+            {/* Navigation Items - Center */}
+            <nav className="flex items-center gap-1 justify-center flex-1">
               {navItems.map((item) => {
                 const isActive = activeSection === item.id;
                 const Icon = item.icon;
@@ -91,7 +112,7 @@ export function Navigation({ onContactClick }: NavigationProps) {
                     onClick={() => scrollToSection(item.id)}
                     whileHover={{ y: -1 }}
                     whileTap={{ y: 0 }}
-                    className="relative px-5 md:px-6 py-2.5 rounded-full transition-all duration-200"
+                    className="relative px-5 lg:px-6 py-2.5 rounded-full transition-all duration-200"
                   >
                     {/* Active Background */}
                     {isActive && (
@@ -116,25 +137,13 @@ export function Navigation({ onContactClick }: NavigationProps) {
               })}
             </nav>
 
-            {/* Logo - Center */}
-            <div className="flex justify-center">
-              <motion.button
-                onClick={() => scrollToSection('hero')}
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="flex-shrink-0"
-              >
-                <Logo className="w-9 h-7 text-[#34A983] transition-colors duration-200" />
-              </motion.button>
-            </div>
-
             {/* CTA Button - Right */}
-            <div className="flex justify-end">
+            <div className="flex-shrink-0">
               <motion.button
                 onClick={onContactClick}
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
-                className="flex items-center gap-2 px-6 md:px-7 py-2.5 rounded-full bg-[#34A983] text-white text-sm font-semibold shadow-md hover:shadow-lg hover:bg-[#2A8A6B] transition-all duration-200 whitespace-nowrap"
+                className="flex items-center gap-2 px-6 lg:px-7 py-2.5 rounded-full bg-[#34A983] text-white text-sm font-semibold shadow-md hover:shadow-lg hover:bg-[#2A8A6B] transition-all duration-200 whitespace-nowrap"
               >
                 <span>Let's Talk</span>
                 <ArrowRight className="w-3.5 h-3.5" />
@@ -142,8 +151,8 @@ export function Navigation({ onContactClick }: NavigationProps) {
             </div>
           </div>
 
-          {/* Mobile Layout */}
-          <div className="md:hidden flex items-center justify-between px-4 py-3">
+          {/* Tablet & Mobile Layout */}
+          <div className="lg:hidden flex items-center justify-between px-4 py-3">
             <motion.button
               onClick={() => scrollToSection('hero')}
               whileTap={{ scale: 0.95 }}
@@ -166,13 +175,13 @@ export function Navigation({ onContactClick }: NavigationProps) {
           </div>
           </motion.div>
 
-          {/* Mobile Menu Dropdown */}
+          {/* Mobile & Tablet Menu Dropdown */}
           {mobileMenuOpen && (
             <motion.div
               initial={{ opacity: 0, y: -10 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -10 }}
-              className="md:hidden mt-2 bg-white/95 backdrop-blur-xl border border-gray-200/60 rounded-2xl shadow-xl overflow-hidden"
+              className="lg:hidden mt-2 bg-white/95 backdrop-blur-xl border border-gray-200/60 rounded-2xl shadow-xl overflow-hidden"
             >
               <div className="py-2">
                 {navItems.map((item) => {
