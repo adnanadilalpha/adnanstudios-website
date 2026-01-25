@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import { Analytics } from '@vercel/analytics/next'
+import { SpeedInsights } from '@vercel/speed-insights/next'
 import './globals.css'
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://adnanstudios.com'
@@ -175,8 +176,8 @@ export default function RootLayout({
       <body>
         {children}
         <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   )
 }
-
