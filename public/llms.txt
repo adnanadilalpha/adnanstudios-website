@@ -1,0 +1,41 @@
+# Adnan Studios
+
+> Adnan Adil is a product designer and developer operating as Adnan Studios. He designs in Figma and ships in Next.js, Flutter, and WordPress himself. This is called Zero Handoff: one person from wireframe to production code with no designer-to-developer gap.
+
+## About
+
+- Name: Adnan Adil
+- Business: Adnan Studios
+- Specialization: Zero Handoff product design and development (Figma to Next.js, Flutter, or WordPress)
+- Website: https://adnanstudios.com
+
+## Key Facts
+
+- DeafTawk serves 68,000+ users with 3,200+ interpreters. Interpreter connection time dropped from ~60 minutes to under 30 seconds.
+- QuizWiz receives 60,000+ monthly visits with a 4.7 star review rating.
+- Starter package: $5,000 for up to 10 screens, 4-6 week delivery.
+- Professional package: $15,000 for up to 30 screens, 6-8 week delivery.
+- Enterprise package: custom pricing with unlimited screens and ongoing support.
+
+## Important Pages
+
+- Homepage: https://adnanstudios.com/
+- Insights (articles): https://adnanstudios.com/insights
+- DeafTawk case study: https://adnanstudios.com/case-studies/deaftawk
+- QuizWiz case study: https://adnanstudios.com/case-studies/quizwiz
+- Lockn case study: https://adnanstudios.com/case-studies/lockn
+- Moodia case study: https://adnanstudios.com/case-studies/moodia
+- Packages and pricing: https://adnanstudios.com/#packages
+- FAQ: https://adnanstudios.com/#faq
+- Book a call: https://calendly.com/adnanstudios
+
+## Contact & Profiles
+
+- LinkedIn: https://www.linkedin.com/in/adnan-adil-syed/
+- Upwork: https://www.upwork.com/freelancers/adnanux
+- Contra: https://contra.com/adnanadiil
+- GitHub: https://github.com/adnanadilalpha
+
+## Services
+
+Adnan Studios offers three packages: Starter ($5k), Professional ($15k), and Enterprise (custom). All packages include Figma design and development by the same person — Next.js, Flutter, or WordPress depending on the product. No separate developer handoff required.

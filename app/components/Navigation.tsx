@@ -3,7 +3,8 @@
 import { useState, useEffect } from 'react';
 import { motion, useScroll, useTransform } from 'motion/react';
 import { Logo } from './Logo';
-import { Briefcase, Zap, Package, ArrowRight, Menu, X } from 'lucide-react';
+import Link from 'next/link';
+import { Briefcase, Zap, Package, ArrowRight, Menu, X, BookOpen } from 'lucide-react';
 
 interface NavigationProps {
   onContactClick: () => void;
@@ -138,7 +139,14 @@ export function Navigation({ onContactClick }: NavigationProps) {
             </nav>
 
             {/* CTA Button - Right */}
-            <div className="flex-shrink-0">
+            <div className="flex-shrink-0 flex items-center gap-2">
+              <Link
+                href="/insights"
+                className="hidden xl:flex items-center gap-2 px-4 py-2.5 rounded-full text-sm font-medium text-gray-700 hover:text-[#34A983] hover:bg-[#34A983]/10 transition-all"
+              >
+                <BookOpen className="w-4 h-4" />
+                Insights
+              </Link>
               <motion.button
                 onClick={onContactClick}
                 whileHover={{ scale: 1.02 }}
@@ -211,6 +219,14 @@ export function Navigation({ onContactClick }: NavigationProps) {
                   <span>Let's Talk</span>
                   <ArrowRight className="w-3.5 h-3.5" />
                 </motion.button>
+                <Link
+                  href="/insights"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="w-full flex items-center gap-3 px-5 py-3 text-sm font-medium text-gray-700 hover:text-[#34A983] hover:bg-gray-50"
+                >
+                  <BookOpen className="w-4 h-4" />
+                  <span>Insights</span>
+                </Link>
               </div>
             </motion.div>
           )}

@@ -1,0 +1,123 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap');
+
+:root {
+  --font-body: 'Space Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-serif: 'Space Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+
+  --theme-bg: #ffffff;
+  --theme-text: #1a1a1a;
+  --theme-border-color: #e5e7eb;
+
+  --theme-elevation-0: #ffffff;
+  --theme-elevation-50: #f9fafb;
+  --theme-elevation-100: #f3f4f6;
+  --theme-elevation-150: #eef2f1;
+  --theme-elevation-200: #e5e7eb;
+  --theme-elevation-250: #dce3e1;
+  --theme-elevation-300: #d1d5db;
+  --theme-elevation-400: #9ca3af;
+  --theme-elevation-500: #34a983;
+  --theme-elevation-600: #2a8a6b;
+  --theme-elevation-700: #237a5e;
+  --theme-elevation-800: #1c6350;
+  --theme-elevation-900: #154c3e;
+  --theme-elevation-1000: #0f362c;
+
+  --theme-success-50: #ecfdf5;
+  --theme-success-100: #d1fae5;
+  --theme-success-150: #bbf7d0;
+  --theme-success-200: #86efac;
+  --theme-success-250: #6ee7b7;
+  --theme-success-300: #4ade80;
+  --theme-success-350: #34d399;
+  --theme-success-400: #34a983;
+  --theme-success-450: #2f9a77;
+  --theme-success-500: #34a983;
+  --theme-success-550: #2a8a6b;
+  --theme-success-600: #237a5e;
+  --theme-success-650: #1c6350;
+  --theme-success-700: #154c3e;
+  --theme-success-750: #0f362c;
+  --theme-success-800: #0b2a23;
+  --theme-success-850: #081f1a;
+  --theme-success-900: #051512;
+  --theme-success-950: #030b09;
+}
+
+body {
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+}
+
+.admin-brand-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  color: #34a983;
+}
+
+.admin-brand-logo {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  color: #34a983;
+}
+
+.admin-brand-logo__text {
+  font-family: var(--font-body);
+  font-size: 1.35rem;
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  color: var(--theme-text);
+}
+
+.graphic-icon,
+.graphic-logo {
+  color: #34a983;
+}
+
+.template-default__wrap,
+.dashboard,
+.collection-list,
+.doc-controls,
+.nav {
+  font-family: var(--font-body);
+}
+
+.nav__link-indicator {
+  background: #34a983;
+}
+
+.btn--style-primary,
+.btn--style-primary:focus:not(.btn--disabled) {
+  background-color: #34a983;
+  border-color: #34a983;
+}
+
+.btn--style-primary:hover:not(.btn--disabled) {
+  background-color: #2a8a6b;
+  border-color: #2a8a6b;
+}
+
+a:not(.btn):hover {
+  color: #2a8a6b;
+}
+
+.card,
+.collapsible,
+.table,
+.field-type textarea,
+.field-type input,
+.field-type select {
+  border-radius: 12px;
+}
+
+.login__brand h1,
+.step-nav__last,
+.dashboard__label,
+.collection-list__header h1 {
+  letter-spacing: -0.02em;
+}

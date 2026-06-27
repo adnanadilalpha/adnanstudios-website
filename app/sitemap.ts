@@ -1,33 +1,39 @@
-import { MetadataRoute } from 'next'
+import type { MetadataRoute } from 'next'
+import { getAllInsights } from './lib/insights-cms'
+import { caseStudySlugs, siteUrl } from './lib/site'
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://adnanstudios.com'
+export const revalidate = 3600
 
-export default function sitemap(): MetadataRoute.Sitemap {
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+  const insightPosts = (await getAllInsights()).map((post) => ({
+    url: `${siteUrl}/insights/${post.slug}`,
+    lastModified: new Date(post.updatedAt),
+    changeFrequency: 'monthly' as const,
+    priority: 0.7,
+  }))
+
+  const caseStudies = caseStudySlugs.map((slug) => ({
+    url: `${siteUrl}/case-studies/${slug}`,
+    lastModified: new Date(),
+    changeFrequency: 'monthly' as const,
+    priority: 0.8,
+  }))
+
   return [
     {
       url: siteUrl,
       lastModified: new Date(),
-      changeFrequency: 'monthly',
+      changeFrequency: 'weekly',
       priority: 1,
     },
     {
-      url: `${siteUrl}/case-studies/deaftawk`,
+      url: `${siteUrl}/insights`,
       lastModified: new Date(),
-      changeFrequency: 'monthly',
-      priority: 0.8,
+      changeFrequency: 'weekly',
+      priority: 0.9,
     },
-    {
-      url: `${siteUrl}/case-studies/quizwiz`,
-      lastModified: new Date(),
-      changeFrequency: 'monthly',
-      priority: 0.8,
-    },
-    {
-      url: `${siteUrl}/case-studies/stock`,
-      lastModified: new Date(),
-      changeFrequency: 'monthly',
-      priority: 0.8,
-    },
+    ...caseStudies,
+    ...insightPosts,
     {
       url: `${siteUrl}/privacy`,
       lastModified: new Date(),

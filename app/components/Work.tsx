@@ -3,6 +3,12 @@
 import { motion, useScroll, useTransform } from 'motion/react';
 import { useRef } from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
+import { trackCaseStudyLiveClick } from '../lib/analytics';
+
+interface WorkProps {
+  onContactClick: () => void;
+}
 
 interface Project {
   id: string;
@@ -11,6 +17,8 @@ interface Project {
   image: string;
   metrics: { label: string; value: string }[];
   tags: string[];
+  caseStudy?: string;
+  liveUrl: string;
 }
 
 const workData = {
@@ -24,7 +32,9 @@ const workData = {
         { label: 'Conversion', value: 'High' },
         { label: 'Trust Score', value: '95%' }
       ],
-      tags: ['Web Design', 'Development', 'FinTech']
+      tags: ['Web Design', 'Development', 'FinTech'],
+      caseStudy: '/case-studies/lockn',
+      liveUrl: 'https://locknapp.com/',
     },
     {
       id: 'ican',
@@ -35,7 +45,8 @@ const workData = {
         { label: 'Trust', value: 'High' },
         { label: 'Engagement', value: '4.5min' }
       ],
-      tags: ['Landing Page', 'UX/UI Design', 'Web Development']
+      tags: ['Landing Page', 'UX/UI Design', 'Web Development'],
+      liveUrl: 'https://icantutoring.com/',
     },
     {
       id: 'moodia',
@@ -46,12 +57,14 @@ const workData = {
         { label: 'User Trust', value: '98%' },
         { label: 'Engagement', value: '5.2min' }
       ],
-      tags: ['Product & Web Design', 'Information Architecture', 'Web Development']
+      tags: ['Product & Web Design', 'Information Architecture', 'Web Development'],
+      caseStudy: '/case-studies/moodia',
+      liveUrl: 'https://moodiaapp.com/',
     }
   ]
 };
 
-export function Work() {
+export function Work({ onContactClick }: WorkProps) {
   const containerRef = useRef<HTMLDivElement>(null);
 
   return (
@@ -100,6 +113,7 @@ export function Work() {
           <motion.button 
             whileHover={{ scale: 1.05, y: -2 }}
             whileTap={{ scale: 0.95 }}
+            onClick={onContactClick}
             className="px-6 sm:px-8 py-3 sm:py-4 bg-black hover:bg-gray-900 text-white rounded-full transition-all duration-300 hover:shadow-xl text-sm sm:text-base"
           >
             Start Your Project
@@ -208,29 +222,35 @@ function StackingCard({ project, index, total }: { project: Project; index: numb
               ))}
             </div>
 
-            {/* Live Website CTA */}
-            <motion.a
-              href={
-                project.id === 'lockn' ? 'https://locknapp.com/' :
-                project.id === 'ican' ? 'https://icantutoring.com/' :
-                'https://moodiaapp.com/'
-              }
-              target="_blank"
-              rel="noopener noreferrer"
-              whileHover={{ scale: 1.05, x: 5 }}
-              whileTap={{ scale: 0.95 }}
-              className="group/btn inline-flex items-center gap-2 sm:gap-3 px-5 sm:px-6 py-2.5 sm:py-3 bg-[#34A983] hover:bg-[#2d9372] text-white rounded-full transition-all duration-300 hover:shadow-lg hover:shadow-[#34A983]/30 text-sm sm:text-base"
-            >
-              <span>Live Website</span>
-              <svg 
-                className="w-4 h-4 sm:w-5 sm:h-5 group-hover/btn:translate-x-1 transition-transform" 
-                fill="none" 
-                viewBox="0 0 24 24" 
-                stroke="currentColor"
+            <div className="flex flex-wrap gap-3">
+              {project.caseStudy && (
+                <Link
+                  href={project.caseStudy}
+                  className="inline-flex items-center gap-2 px-5 py-2.5 border border-white/20 hover:border-teal-400/40 text-white rounded-full text-sm transition-colors"
+                >
+                  View Case Study
+                </Link>
+              )}
+              <motion.a
+                href={project.liveUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => trackCaseStudyLiveClick(project.id)}
+                whileHover={{ scale: 1.05, x: 5 }}
+                whileTap={{ scale: 0.95 }}
+                className="group/btn inline-flex items-center gap-2 sm:gap-3 px-5 sm:px-6 py-2.5 sm:py-3 bg-[#34A983] hover:bg-[#2d9372] text-white rounded-full transition-all duration-300 hover:shadow-lg hover:shadow-[#34A983]/30 text-sm sm:text-base"
               >
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-              </svg>
-            </motion.a>
+                <span>Live Website</span>
+                <svg 
+                  className="w-4 h-4 sm:w-5 sm:h-5 group-hover/btn:translate-x-1 transition-transform" 
+                  fill="none" 
+                  viewBox="0 0 24 24" 
+                  stroke="currentColor"
+                >
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                </svg>
+              </motion.a>
+            </div>
           </div>
 
           {/* Screen Side */}
@@ -239,7 +259,7 @@ function StackingCard({ project, index, total }: { project: Project; index: numb
               {/* Screen Image */}
               <Image
                 src={project.image}
-                alt={`${project.title} - ${project.description}`}
+                alt={`${project.title} project screenshot showing ${project.id === 'lockn' ? 'fintech savings landing page with trust and escrow messaging' : project.id === 'moodia' ? 'mental health platform homepage with privacy-focused design' : 'UK tutoring landing page with credibility and outcomes messaging'}`}
                 fill
                 sizes="(max-width: 1024px) 100vw, 50vw"
                 className="object-cover group-hover:scale-105 transition-transform duration-700"

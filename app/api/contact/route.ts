@@ -1,8 +1,15 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { Resend } from 'resend';
 import { getUserConfirmationEmailHTML, getAdminNotificationEmailHTML } from '@/app/lib/email-templates';
+import { siteConfig } from '@/app/lib/site';
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+function getResendClient() {
+  const apiKey = process.env.RESEND_API_KEY;
+  if (!apiKey) {
+    throw new Error('RESEND_API_KEY is not configured');
+  }
+  return new Resend(apiKey);
+}
 
 export async function POST(request: NextRequest) {
     try {
@@ -25,6 +32,8 @@ export async function POST(request: NextRequest) {
                 { status: 400 }
             );
         }
+
+        const resend = getResendClient();
 
         // Add contact to Resend audience
         let audienceContactId = null;
@@ -49,15 +58,15 @@ export async function POST(request: NextRequest) {
         const userEmailResponse = await resend.emails.send({
             from: process.env.RESEND_EMAIL_FROM as string,
             to: email,
-            subject: "Thank you for reaching out! 🎉",
+            subject: `We received your inquiry | ${siteConfig.name}`,
             html: getUserConfirmationEmailHTML(name),
         });
 
-        // Send notification email to admin (you)
         const adminEmailResponse = await resend.emails.send({
             from: process.env.RESEND_EMAIL_FROM as string,
-            to: 'syedadnanadil4@gmail.com', // Your email
-            subject: `🎉 New Contact Form: ${name} - ${projectType}`,
+            to: siteConfig.adminEmail,
+            replyTo: email,
+            subject: `New inquiry: ${name} · ${projectType}`,
             html: getAdminNotificationEmailHTML({ name, email, projectType, budget, details }),
         });
 

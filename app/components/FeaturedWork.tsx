@@ -1,6 +1,8 @@
 import { motion } from 'motion/react';
 import { ArrowRight, ExternalLink } from 'lucide-react';
 import Image from 'next/image';
+import Link from 'next/link';
+import { trackCaseStudyLiveClick } from '../lib/analytics';
 
 interface Project {
   id: string;
@@ -102,10 +104,12 @@ export function FeaturedWork() {
           className="mb-20"
         >
           <h2 className="text-5xl mb-4">Featured Work</h2>
-          <p className="text-xl opacity-60">Crafting Digital Experiences</p>
-          <p className="mt-2 opacity-50 max-w-2xl">
-            Transforming complex problems into elegant solutions through strategic design and user-centered innovation
-          </p>
+          <p className="text-xl opacity-60">Zero Handoff projects shipped end to end</p>
+          <ul className="mt-4 space-y-1 text-sm opacity-70 max-w-2xl">
+            <li>DeafTawk serves 68,000+ users with interpreter connection under 30 seconds.</li>
+            <li>QuizWiz receives 60,000+ monthly visits with a 4.7 star review rating.</li>
+            <li>DeafTawk generated US$1.5M in FY23 revenue with 25% month-over-month growth.</li>
+          </ul>
         </motion.div>
 
         <div className="space-y-32">
@@ -122,7 +126,13 @@ export function FeaturedWork() {
                 <div className="aspect-[4/3] bg-gray-100 rounded-lg overflow-hidden relative">
                   <Image 
                     src={project.image} 
-                    alt={`${project.title} - ${project.description}`}
+                    alt={
+                      project.id === 'deaftawk'
+                        ? 'DeafTawk enterprise accessibility dashboard showing real-time sign language interpretation'
+                        : project.id === 'quizwiz'
+                        ? 'QuizWiz AI quiz generator interface showing multi-format quiz creation'
+                        : 'Private subscriber fintech platform dashboard with restricted access workflow'
+                    }
                     fill
                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                     className="object-cover hover:scale-105 transition-transform duration-500"
@@ -162,18 +172,19 @@ export function FeaturedWork() {
                 )}
 
                 <div className="flex flex-wrap gap-4">
-                  <a 
-                    href={project.links.caseStudy}
+                  <Link 
+                    href={project.links.caseStudy!}
                     className="inline-flex items-center gap-2 px-6 py-3 bg-[#34A983] hover:bg-[#2A8A6B] text-white rounded-full transition-colors"
                   >
                     View Case Study
                     <ArrowRight className="w-4 h-4" />
-                  </a>
+                  </Link>
                   {project.links.liveDemo && (
                     <a 
                       href={project.links.liveDemo}
                       target="_blank"
                       rel="noopener noreferrer"
+                      onClick={() => trackCaseStudyLiveClick(project.id)}
                       className="inline-flex items-center gap-2 px-6 py-3 border-2 border-gray-900 rounded-full hover:bg-gray-900 hover:text-white transition-colors"
                     >
                       Live Website

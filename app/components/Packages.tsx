@@ -1,5 +1,9 @@
+'use client';
+
 import { motion } from 'motion/react';
 import { Check, ArrowRight, Zap, Sparkles, Crown, Clock, Users } from 'lucide-react';
+import { trackPackageClick } from '../lib/analytics';
+import { TrackedCalendlyLink } from './TrackedCalendlyLink';
 
 interface Package {
   id: string;
@@ -17,6 +21,8 @@ interface Package {
 
 interface PackagesProps {
   onContactClick: () => void;
+  sectionTitle?: string;
+  sectionDescription?: string;
 }
 
 const packages: Package[] = [
@@ -25,7 +31,7 @@ const packages: Package[] = [
     name: 'Starter',
     icon: Zap,
     price: '$5,000',
-    tagline: 'Perfect for MVPs & small projects',
+    tagline: 'Figma to shipped MVP. One person, no handoff.',
     deliveryTime: '4-6 weeks',
     revisions: '2 rounds',
     features: [
@@ -42,7 +48,7 @@ const packages: Package[] = [
     name: 'Professional',
     icon: Sparkles,
     price: '$15,000',
-    tagline: 'Scale your product with confidence',
+    tagline: 'Full Zero Handoff from research to shipped product',
     deliveryTime: '6-8 weeks',
     revisions: '4 rounds',
     features: [
@@ -51,7 +57,7 @@ const packages: Package[] = [
       'Up to 30 screens',
       'Advanced Design System',
       'Micro-interactions',
-      'Dev Handoff & Support',
+      'Production build included (Next.js, Flutter, or WordPress)',
       '2 weeks post-launch support'
     ],
     highlighted: true,
@@ -63,7 +69,7 @@ const packages: Package[] = [
     icon: Crown,
     price: 'Custom',
     priceNote: 'Let\'s discuss your needs',
-    tagline: 'End-to-end product design',
+    tagline: 'Custom Zero Handoff for complex products at scale',
     deliveryTime: 'Flexible',
     revisions: 'Unlimited',
     features: [
@@ -79,7 +85,11 @@ const packages: Package[] = [
   }
 ];
 
-export function Packages({ onContactClick }: PackagesProps) {
+export function Packages({
+  onContactClick,
+  sectionTitle = 'Zero Handoff Packages',
+  sectionDescription = 'Every tier includes Figma design and development by the same person — Next.js, Flutter, or WordPress. No separate developer handoff.',
+}: PackagesProps) {
   return (
     <section id="packages" className="py-32 px-6 bg-gradient-to-b from-white via-gray-50 to-white">
       <div className="max-w-7xl mx-auto">
@@ -91,9 +101,9 @@ export function Packages({ onContactClick }: PackagesProps) {
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <h2 className="text-5xl mb-4">Simple, Transparent Pricing</h2>
+          <h2 className="text-5xl mb-4">{sectionTitle}</h2>
           <p className="text-xl opacity-60 max-w-2xl mx-auto">
-            Choose the package that fits your project. All packages include strategy, design, and support.
+            {sectionDescription}
           </p>
         </motion.div>
 
@@ -159,7 +169,10 @@ export function Packages({ onContactClick }: PackagesProps) {
 
                 {/* CTA Button */}
                 <button
-                  onClick={onContactClick}
+                  onClick={() => {
+                    trackPackageClick(pkg.name);
+                    onContactClick();
+                  }}
                   className={`w-full py-4 rounded-xl mb-8 transition-all flex items-center justify-center gap-2 group ${
                     pkg.highlighted
                       ? 'bg-[#34A983] hover:bg-[#2A8A6B] text-white shadow-md hover:shadow-lg'
@@ -207,13 +220,13 @@ export function Packages({ onContactClick }: PackagesProps) {
               <p className="text-lg text-white/90 mb-8 max-w-xl mx-auto">
                 Let's chat! Book a free 30-minute consultation to discuss your project and find the perfect fit.
               </p>
-              <button
-                onClick={onContactClick}
+              <TrackedCalendlyLink
+                location="packages_cta"
                 className="bg-white text-[#34A983] px-8 py-4 rounded-xl shadow-lg hover:shadow-xl transition-all inline-flex items-center gap-2 group"
               >
                 Schedule Free Call
                 <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-              </button>
+              </TrackedCalendlyLink>
               
               <div className="mt-8 flex flex-wrap items-center justify-center gap-6 text-sm text-white/80">
                 <div className="flex items-center gap-2">

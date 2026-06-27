@@ -4,6 +4,8 @@ import { motion } from 'motion/react';
 import Link from 'next/link';
 import { Linkedin, ArrowUpRight, Github, Globe } from 'lucide-react';
 import { Logo } from './Logo';
+import { TrackedLink } from './TrackedLink';
+import { TrackedCalendlyLink } from './TrackedCalendlyLink';
 
 // Custom Upwork Icon
 const UpworkIcon = ({ className }: { className?: string }) => (
@@ -38,7 +40,8 @@ export function Footer() {
     { name: 'Work', id: 'projects' },
     { name: 'Process', id: 'process' },
     { name: 'Packages', id: 'packages' },
-    { name: 'Contact', id: 'contact' }
+    { name: 'Insights', href: '/insights' },
+    { name: 'FAQ', id: 'faq' },
   ];
 
   return (
@@ -76,7 +79,7 @@ export function Footer() {
               <Logo className="w-8 sm:w-9 md:w-10 h-6 sm:h-7 md:h-8 text-[#34A983]" />
             </div>
             <p className="text-sm sm:text-base text-gray-400 max-w-xl mx-auto mb-3 sm:mb-4 px-4">
-              Crafting digital experiences that scale, convert, and generate real revenue.
+              Zero Handoff product design and development. One person from Figma to Next.js, Flutter, or WordPress.
             </p>
             <div className="flex items-center justify-center gap-2 text-xs sm:text-sm text-gray-400">
               <div className="w-2 h-2 rounded-full bg-[#34A983] animate-pulse" />
@@ -86,34 +89,56 @@ export function Footer() {
 
           {/* Quick Links */}
           <div className="flex flex-wrap justify-center gap-4 sm:gap-6 md:gap-8 mb-8 sm:mb-10 md:mb-12 px-4">
-            {quickLinks.map((link) => (
-              <button
-                key={link.name}
-                onClick={() => scrollToSection(link.id)}
-                className="text-sm sm:text-base text-gray-400 hover:text-[#34A983] transition-colors group"
-              >
-                <span className="flex items-center gap-1">
-                  {link.name}
-                  <ArrowUpRight className="w-3 h-3 opacity-0 group-hover:opacity-100 transition-opacity" />
-                </span>
-              </button>
-            ))}
+            {quickLinks.map((link) =>
+              link.href ? (
+                <Link
+                  key={link.name}
+                  href={link.href}
+                  className="text-sm sm:text-base text-gray-400 hover:text-[#34A983] transition-colors group"
+                >
+                  <span className="flex items-center gap-1">
+                    {link.name}
+                    <ArrowUpRight className="w-3 h-3 opacity-0 group-hover:opacity-100 transition-opacity" />
+                  </span>
+                </Link>
+              ) : (
+                <button
+                  key={link.name}
+                  onClick={() => scrollToSection(link.id!)}
+                  className="text-sm sm:text-base text-gray-400 hover:text-[#34A983] transition-colors group"
+                >
+                  <span className="flex items-center gap-1">
+                    {link.name}
+                    <ArrowUpRight className="w-3 h-3 opacity-0 group-hover:opacity-100 transition-opacity" />
+                  </span>
+                </button>
+              )
+            )}
+          </div>
+
+          <div className="flex justify-center mb-8 sm:mb-10">
+            <TrackedCalendlyLink
+              location="footer"
+              className="inline-flex items-center gap-2 px-5 py-2.5 bg-[#34A983] hover:bg-[#2A8A6B] text-white rounded-full text-sm transition-colors"
+            >
+              Book a call
+              <ArrowUpRight className="w-3 h-3" />
+            </TrackedCalendlyLink>
           </div>
 
           {/* Social Links */}
           <div className="flex flex-wrap justify-center gap-3 sm:gap-4 px-4">
             {socialLinks.map((link) => (
-              <a
+              <TrackedLink
                 key={link.label}
                 href={link.url}
-                target="_blank"
-                rel="noopener noreferrer"
+                platform={link.label.toLowerCase()}
                 className="group flex items-center gap-2 px-4 sm:px-5 py-2 sm:py-2.5 bg-white/5 rounded-full hover:bg-white/10 transition-colors text-xs sm:text-sm"
               >
                 <link.icon className="w-4 h-4" />
                 <span>{link.label}</span>
                 <ArrowUpRight className="w-3 h-3 opacity-0 group-hover:opacity-100 transition-opacity" />
-              </a>
+              </TrackedLink>
             ))}
           </div>
         </motion.div>

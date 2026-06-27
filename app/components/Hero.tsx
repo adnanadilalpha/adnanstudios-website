@@ -2,12 +2,21 @@
 
 import { motion } from 'motion/react';
 import { ArrowRight, ChevronDown } from 'lucide-react';
+import { deliveryStackOr } from '@/app/lib/site';
 
 interface HeroProps {
   onContactClick: () => void;
+  headline?: string;
+  title?: string;
+  subhead?: string;
 }
 
-export function Hero({ onContactClick }: HeroProps) {
+export function Hero({
+  onContactClick,
+  headline = 'One person designs and ships. No handoff gap.',
+  title = 'Zero Handoff product design and development.',
+  subhead = `Design in Figma. Ship in ${deliveryStackOr}. Same person from wireframe to production.`,
+}: HeroProps) {
   const scrollToProjects = () => {
     if (typeof window !== 'undefined') {
       const element = document.getElementById('projects');
@@ -69,7 +78,7 @@ export function Hero({ onContactClick }: HeroProps) {
           </h1>
           
           <p className="text-lg md:text-xl text-gray-600 mb-6">
-            Product Designer, UX Strategist & Full Stack Builder
+            {headline}
           </p>
 
           <motion.p
@@ -78,7 +87,7 @@ export function Hero({ onContactClick }: HeroProps) {
             transition={{ duration: 0.8, delay: 0.5 }}
             className="text-xl md:text-2xl mb-3 max-w-3xl mx-auto leading-relaxed"
           >
-            I design and build production ready digital products.
+            {title}
           </motion.p>
 
           <motion.p
@@ -87,7 +96,7 @@ export function Hero({ onContactClick }: HeroProps) {
             transition={{ duration: 0.8, delay: 0.6 }}
             className="text-lg md:text-xl text-gray-600 mb-12 max-w-2xl mx-auto leading-relaxed"
           >
-            From strategy and UX to scalable frontends and shipped systems.
+            {subhead}
           </motion.p>
         </motion.div>
 

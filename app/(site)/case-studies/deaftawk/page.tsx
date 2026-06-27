@@ -3,18 +3,30 @@
 import { motion } from 'motion/react';
 import Link from 'next/link';
 import Image from 'next/image';
+import { TrackedCalendlyLink } from '@/app/components/TrackedCalendlyLink';
+import { Breadcrumbs } from '@/app/components/Breadcrumbs';
+import { siteUrl } from '@/app/lib/site';
 
 export default function DeafTawkCaseStudy() {
   return (
     <div className="bg-white min-h-screen">
       {/* Navigation */}
       <nav className="border-b border-[#e5e5e5] px-4 sm:px-6 lg:px-12 py-6">
-        <Link href="/#projects" className="inline-flex items-center gap-2 text-[#525252] hover:text-[#0a0a0a] transition-colors">
-          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M12.5 15L7.5 10L12.5 5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-          </svg>
-          <span className="text-base">Back to work</span>
-        </Link>
+        <div className="max-w-7xl mx-auto space-y-4">
+          <Link href="/#projects" className="inline-flex items-center gap-2 text-[#525252] hover:text-[#0a0a0a] transition-colors">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M12.5 15L7.5 10L12.5 5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
+            <span className="text-base">Back to work</span>
+          </Link>
+          <Breadcrumbs
+            items={[
+              { label: 'Home', href: siteUrl },
+              { label: 'Work', href: `${siteUrl}/#projects` },
+              { label: 'DeafTawk' },
+            ]}
+          />
+        </div>
       </nav>
 
       {/* Hero Section */}
@@ -62,7 +74,7 @@ export default function DeafTawkCaseStudy() {
               <div className="border border-[#e5e5e5] rounded-[10px] overflow-hidden shadow-[0px_25px_50px_-12px_rgba(0,0,0,0.25)]">
                 <Image
                   src="/deaftawk/video.png"
-                  alt="Video interpretation"
+                  alt="DeafTawk real-time video sign language interpretation session interface"
                   width={768}
                   height={417}
                   className="w-full h-auto"
@@ -408,17 +420,15 @@ export default function DeafTawkCaseStudy() {
           </p>
           
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6">
-            <a
-              href="https://calendly.com/adnanstudios"
-              target="_blank"
-              rel="noopener noreferrer"
+            <TrackedCalendlyLink
+              location="case_study_deaftawk"
               className="inline-flex items-center gap-2 px-8 py-4 bg-[#34A983] hover:bg-[#2A8A6B] text-white rounded-full transition-all duration-300 shadow-lg hover:shadow-xl text-lg font-medium"
             >
               <span>Book Call</span>
               <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
               </svg>
-            </a>
+            </TrackedCalendlyLink>
             <a
               href="/#projects"
               className="inline-flex items-center gap-2 px-8 py-4 border-2 border-gray-900 hover:bg-gray-900 hover:text-white text-gray-900 rounded-full transition-all duration-300 text-lg font-medium"

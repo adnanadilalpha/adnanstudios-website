@@ -39,3 +39,33 @@
   }
 }
 
+@layer components {
+  .article-content {
+    @apply text-lg leading-relaxed text-gray-700;
+  }
+
+  .article-content h2 {
+    @apply text-2xl font-medium text-gray-900 mt-10 mb-4;
+  }
+
+  .article-content h3 {
+    @apply text-xl font-medium text-gray-900 mt-8 mb-3;
+  }
+
+  .article-content p {
+    @apply mb-4;
+  }
+
+  .article-content ul {
+    @apply list-disc pl-6 mb-4 space-y-2;
+  }
+
+  .article-content a {
+    @apply text-[#34A983] hover:underline;
+  }
+
+  .article-content strong {
+    @apply font-medium text-gray-900;
+  }
+}
+

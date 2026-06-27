@@ -5,25 +5,25 @@ const processSteps = [
   {
     number: '01',
     title: 'Discover',
-    description: 'Research and user insights',
+    description: 'Research before a single Figma frame',
     icon: Lightbulb
   },
   {
     number: '02',
     title: 'Define',
-    description: 'Problem framing and strategy',
+    description: 'Scope the stack — Next.js, Flutter, or WordPress',
     icon: Users
   },
   {
     number: '03',
     title: 'Design',
-    description: 'Wireframes and prototypes',
+    description: 'Figma systems that map to components',
     icon: Palette
   },
   {
     number: '04',
     title: 'Develop',
-    description: 'Implementation and testing',
+    description: 'Same person builds in your stack',
     icon: Code
   },
   {
@@ -51,8 +51,8 @@ export function DesignProcess() {
           transition={{ duration: 0.6 }}
           className="mb-20"
         >
-          <h2 className="text-5xl mb-4">Design Process</h2>
-          <p className="text-xl opacity-60">A systematic approach to creating exceptional digital experiences</p>
+          <h2 className="text-5xl mb-4">Zero Handoff Process</h2>
+          <p className="text-xl opacity-60">One workflow from Figma to production. Next.js, Flutter, or WordPress — no translation layer between design and code.</p>
         </motion.div>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -90,7 +90,7 @@ export function DesignProcess() {
           <div className="inline-block">
             <div className="h-px w-32 bg-gray-300 mx-auto mb-8"></div>
             <p className="text-sm opacity-60 max-w-2xl mx-auto">
-              Each project is unique, and the process adapts to meet specific needs while maintaining focus on user-centered design principles and measurable outcomes.
+              The same person who frames the UX ships the production build in Next.js, Flutter, or WordPress. That removes the handoff gap where intent gets lost between design files and production code.
             </p>
           </div>
         </motion.div>

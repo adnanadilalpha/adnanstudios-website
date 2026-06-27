@@ -1,14 +1,14 @@
-import { MetadataRoute } from 'next'
-
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://adnanstudios.com'
+import type { MetadataRoute } from 'next'
+import { siteUrl } from './lib/site'
 
 export default function robots(): MetadataRoute.Robots {
   return {
     rules: {
       userAgent: '*',
       allow: '/',
-      disallow: ['/api/'],
+      disallow: ['/api/', '/admin/'],
     },
     sitemap: `${siteUrl}/sitemap.xml`,
+    host: siteUrl,
   }
 }

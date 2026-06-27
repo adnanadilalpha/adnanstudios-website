@@ -2,6 +2,7 @@
 
 import { motion } from 'motion/react';
 import { Calendar, Clock, ArrowRight } from 'lucide-react';
+import { TrackedCalendlyLink } from './TrackedCalendlyLink';
 
 export function ScheduleCall() {
   return (
@@ -76,17 +77,13 @@ export function ScheduleCall() {
               </p>
             </div>
 
-            <motion.a
-              href="https://calendly.com/adnanstudios"
-              target="_blank"
-              rel="noopener noreferrer"
-              whileHover={{ scale: 1.05, y: -2 }}
-              whileTap={{ scale: 0.95 }}
+            <TrackedCalendlyLink
+              location="schedule_call_section"
               className="group inline-flex items-center gap-3 px-8 py-4 bg-[#34A983] hover:bg-[#2A8A6B] text-white rounded-full transition-all duration-300 shadow-lg hover:shadow-xl shadow-[#34A983]/30 text-lg font-medium"
             >
               <span>Book Call</span>
               <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-            </motion.a>
+            </TrackedCalendlyLink>
 
             <div className="flex flex-wrap items-center justify-center gap-6 mt-4 text-sm text-gray-500">
               <div className="flex items-center gap-2">

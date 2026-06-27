@@ -1,42 +1,38 @@
 import type { Metadata } from 'next'
 import { Analytics } from '@vercel/analytics/next'
 import { SpeedInsights } from '@vercel/speed-insights/next'
-import './globals.css'
-
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://adnanstudios.com'
+import { GoogleAnalytics } from './components/GoogleAnalytics'
+import {
+  personSchema,
+  professionalServiceSchema,
+  serviceSchemas,
+  reviewSchemas,
+} from './lib/schema'
+import { siteConfig, siteUrl } from './lib/site'
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: 'Adnan Adil - Product Designer, UX Strategist & Full Stack Builder',
-    template: '%s | Adnan Adil'
+    default: siteConfig.title,
+    template: '%s | Adnan Studios',
   },
-  description: 'Product Designer, UX Strategist & Full Stack Builder. I design and build production-ready digital products. From strategy and UX to scalable frontends and shipped systems. Featured work includes DeafTawk, QuizWiz, and more.',
+  description: siteConfig.description,
   keywords: [
-    'product designer',
-    'UX designer',
-    'UI designer',
-    'full stack developer',
-    'web designer',
-    'SaaS designer',
-    'B2B product design',
-    'accessibility design',
-    'EdTech design',
-    'FinTech design',
-    'digital product design',
-    'user experience design',
-    'user interface design',
-    'web development',
-    'frontend development',
-    'React developer',
-    'Next.js developer',
-    'portfolio',
-    'Adnan Adil',
-    'adnanstudios'
+    'zero handoff',
+    'figma to code',
+    'nextjs developer',
+    'flutter developer',
+    'wordpress developer',
+    'product designer developer',
+    'product design',
+    'mvp design',
+    'fintech design',
+    'adnan studios',
+    'adnan adil',
   ],
-  authors: [{ name: 'Adnan Adil' }],
-  creator: 'Adnan Adil',
-  publisher: 'Adnan Adil',
+  authors: [{ name: siteConfig.owner }],
+  creator: siteConfig.owner,
+  publisher: siteConfig.name,
   formatDetection: {
     email: false,
     address: false,
@@ -46,22 +42,22 @@ export const metadata: Metadata = {
     type: 'website',
     locale: 'en_US',
     url: siteUrl,
-    siteName: 'Adnan Adil Portfolio',
-    title: 'Adnan Adil - Product Designer, UX Strategist & Full Stack Builder',
-    description: 'I design and build production-ready digital products. From strategy and UX to scalable frontends and shipped systems.',
+    siteName: siteConfig.name,
+    title: siteConfig.title,
+    description: siteConfig.description,
     images: [
       {
         url: `${siteUrl}/images/og-image.jpg`,
         width: 1200,
         height: 630,
-        alt: 'Adnan Adil - Product Designer Portfolio',
+        alt: 'Adnan Studios Zero Handoff product design and development',
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Adnan Adil - Product Designer, UX Strategist & Full Stack Builder',
-    description: 'I design and build production-ready digital products. From strategy and UX to scalable frontends and shipped systems.',
+    title: siteConfig.title,
+    description: siteConfig.description,
     images: [`${siteUrl}/images/og-image.jpg`],
     creator: '@adnanadil',
   },
@@ -78,8 +74,11 @@ export const metadata: Metadata = {
   },
   alternates: {
     canonical: siteUrl,
+    types: {
+      'application/xml': `${siteUrl}/sitemap.xml`,
+    },
   },
-  category: 'Portfolio',
+  category: 'Professional Services',
 }
 
 export default function RootLayout({
@@ -87,74 +86,18 @@ export default function RootLayout({
 }: {
   children: React.ReactNode
 }) {
-  // JSON-LD Structured Data for AI Search Engines
-  const jsonLd = {
-    '@context': 'https://schema.org',
-    '@type': 'Person',
-    name: 'Adnan Adil',
-    jobTitle: 'Product Designer, UX Strategist & Full Stack Builder',
-    description: 'I design and build production-ready digital products. From strategy and UX to scalable frontends and shipped systems.',
-    url: siteUrl,
-    sameAs: [
-      'https://www.linkedin.com/in/adnan-adil-syed/',
-      'https://www.upwork.com/freelancers/adnanux',
-      'https://contra.com/adnanadiil',
-      'https://github.com/adnanadilalpha'
-    ],
-    knowsAbout: [
-      'Product Design',
-      'UX Design',
-      'UI Design',
-      'Full Stack Development',
-      'Web Development',
-      'SaaS Design',
-      'B2B Product Design',
-      'Accessibility Design',
-      'EdTech Design',
-      'FinTech Design'
-    ],
-    alumniOf: {
-      '@type': 'Organization',
-      name: 'Design & Development Professional'
-    },
-    worksFor: {
-      '@type': 'Organization',
-      name: 'Freelance Product Designer & Developer'
-    }
-  }
+  const { aggregateRating, reviews } = reviewSchemas()
 
   const websiteJsonLd = {
     '@context': 'https://schema.org',
     '@type': 'WebSite',
-    name: 'Adnan Adil Portfolio',
+    name: siteConfig.name,
     url: siteUrl,
-    description: 'Product Designer, UX Strategist & Full Stack Builder Portfolio',
+    description: siteConfig.description,
     author: {
       '@type': 'Person',
-      name: 'Adnan Adil'
+      name: siteConfig.owner,
     },
-    potentialAction: {
-      '@type': 'SearchAction',
-      target: {
-        '@type': 'EntryPoint',
-        urlTemplate: `${siteUrl}/?search={search_term_string}`
-      },
-      'query-input': 'required name=search_term_string'
-    }
-  }
-
-  const organizationJsonLd = {
-    '@context': 'https://schema.org',
-    '@type': 'Organization',
-    name: 'Adnan Adil',
-    url: siteUrl,
-    logo: `${siteUrl}/images/logo.png`,
-    sameAs: [
-      'https://www.linkedin.com/in/adnan-adil-syed/',
-      'https://www.upwork.com/freelancers/adnanux',
-      'https://contra.com/adnanadiil',
-      'https://github.com/adnanadilalpha'
-    ]
   }
 
   return (
@@ -162,7 +105,11 @@ export default function RootLayout({
       <head>
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(personSchema()) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(professionalServiceSchema()) }}
         />
         <script
           type="application/ld+json"
@@ -170,11 +117,26 @@ export default function RootLayout({
         />
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(aggregateRating) }}
         />
+        {reviews.map((review, index) => (
+          <script
+            key={index}
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{ __html: JSON.stringify(review) }}
+          />
+        ))}
+        {serviceSchemas().map((service, index) => (
+          <script
+            key={index}
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{ __html: JSON.stringify(service) }}
+          />
+        ))}
       </head>
       <body>
         {children}
+        <GoogleAnalytics />
         <Analytics />
         <SpeedInsights />
       </body>
