@@ -1,4 +1,4 @@
-export const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://adnanstudios.com'
+export const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || '[REDACTED]'
 
 export const deliveryStack = 'Next.js, Flutter, and WordPress'
 export const deliveryStackOr = 'Next.js, Flutter, or WordPress'
@@ -6,9 +6,9 @@ export const deliveryStackOr = 'Next.js, Flutter, or WordPress'
 export const siteConfig = {
   name: 'Adnan Studios',
   owner: 'Adnan Adil',
-  title: 'Adnan Adil | Zero Handoff Product Design & Development',
+  title: 'Adnan Studios | Product Design & Development Studio',
   description:
-    `Adnan Adil designs in Figma and ships in ${deliveryStack}. One person from wireframe to production. No handoff gap. Adnan Studios builds MVPs, SaaS, and fintech products end to end.`,
+    `Adnan Studios is a product design and development studio. We design in Figma and ship in ${deliveryStack}. Zero Handoff from wireframe to production — MVPs, SaaS, and fintech products built end to end.`,
   gaId: 'G-Q8QVJBXH5Z',
   calendlyUrl: 'https://calendly.com/adnanstudios',
   contactEmail: process.env.CONTACT_EMAIL || 'hello@adnanstudios.com',

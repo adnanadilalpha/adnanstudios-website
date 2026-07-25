@@ -14,15 +14,15 @@ export interface SiteContent {
 
 import { deliveryStackOr } from '@/app/lib/site'
 
-const heroSubhead = `Design in Figma. Ship in ${deliveryStackOr}. Same person from wireframe to production.`
+const heroSubhead = `We design in Figma and ship in ${deliveryStackOr}. One studio from wireframe to production.`
 const packagesDescription =
-  'Every tier includes Figma design and development by the same person — Next.js, Flutter, or WordPress. No separate developer handoff.'
+  'Every tier includes Figma design and production development by our studio — Next.js, Flutter, or WordPress. No separate agency handoff.'
 
 const defaults: SiteContent = {
-  heroHeadline: 'One person designs and ships. No handoff gap.',
+  heroHeadline: 'A product design and development studio. No handoff gap.',
   heroTitle: 'Zero Handoff product design and development.',
   heroSubhead,
-  packagesTitle: 'Zero Handoff Packages',
+  packagesTitle: 'Studio Packages',
   packagesDescription,
   faqItems: defaultFaqItems,
 }

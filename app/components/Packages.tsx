@@ -31,7 +31,7 @@ const packages: Package[] = [
     name: 'Starter',
     icon: Zap,
     price: '$5,000',
-    tagline: 'Figma to shipped MVP. One person, no handoff.',
+    tagline: 'Figma to shipped MVP. One studio, no handoff.',
     deliveryTime: '4-6 weeks',
     revisions: '2 rounds',
     features: [
@@ -87,8 +87,8 @@ const packages: Package[] = [
 
 export function Packages({
   onContactClick,
-  sectionTitle = 'Zero Handoff Packages',
-  sectionDescription = 'Every tier includes Figma design and development by the same person — Next.js, Flutter, or WordPress. No separate developer handoff.',
+  sectionTitle = 'Studio Packages',
+  sectionDescription = 'Every tier includes Figma design and production development by our studio — Next.js, Flutter, or WordPress. No separate agency handoff.',
 }: PackagesProps) {
   return (
     <section id="packages" className="py-32 px-6 bg-gradient-to-b from-white via-gray-50 to-white">

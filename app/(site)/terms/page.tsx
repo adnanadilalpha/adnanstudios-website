@@ -35,7 +35,7 @@ export default function TermsOfService() {
             <section>
               <h2 className="text-2xl sm:text-3xl font-semibold mb-4">Use License</h2>
               <p className="text-gray-700 leading-relaxed mb-4">
-                Permission is granted to temporarily view the materials on Adnan Adil's portfolio website for personal, non-commercial transitory viewing only. This is the grant of a license, not a transfer of title, and under this license you may not:
+                Permission is granted to temporarily view the materials on the Adnan Studios website for personal, non-commercial transitory viewing only. This is the grant of a license, not a transfer of title, and under this license you may not:
               </p>
               <ul className="list-disc list-inside space-y-2 text-gray-700 ml-4">
                 <li>Modify or copy the materials</li>
@@ -48,17 +48,17 @@ export default function TermsOfService() {
             <section>
               <h2 className="text-2xl sm:text-3xl font-semibold mb-4">Services</h2>
               <p className="text-gray-700 leading-relaxed mb-4">
-                Adnan Adil provides product design, UX strategy, and full-stack development services. All services are provided subject to separate service agreements that will be executed prior to the commencement of work.
+                Adnan Studios provides product design, UX strategy, and full-stack development services. All services are provided subject to separate service agreements that will be executed prior to the commencement of work.
               </p>
             </section>
 
             <section>
               <h2 className="text-2xl sm:text-3xl font-semibold mb-4">Intellectual Property</h2>
               <p className="text-gray-700 leading-relaxed mb-4">
-                The website and its original content, features, and functionality are owned by Adnan Adil and are protected by international copyright, trademark, patent, trade secret, and other intellectual property laws.
+                The website and its original content, features, and functionality are owned by Adnan Studios and are protected by international copyright, trademark, patent, trade secret, and other intellectual property laws.
               </p>
               <p className="text-gray-700 leading-relaxed">
-                Portfolio work displayed on this website remains the intellectual property of the respective clients and is shown with permission for portfolio purposes only.
+                Client work displayed on this website remains the intellectual property of the respective clients and is shown with permission for studio showcase purposes only.
               </p>
             </section>
 
@@ -85,28 +85,28 @@ export default function TermsOfService() {
             <section>
               <h2 className="text-2xl sm:text-3xl font-semibold mb-4">Disclaimer</h2>
               <p className="text-gray-700 leading-relaxed mb-4">
-                The materials on Adnan Adil's website are provided on an 'as is' basis. Adnan Adil makes no warranties, expressed or implied, and hereby disclaims and negates all other warranties including, without limitation, implied warranties or conditions of merchantability, fitness for a particular purpose, or non-infringement of intellectual property or other violation of rights.
+                The materials on the Adnan Studios website are provided on an 'as is' basis. Adnan Studios makes no warranties, expressed or implied, and hereby disclaims and negates all other warranties including, without limitation, implied warranties or conditions of merchantability, fitness for a particular purpose, or non-infringement of intellectual property or other violation of rights.
               </p>
             </section>
 
             <section>
               <h2 className="text-2xl sm:text-3xl font-semibold mb-4">Limitations of Liability</h2>
               <p className="text-gray-700 leading-relaxed">
-                In no event shall Adnan Adil or its suppliers be liable for any damages (including, without limitation, damages for loss of data or profit, or due to business interruption) arising out of the use or inability to use the materials on this website, even if Adnan Adil or an authorized representative has been notified orally or in writing of the possibility of such damage.
+                In no event shall Adnan Studios or its suppliers be liable for any damages (including, without limitation, damages for loss of data or profit, or due to business interruption) arising out of the use or inability to use the materials on this website, even if Adnan Studios or an authorized representative has been notified orally or in writing of the possibility of such damage.
               </p>
             </section>
 
             <section>
               <h2 className="text-2xl sm:text-3xl font-semibold mb-4">Revisions and Errata</h2>
               <p className="text-gray-700 leading-relaxed">
-                The materials appearing on Adnan Adil's website could include technical, typographical, or photographic errors. Adnan Adil does not warrant that any of the materials on its website are accurate, complete, or current. Adnan Adil may make changes to the materials contained on its website at any time without notice.
+                The materials appearing on the Adnan Studios website could include technical, typographical, or photographic errors. Adnan Studios does not warrant that any of the materials on its website are accurate, complete, or current. Adnan Studios may make changes to the materials contained on its website at any time without notice.
               </p>
             </section>
 
             <section>
               <h2 className="text-2xl sm:text-3xl font-semibold mb-4">Links to Third-Party Sites</h2>
               <p className="text-gray-700 leading-relaxed">
-                Our website may contain links to third-party websites or services that are not owned or controlled by Adnan Adil. We have no control over, and assume no responsibility for, the content, privacy policies, or practices of any third-party websites or services. You acknowledge and agree that Adnan Adil shall not be responsible or liable for any damage or loss caused by or in connection with the use of any such content, goods, or services available on or through any such websites or services.
+                Our website may contain links to third-party websites or services that are not owned or controlled by Adnan Studios. We have no control over, and assume no responsibility for, the content, privacy policies, or practices of any third-party websites or services. You acknowledge and agree that Adnan Studios shall not be responsible or liable for any damage or loss caused by or in connection with the use of any such content, goods, or services available on or through any such websites or services.
               </p>
             </section>
 

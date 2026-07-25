@@ -50,17 +50,17 @@ export function Footer() {
       <div className="absolute top-0 left-0 w-64 sm:w-80 md:w-96 h-64 sm:h-80 md:h-96 bg-[#34A983]/10 rounded-full blur-3xl" />
       <div className="absolute bottom-0 right-0 w-64 sm:w-80 md:w-96 h-64 sm:h-80 md:h-96 bg-blue-500/10 rounded-full blur-3xl" />
 
-      {/* MASSIVE NAME AS BACKGROUND - Centered */}
+      {/* MASSIVE STUDIO NAME AS BACKGROUND - Centered */}
       <div className="absolute inset-0 flex items-center justify-center pointer-events-none overflow-hidden">
         <motion.h2
           initial={{ opacity: 0, scale: 0.9 }}
           whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8, delay: 0.2 }}
-          className="text-5xl sm:text-6xl md:text-8xl lg:text-9xl xl:text-[12rem] 2xl:text-[14rem] tracking-tighter text-transparent bg-clip-text bg-gradient-to-r from-white/10 to-white/5 select-none whitespace-nowrap px-4"
+          className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl xl:text-[10rem] 2xl:text-[12rem] tracking-tighter text-transparent bg-clip-text bg-gradient-to-r from-white/10 to-white/5 select-none whitespace-nowrap px-4"
           style={{ lineHeight: '0.9' }}
         >
-          ADNAN ADIL
+          ADNAN STUDIOS
         </motion.h2>
       </div>
 
@@ -79,7 +79,7 @@ export function Footer() {
               <Logo className="w-8 sm:w-9 md:w-10 h-6 sm:h-7 md:h-8 text-[#34A983]" />
             </div>
             <p className="text-sm sm:text-base text-gray-400 max-w-xl mx-auto mb-3 sm:mb-4 px-4">
-              Zero Handoff product design and development. One person from Figma to Next.js, Flutter, or WordPress.
+              A product design and development studio. Zero Handoff from Figma to Next.js, Flutter, or WordPress.
             </p>
             <div className="flex items-center justify-center gap-2 text-xs sm:text-sm text-gray-400">
               <div className="w-2 h-2 rounded-full bg-[#34A983] animate-pulse" />
@@ -153,7 +153,7 @@ export function Footer() {
         >
           <div className="flex flex-col md:flex-row justify-between items-center gap-4 sm:gap-6 px-4">
             <div className="text-xs sm:text-sm text-gray-500 text-center md:text-left">
-              © 2026 Adnan Adil. All rights reserved.
+              © 2026 Adnan Studios. All rights reserved.
             </div>
             <div className="flex gap-4 sm:gap-6 text-xs sm:text-sm text-gray-500">
               <Link href="/privacy" className="hover:text-[#34A983] transition-colors">Privacy Policy</Link>

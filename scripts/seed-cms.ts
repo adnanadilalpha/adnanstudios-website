@@ -34,7 +34,7 @@ async function seedInsights(payload: Awaited<ReturnType<typeof getPayloadClient>
       title: article.title,
       slug: article.slug,
       description: article.description,
-      author: 'Adnan Adil',
+      author: 'Adnan Studios',
       publishedAt: article.publishedAt,
       content: toLexicalContent(article.paragraphs),
       _status: 'published' as const,
@@ -61,12 +61,12 @@ async function seedSiteSettings(payload: Awaited<ReturnType<typeof getPayloadCli
   await payload.updateGlobal({
     slug: 'site-settings',
     data: {
-      heroHeadline: 'One person designs and ships. No handoff gap.',
+      heroHeadline: 'A product design and development studio. No handoff gap.',
       heroTitle: 'Zero Handoff product design and development.',
-      heroSubhead: 'Design in Figma. Ship in Next.js, Flutter, or WordPress. Same person from wireframe to production.',
-      packagesTitle: 'Zero Handoff Packages',
+      heroSubhead: 'We design in Figma and ship in Next.js, Flutter, or WordPress. One studio from wireframe to production.',
+      packagesTitle: 'Studio Packages',
       packagesDescription:
-        'Every tier includes Figma design and development by the same person — Next.js, Flutter, or WordPress. No separate developer handoff.',
+        'Every tier includes Figma design and production development by our studio — Next.js, Flutter, or WordPress. No separate agency handoff.',
       faqItems: defaultFaqItems,
     },
   })

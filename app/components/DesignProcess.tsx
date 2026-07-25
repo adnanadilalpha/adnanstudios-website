@@ -23,7 +23,7 @@ const processSteps = [
   {
     number: '04',
     title: 'Develop',
-    description: 'Same person builds in your stack',
+    description: 'Our studio builds in your stack',
     icon: Code
   },
   {
@@ -51,8 +51,8 @@ export function DesignProcess() {
           transition={{ duration: 0.6 }}
           className="mb-20"
         >
-          <h2 className="text-5xl mb-4">Zero Handoff Process</h2>
-          <p className="text-xl opacity-60">One workflow from Figma to production. Next.js, Flutter, or WordPress — no translation layer between design and code.</p>
+          <h2 className="text-5xl mb-4">Studio Process</h2>
+          <p className="text-xl opacity-60">One studio workflow from Figma to production. Next.js, Flutter, or WordPress — no agency handoff between design and code.</p>
         </motion.div>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -90,7 +90,7 @@ export function DesignProcess() {
           <div className="inline-block">
             <div className="h-px w-32 bg-gray-300 mx-auto mb-8"></div>
             <p className="text-sm opacity-60 max-w-2xl mx-auto">
-              The same person who frames the UX ships the production build in Next.js, Flutter, or WordPress. That removes the handoff gap where intent gets lost between design files and production code.
+              The same studio that frames the UX ships the production build in Next.js, Flutter, or WordPress. That removes the handoff gap where intent gets lost between design files and production code.
             </p>
           </div>
         </motion.div>

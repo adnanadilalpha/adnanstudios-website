@@ -51,12 +51,12 @@ export default function StockLayout({
     description: 'Subscriber-Only Platform - Designed a product experience for a restricted-access platform, explicitly available only to subscribers.',
     image: `${siteUrl}/stock/dashboard.png`,
     author: {
-      '@type': 'Person',
-      name: 'Adnan Adil',
+      '@type': 'Organization',
+      name: 'Adnan Studios',
     },
     publisher: {
       '@type': 'Organization',
-      name: 'Adnan Adil',
+      name: 'Adnan Studios',
       logo: {
         '@type': 'ImageObject',
         url: `${siteUrl}/images/logo.png`,

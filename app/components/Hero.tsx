@@ -13,9 +13,9 @@ interface HeroProps {
 
 export function Hero({
   onContactClick,
-  headline = 'One person designs and ships. No handoff gap.',
+  headline = 'A product design and development studio. No handoff gap.',
   title = 'Zero Handoff product design and development.',
-  subhead = `Design in Figma. Ship in ${deliveryStackOr}. Same person from wireframe to production.`,
+  subhead = `We design in Figma and ship in ${deliveryStackOr}. One studio from wireframe to production.`,
 }: HeroProps) {
   const scrollToProjects = () => {
     if (typeof window !== 'undefined') {
@@ -73,8 +73,8 @@ export function Hero({
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.3 }}
         >
-          <h1 className="text-6xl md:text-7xl lg:text-8xl mb-4 leading-tight tracking-tight">
-            ADNAN ADIL
+          <h1 className="text-5xl md:text-6xl lg:text-7xl xl:text-8xl mb-4 leading-tight tracking-tight">
+            ADNAN STUDIOS
           </h1>
           
           <p className="text-lg md:text-xl text-gray-600 mb-6">

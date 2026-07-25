@@ -2,12 +2,12 @@ export const defaultFaqItems = [
   {
     question: 'What is Zero Handoff?',
     answer:
-      'Zero Handoff means one person designs in Figma and builds in Next.js, Flutter, or WordPress. There is no designer-to-developer translation layer. The same person who frames the UX ships the production code.',
+      'Zero Handoff is how Adnan Studios works: our studio designs in Figma and builds in Next.js, Flutter, or WordPress under one roof. There is no designer-to-developer translation layer between agencies. The same studio that frames the UX ships the production code.',
   },
   {
     question: 'Do you handle development as well as design?',
     answer:
-      'Yes. Adnan Adil designs and builds end to end. Every package includes Figma design and development from the same person — Next.js, Flutter, or WordPress depending on your product. You do not need a separate developer.',
+      'Yes. Adnan Studios designs and builds end to end. Every package includes Figma design and development from our studio — Next.js, Flutter, or WordPress depending on your product. You do not need a separate development agency.',
   },
   {
     question: 'How long does a typical project take?',
@@ -22,7 +22,7 @@ export const defaultFaqItems = [
   {
     question: 'What platforms do you build for?',
     answer:
-      'Figma for design. Production builds in Next.js for web apps and marketing sites, Flutter for cross-platform mobile and web, and WordPress for content-driven sites and CMS-backed products. Stack choice depends on your product — one person still owns design through ship.',
+      'Figma for design. Production builds in Next.js for web apps and marketing sites, Flutter for cross-platform mobile and web, and WordPress for content-driven sites and CMS-backed products. Stack choice depends on your product — our studio owns design through ship.',
   },
   {
     question: 'What does a $5k package include vs $15k?',

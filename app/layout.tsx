@@ -3,6 +3,7 @@ import { Analytics } from '@vercel/analytics/next'
 import { SpeedInsights } from '@vercel/speed-insights/next'
 import { GoogleAnalytics } from './components/GoogleAnalytics'
 import {
+  organizationSchema,
   personSchema,
   professionalServiceSchema,
   serviceSchemas,
@@ -18,20 +19,20 @@ export const metadata: Metadata = {
   },
   description: siteConfig.description,
   keywords: [
+    'adnan studios',
+    'product design studio',
+    'development studio',
     'zero handoff',
     'figma to code',
-    'nextjs developer',
-    'flutter developer',
-    'wordpress developer',
-    'product designer developer',
-    'product design',
-    'mvp design',
+    'nextjs agency',
+    'flutter development studio',
+    'wordpress development',
+    'mvp design studio',
+    'saas product design',
     'fintech design',
-    'adnan studios',
-    'adnan adil',
   ],
-  authors: [{ name: siteConfig.owner }],
-  creator: siteConfig.owner,
+  authors: [{ name: siteConfig.name, url: siteUrl }],
+  creator: siteConfig.name,
   publisher: siteConfig.name,
   formatDetection: {
     email: false,
@@ -94,9 +95,10 @@ export default function RootLayout({
     name: siteConfig.name,
     url: siteUrl,
     description: siteConfig.description,
-    author: {
-      '@type': 'Person',
-      name: siteConfig.owner,
+    publisher: {
+      '@type': 'Organization',
+      name: siteConfig.name,
+      url: siteUrl,
     },
   }
 
@@ -105,11 +107,15 @@ export default function RootLayout({
       <head>
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(personSchema()) }}
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema()) }}
         />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(professionalServiceSchema()) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(personSchema()) }}
         />
         <script
           type="application/ld+json"
