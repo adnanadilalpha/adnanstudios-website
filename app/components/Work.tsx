@@ -108,7 +108,7 @@ export function Work({ onContactClick }: WorkProps) {
           className="mt-12 sm:mt-20 text-center px-4"
         >
           <p className="text-base sm:text-lg opacity-60 mb-6">
-            Like what you see? Let's create something amazing together
+            Like what you see? Let&apos;s build your next product with Adnan Studios
           </p>
           <motion.button 
             whileHover={{ scale: 1.05, y: -2 }}
