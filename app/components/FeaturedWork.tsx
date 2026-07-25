@@ -104,7 +104,7 @@ export function FeaturedWork() {
           className="mb-20"
         >
           <h2 className="text-5xl mb-4">Featured Work</h2>
-          <p className="text-xl opacity-60">Zero Handoff projects shipped end to end</p>
+          <p className="text-xl opacity-60">Studio projects designed and shipped end to end</p>
           <ul className="mt-4 space-y-1 text-sm opacity-70 max-w-2xl">
             <li>DeafTawk serves 68,000+ users with interpreter connection under 30 seconds.</li>
             <li>QuizWiz receives 60,000+ monthly visits with a 4.7 star review rating.</li>

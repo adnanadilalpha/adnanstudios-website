@@ -132,10 +132,10 @@ export default async function InsightArticlePage({ params }: PageProps) {
           />
 
           <aside className="mt-12 pt-8 border-t border-gray-200">
-            <h2 className="text-lg font-medium mb-4">About the author</h2>
+            <h2 className="text-lg font-medium mb-4">About Adnan Studios</h2>
             <p className="text-gray-600 mb-4">
-              <strong>{post.author}</strong> designs in Figma and ships in Next.js, Flutter, and WordPress at Adnan Studios.
-              One person from wireframe to production code.
+              <strong>{post.author}</strong> is a product design and development studio.
+              We design in Figma and ship in Next.js, Flutter, and WordPress — Zero Handoff from wireframe to production.
             </p>
             <div className="flex flex-wrap gap-4 text-sm">
               <TrackedLink href={siteConfig.social.linkedin} platform="linkedin" className="text-[#34A983] hover:underline">

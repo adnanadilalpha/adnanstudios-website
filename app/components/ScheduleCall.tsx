@@ -52,7 +52,7 @@ export function ScheduleCall() {
           </p>
           
           <p className="text-lg sm:text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
-            No need to wait for me to get back to you
+            No need to wait for us to get back to you
           </p>
         </motion.div>
 
@@ -73,7 +73,7 @@ export function ScheduleCall() {
                 Book Your Call
               </h3>
               <p className="text-gray-600 mb-8 max-w-xl mx-auto">
-                Pick a time that works for you. I'll be there.
+                Pick a time that works for you. Our studio will be there.
               </p>
             </div>
 

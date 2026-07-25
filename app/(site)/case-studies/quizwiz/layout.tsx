@@ -52,12 +52,12 @@ export default function QuizWizLayout({
     description: 'QuizWiz enables educators to generate quizzes from text, PDFs, and URLs, edit the output, and export for classroom use.',
     image: `${siteUrl}/quizwiz/library.png`,
     author: {
-      '@type': 'Person',
-      name: 'Adnan Adil',
+      '@type': 'Organization',
+      name: 'Adnan Studios',
     },
     publisher: {
       '@type': 'Organization',
-      name: 'Adnan Adil',
+      name: 'Adnan Studios',
       logo: {
         '@type': 'ImageObject',
         url: `${siteUrl}/images/logo.png`,

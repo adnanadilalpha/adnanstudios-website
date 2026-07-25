@@ -50,7 +50,7 @@ export const Insights: CollectionConfig = {
     {
       name: 'author',
       type: 'text',
-      defaultValue: 'Adnan Adil',
+      defaultValue: 'Adnan Studios',
       required: true,
     },
     {

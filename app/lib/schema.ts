@@ -1,13 +1,18 @@
 import { siteConfig, siteUrl } from './site'
 
-export function personSchema() {
+export function organizationSchema() {
   return {
     '@context': 'https://schema.org',
-    '@type': 'Person',
-    name: siteConfig.owner,
-    jobTitle: 'Product Designer & Developer',
-    description: siteConfig.description,
+    '@type': 'Organization',
+    name: siteConfig.name,
     url: siteUrl,
+    description: siteConfig.description,
+    logo: `${siteUrl}/images/logo.png`,
+    email: siteConfig.contactEmail,
+    founder: {
+      '@type': 'Person',
+      name: siteConfig.owner,
+    },
     sameAs: Object.values(siteConfig.social),
     knowsAbout: [
       'Product Design',
@@ -20,6 +25,22 @@ export function personSchema() {
       'FinTech Design',
       'Accessibility Design',
     ],
+  }
+}
+
+export function personSchema() {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'Person',
+    name: siteConfig.owner,
+    jobTitle: 'Founder',
+    worksFor: {
+      '@type': 'Organization',
+      name: siteConfig.name,
+      url: siteUrl,
+    },
+    url: siteUrl,
+    sameAs: Object.values(siteConfig.social),
   }
 }
 
@@ -46,19 +67,19 @@ export function serviceSchemas() {
       name: 'Starter',
       price: '5000',
       description:
-        'Zero Handoff MVP package. Figma design and production build for up to 10 screens. Next.js, Flutter, or WordPress — one person from wireframe to shipped product.',
+        'Zero Handoff MVP package from Adnan Studios. Figma design and production build for up to 10 screens. Next.js, Flutter, or WordPress — one studio from wireframe to shipped product.',
     },
     {
       name: 'Professional',
       price: '15000',
       description:
-        'Zero Handoff scale package. Full Figma to production workflow for up to 30 screens with user testing and post-launch support.',
+        'Zero Handoff scale package from Adnan Studios. Full Figma to production workflow for up to 30 screens with user testing and post-launch support.',
     },
     {
       name: 'Enterprise',
       price: '0',
       description:
-        'Custom Zero Handoff engagement. Unlimited screens, design system, accessibility audit, and ongoing maintenance.',
+        'Custom Zero Handoff engagement with Adnan Studios. Unlimited screens, design system, accessibility audit, and ongoing maintenance.',
     },
   ]
 
@@ -67,7 +88,7 @@ export function serviceSchemas() {
     '@type': 'Service',
     name: `${service.name} Package`,
     provider: {
-      '@type': 'ProfessionalService',
+      '@type': 'Organization',
       name: siteConfig.name,
       url: siteUrl,
     },
@@ -124,7 +145,7 @@ export function reviewSchemas() {
       },
       reviewBody: review.reviewBody,
       itemReviewed: {
-        '@type': 'ProfessionalService',
+        '@type': 'Organization',
         name: siteConfig.name,
       },
     })),
@@ -176,8 +197,8 @@ export function articleSchema(post: {
     headline: post.title,
     description: post.description,
     author: {
-      '@type': 'Person',
-      name: siteConfig.owner,
+      '@type': 'Organization',
+      name: siteConfig.name,
       url: siteUrl,
     },
     publisher: {

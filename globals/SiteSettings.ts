@@ -19,7 +19,7 @@ export const SiteSettings: GlobalConfig = {
             {
               name: 'heroHeadline',
               type: 'text',
-              defaultValue: 'One person designs and ships. No handoff gap.',
+              defaultValue: 'A product design and development studio. No handoff gap.',
             },
             {
               name: 'heroTitle',
@@ -29,7 +29,7 @@ export const SiteSettings: GlobalConfig = {
             {
               name: 'heroSubhead',
               type: 'text',
-              defaultValue: 'Design in Figma. Ship in Next.js, Flutter, or WordPress. Same person from wireframe to production.',
+              defaultValue: 'We design in Figma and ship in Next.js, Flutter, or WordPress. One studio from wireframe to production.',
             },
           ],
         },
@@ -39,13 +39,13 @@ export const SiteSettings: GlobalConfig = {
             {
               name: 'packagesTitle',
               type: 'text',
-              defaultValue: 'Zero Handoff Packages',
+              defaultValue: 'Studio Packages',
             },
             {
               name: 'packagesDescription',
               type: 'textarea',
               defaultValue:
-                'Every tier includes Figma design and development by the same person — Next.js, Flutter, or WordPress. No separate developer handoff.',
+                'Every tier includes Figma design and production development by our studio — Next.js, Flutter, or WordPress. No separate agency handoff.',
             },
           ],
         },

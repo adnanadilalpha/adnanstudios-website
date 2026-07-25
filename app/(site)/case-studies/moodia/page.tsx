@@ -32,7 +32,7 @@ export default function MoodiaCaseStudyPage() {
     headline: `${data.title} Case Study`,
     description: data.metaDescription,
     image: `${siteUrl}${data.image}`,
-    author: { '@type': 'Person', name: 'Adnan Adil' },
+    author: { '@type': 'Organization', name: 'Adnan Studios' },
     datePublished: '2025-06-01',
     dateModified: '2026-06-27',
     mainEntityOfPage: { '@type': 'WebPage', '@id': `${siteUrl}/case-studies/moodia` },

@@ -28,7 +28,7 @@ export default function PrivacyPolicy() {
             <section>
               <h2 className="text-2xl sm:text-3xl font-semibold mb-4">Introduction</h2>
               <p className="text-gray-700 leading-relaxed mb-4">
-                Adnan Adil ("we," "our," or "us") is committed to protecting your privacy. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you visit our portfolio website.
+                Adnan Studios ("we," "our," or "us") is committed to protecting your privacy. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you visit our studio website.
               </p>
             </section>
 

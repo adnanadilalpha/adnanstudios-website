@@ -53,12 +53,12 @@ export default function DeafTawkLayout({
     description: 'Designed and led the product experience for a real-time sign language interpretation platform enabling enterprises and institutions to provide accessible communication at scale.',
     image: `${siteUrl}/deaftawk/dashboard-deaf.png`,
     author: {
-      '@type': 'Person',
-      name: 'Adnan Adil',
+      '@type': 'Organization',
+      name: 'Adnan Studios',
     },
     publisher: {
       '@type': 'Organization',
-      name: 'Adnan Adil',
+      name: 'Adnan Studios',
       logo: {
         '@type': 'ImageObject',
         url: `${siteUrl}/images/logo.png`,

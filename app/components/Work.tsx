@@ -79,11 +79,11 @@ export function Work({ onContactClick }: WorkProps) {
           className="mb-12 sm:mb-16 text-center"
         >
           <div className="inline-block px-4 py-2 bg-[#34A983]/10 rounded-full mb-4">
-            <span className="text-sm text-[#34A983]">Portfolio</span>
+            <span className="text-sm text-[#34A983]">Studio Work</span>
           </div>
-          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl mb-4">Work</h2>
+          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl mb-4">Selected Projects</h2>
           <p className="text-base sm:text-lg opacity-60 max-w-2xl mx-auto px-4">
-            Showcasing impactful design solutions across various digital platforms
+            Products and platforms designed and shipped by Adnan Studios
           </p>
         </motion.div>
 
