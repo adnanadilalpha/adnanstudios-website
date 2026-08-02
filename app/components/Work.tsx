@@ -68,21 +68,19 @@ export function Work({ onContactClick }: WorkProps) {
   const containerRef = useRef<HTMLDivElement>(null);
 
   return (
-    <section className="py-16 sm:py-24 md:py-32 bg-gradient-to-b from-gray-50 to-white relative">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section className="studio-section bg-muted/40 relative">
+      <div className="studio-container">
         {/* Section Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="mb-12 sm:mb-16 text-center"
+          className="mb-12 sm:mb-16 max-w-3xl"
         >
-          <div className="inline-block px-4 py-2 bg-[#34A983]/10 rounded-full mb-4">
-            <span className="text-sm text-[#34A983]">Studio Work</span>
-          </div>
-          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl mb-4">Selected Projects</h2>
-          <p className="text-base sm:text-lg opacity-60 max-w-2xl mx-auto px-4">
+          <p className="studio-kicker mb-4">Selected work</p>
+          <h2 className="studio-heading mb-4">Selected Projects</h2>
+          <p className="studio-subhead">
             Products and platforms designed and shipped by Adnan Studios
           </p>
         </motion.div>
@@ -114,7 +112,7 @@ export function Work({ onContactClick }: WorkProps) {
             whileHover={{ scale: 1.05, y: -2 }}
             whileTap={{ scale: 0.95 }}
             onClick={onContactClick}
-            className="px-6 sm:px-8 py-3 sm:py-4 bg-black hover:bg-gray-900 text-white rounded-full transition-all duration-300 hover:shadow-xl text-sm sm:text-base"
+            className="px-6 sm:px-8 py-3 sm:py-4 bg-ink hover:bg-brand text-white transition-colors duration-300 text-sm sm:text-base"
           >
             Start Your Project
           </motion.button>
@@ -165,12 +163,12 @@ function StackingCard({ project, index, total }: { project: Project; index: numb
       className="group lg:sticky lg:top-20 mb-8 sm:mb-10 md:mb-12"
     >
       {/* Theatre Screen Container */}
-      <div className="relative bg-gradient-to-br from-teal-900 via-emerald-950 to-teal-900 rounded-2xl sm:rounded-3xl p-5 sm:p-6 md:p-8 lg:p-12 shadow-2xl overflow-hidden">
+      <div className="relative bg-ink p-5 sm:p-6 md:p-8 lg:p-12 overflow-hidden border border-white/10">
         {/* Ambient Light Effect */}
-        <div className="absolute inset-0 bg-gradient-to-r from-teal-400/10 via-transparent to-emerald-400/10 opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_rgba(52,169,131,0.2),_transparent_50%)] opacity-70 group-hover:opacity-100 transition-opacity duration-700" />
         
         {/* Screen Border Glow */}
-        <div className="absolute inset-0 rounded-2xl sm:rounded-3xl ring-1 ring-white/10 group-hover:ring-teal-400/30 transition-all duration-500" />
+        <div className="absolute inset-0 ring-1 ring-white/10 group-hover:ring-brand/40 transition-all duration-500" />
 
         <div className="relative grid lg:grid-cols-2 gap-6 sm:gap-8 items-center">
           {/* Content Side */}

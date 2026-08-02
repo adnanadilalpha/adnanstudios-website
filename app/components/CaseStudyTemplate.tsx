@@ -15,9 +15,9 @@ interface CaseStudyTemplateProps {
 export function CaseStudyTemplate({ data }: CaseStudyTemplateProps) {
   return (
     <div className="bg-white min-h-screen">
-      <nav className="border-b border-[#e5e5e5] px-4 sm:px-6 lg:px-12 py-6">
+      <nav className="border-b border-foreground/10 px-4 sm:px-6 lg:px-12 py-6">
         <div className="max-w-7xl mx-auto">
-          <Link href="/#projects" className="inline-flex items-center gap-2 text-[#525252] hover:text-[#0a0a0a] transition-colors">
+          <Link href="/#projects" className="inline-flex items-center gap-2 text-gray-600 hover:text-brand transition-colors">
             <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M12.5 15L7.5 10L12.5 5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
             </svg>
@@ -26,7 +26,7 @@ export function CaseStudyTemplate({ data }: CaseStudyTemplateProps) {
         </div>
       </nav>
 
-      <section className="border-b border-[#e5e5e5] px-4 sm:px-6 lg:px-12 py-12">
+      <section className="border-b border-foreground/10 px-4 sm:px-6 lg:px-12 py-10">
         <div className="max-w-7xl mx-auto">
           <Breadcrumbs
             items={[
@@ -38,33 +38,34 @@ export function CaseStudyTemplate({ data }: CaseStudyTemplateProps) {
         </div>
       </section>
 
-      <section className="border-b border-[#e5e5e5] px-4 sm:px-6 lg:px-12 py-16 sm:py-24 lg:py-32">
+      <section className="border-b border-foreground/10 px-4 sm:px-6 lg:px-12 py-16 sm:py-24 lg:py-32">
         <div className="max-w-7xl mx-auto">
           <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-start">
             <div className="space-y-6 sm:space-y-8">
-              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-medium text-[#0a0a0a] leading-tight tracking-tight">
+              <p className="studio-kicker">Case study</p>
+              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-medium text-ink leading-tight tracking-tight">
                 {data.title}
               </h1>
-              <p className="text-xl sm:text-2xl text-[#737373]">{data.subtitle}</p>
-              <p className="text-lg sm:text-xl text-[#404040] leading-relaxed max-w-lg">{data.summary}</p>
-              <div className="border-b border-[#e5e5e5] pb-6 space-y-4">
+              <p className="text-xl sm:text-2xl text-gray-500">{data.subtitle}</p>
+              <p className="text-lg sm:text-xl text-gray-700 leading-relaxed max-w-lg">{data.summary}</p>
+              <div className="border-b border-foreground/10 pb-6 space-y-4">
                 <div className="flex gap-4">
-                  <span className="text-sm text-[#737373] w-24">Role</span>
-                  <span className="text-sm text-[#171717]">{data.role}</span>
+                  <span className="text-sm text-gray-500 w-24">Role</span>
+                  <span className="text-sm text-foreground">{data.role}</span>
                 </div>
                 <div className="flex gap-4">
-                  <span className="text-sm text-[#737373] w-24">Scope</span>
-                  <span className="text-sm text-[#171717]">{data.scope}</span>
+                  <span className="text-sm text-gray-500 w-24">Scope</span>
+                  <span className="text-sm text-foreground">{data.scope}</span>
                 </div>
                 <div className="flex gap-4">
-                  <span className="text-sm text-[#737373] w-24">Timeline</span>
-                  <span className="text-sm text-[#171717]">{data.timeline}</span>
+                  <span className="text-sm text-gray-500 w-24">Timeline</span>
+                  <span className="text-sm text-foreground">{data.timeline}</span>
                 </div>
               </div>
             </div>
 
             <div className="space-y-12">
-              <div className="border border-[#e5e5e5] rounded-[10px] overflow-hidden shadow-[0px_25px_50px_-12px_rgba(0,0,0,0.25)]">
+              <div className="border border-foreground/10 overflow-hidden shadow-[0px_25px_50px_-20px_rgba(11,31,25,0.35)]">
                 <Image
                   src={data.image}
                   alt={data.imageAlt}
@@ -77,7 +78,7 @@ export function CaseStudyTemplate({ data }: CaseStudyTemplateProps) {
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 sm:gap-8">
                 {data.metrics.map((metric) => (
                   <div key={metric.label}>
-                    <div className="h-0.5 w-8 bg-[#525252] mb-3"></div>
+                    <div className="h-0.5 w-8 bg-brand mb-3"></div>
                     <div className="text-2xl sm:text-3xl font-semibold text-[#0a0a0a] mb-2">{metric.value}</div>
                     <div className="text-sm text-[#525252]">{metric.label}</div>
                   </div>

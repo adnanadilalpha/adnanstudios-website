@@ -1,20 +1,18 @@
 import type { Metadata } from 'next'
-import { siteUrl } from '@/app/lib/site'
+import { buildPageMetadata } from '@/app/lib/seo'
 
-export const metadata: Metadata = {
+export const metadata: Metadata = buildPageMetadata({
   title: 'Privacy Policy',
   description:
     'Privacy policy for Adnan Studios. How contact form data, Calendly bookings, and site analytics are handled.',
-  openGraph: {
-    title: 'Privacy Policy | Adnan Studios',
-    description: 'Privacy policy for Adnan Studios website and contact forms.',
-    url: `${siteUrl}/privacy`,
-  },
-  alternates: {
-    canonical: `${siteUrl}/privacy`,
-  },
-}
+  path: '/privacy',
+  keywords: ['adnan studios privacy policy', 'contact form privacy', 'website analytics privacy'],
+})
 
-export default function PrivacyLayout({ children }: { children: React.ReactNode }) {
+export default function PrivacyLayout({
+  children,
+}: {
+  children: React.ReactNode
+}) {
   return children
 }

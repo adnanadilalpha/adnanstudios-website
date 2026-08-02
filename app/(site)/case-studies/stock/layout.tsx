@@ -1,10 +1,18 @@
 import type { Metadata } from 'next'
+import { caseStudySchema } from '@/app/lib/schema'
+import { buildPageMetadata } from '@/app/lib/seo'
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://adnanstudios.com'
+const path = '/case-studies/stock'
+const title = 'Private Subscriber Product Case Study - FinTech Platform'
+const description =
+  'Subscriber-Only Platform - Designed a product experience for a restricted-access platform, explicitly available only to subscribers. Designed for constrained environments, shipping under fixed timelines.'
+const image = '/stock/dashboard.png'
 
-export const metadata: Metadata = {
-  title: 'Private Subscriber Product Case Study - FinTech Platform',
-  description: 'Subscriber-Only Platform - Designed a product experience for a restricted-access platform, explicitly available only to subscribers. Designed for constrained environments, shipping under fixed timelines.',
+export const metadata: Metadata = buildPageMetadata({
+  title,
+  description,
+  path,
+  type: 'article',
   keywords: [
     'FinTech design',
     'subscriber platform',
@@ -12,63 +20,32 @@ export const metadata: Metadata = {
     'product design case study',
     'UX design',
     'FinTech UX',
-    'restricted access design'
+    'restricted access design',
+    'zero handoff case study',
   ],
-  openGraph: {
-    title: 'Private Subscriber Product Case Study - FinTech Platform',
-    description: 'Designed a product experience for a restricted-access platform, explicitly available only to subscribers.',
-    type: 'article',
-    url: `${siteUrl}/case-studies/stock`,
-    images: [
-      {
-        url: `${siteUrl}/stock/dashboard.png`,
-        width: 1200,
-        height: 630,
-        alt: 'Private Subscriber Product Dashboard',
-      },
-    ],
-  },
-  twitter: {
-    card: 'summary_large_image',
-    title: 'Private Subscriber Product Case Study - FinTech Platform',
-    description: 'Designed a product experience for a restricted-access platform.',
-    images: [`${siteUrl}/stock/dashboard.png`],
-  },
-  alternates: {
-    canonical: `${siteUrl}/case-studies/stock`,
-  },
-}
+  images: [
+    {
+      url: image,
+      width: 1200,
+      height: 630,
+      alt: 'Private Subscriber Product Dashboard',
+    },
+  ],
+})
 
 export default function StockLayout({
   children,
 }: {
   children: React.ReactNode
 }) {
-  const jsonLd = {
-    '@context': 'https://schema.org',
-    '@type': 'Article',
-    headline: 'Private Subscriber Product Case Study - FinTech Platform',
-    description: 'Subscriber-Only Platform - Designed a product experience for a restricted-access platform, explicitly available only to subscribers.',
-    image: `${siteUrl}/stock/dashboard.png`,
-    author: {
-      '@type': 'Organization',
-      name: 'Adnan Studios',
-    },
-    publisher: {
-      '@type': 'Organization',
-      name: 'Adnan Studios',
-      logo: {
-        '@type': 'ImageObject',
-        url: `${siteUrl}/images/logo.png`,
-      },
-    },
+  const jsonLd = caseStudySchema({
+    title,
+    description,
+    slug: 'stock',
+    image,
     datePublished: '2025-01-01',
-    dateModified: '2025-01-01',
-    mainEntityOfPage: {
-      '@type': 'WebPage',
-      '@id': `${siteUrl}/case-studies/stock`,
-    },
-  }
+    dateModified: '2026-08-01',
+  })
 
   return (
     <>

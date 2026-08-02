@@ -1,46 +1,45 @@
 import type { Metadata } from 'next'
 import { CaseStudyTemplate } from '@/app/components/CaseStudyTemplate'
 import { caseStudies } from '@/app/lib/case-studies'
-import { siteUrl } from '@/app/lib/site'
+import { caseStudySchema } from '@/app/lib/schema'
+import { buildPageMetadata } from '@/app/lib/seo'
 
 const data = caseStudies.lockn
+const path = '/case-studies/lockn'
+const title = `${data.title} Case Study - ${data.subtitle}`
 
-export const metadata: Metadata = {
-  title: `${data.title} Case Study - ${data.subtitle}`,
+export const metadata: Metadata = buildPageMetadata({
+  title,
   description: data.metaDescription,
+  path,
+  type: 'article',
   keywords: data.keywords,
-  openGraph: {
-    title: `${data.title} Case Study`,
-    description: data.metaDescription,
-    type: 'article',
-    url: `${siteUrl}/case-studies/lockn`,
-    images: [{ url: `${siteUrl}${data.image}`, width: 1200, height: 630, alt: data.imageAlt }],
-  },
-  twitter: {
-    card: 'summary_large_image',
-    title: `${data.title} Case Study`,
-    description: data.metaDescription,
-    images: [`${siteUrl}${data.image}`],
-  },
-  alternates: { canonical: `${siteUrl}/case-studies/lockn` },
-}
+  images: [
+    {
+      url: data.image,
+      width: 1200,
+      height: 630,
+      alt: data.imageAlt,
+    },
+  ],
+})
 
 export default function LocknCaseStudyPage() {
-  const jsonLd = {
-    '@context': 'https://schema.org',
-    '@type': 'Article',
-    headline: `${data.title} Case Study`,
+  const jsonLd = caseStudySchema({
+    title,
     description: data.metaDescription,
-    image: `${siteUrl}${data.image}`,
-    author: { '@type': 'Organization', name: 'Adnan Studios' },
+    slug: data.slug,
+    image: data.image,
     datePublished: '2025-04-01',
     dateModified: '2026-06-27',
-    mainEntityOfPage: { '@type': 'WebPage', '@id': `${siteUrl}/case-studies/lockn` },
-  }
+  })
 
   return (
     <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       <CaseStudyTemplate data={data} />
     </>
   )

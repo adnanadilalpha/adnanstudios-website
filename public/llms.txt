@@ -1,13 +1,14 @@
 # Adnan Studios
 
-> Adnan Adil is a product designer and developer operating as Adnan Studios. He designs in Figma and ships in Next.js, Flutter, and WordPress himself. This is called Zero Handoff: one person from wireframe to production code with no designer-to-developer gap.
+> Adnan Studios is a product design and development studio. We design in Figma and ship in Next.js, Flutter, and WordPress. Zero Handoff means one studio owns the product from wireframe to production — no designer-to-developer gap.
 
 ## About
 
-- Name: Adnan Adil
 - Business: Adnan Studios
+- Founder: Adnan Adil
 - Specialization: Zero Handoff product design and development (Figma to Next.js, Flutter, or WordPress)
-- Website: https://adnanstudios.com
+- Website: https://www.adnanstudios.com
+- Contact: hello@adnanstudios.com
 
 ## Key Facts
 
@@ -19,14 +20,15 @@
 
 ## Important Pages
 
-- Homepage: https://adnanstudios.com/
-- Insights (articles): https://adnanstudios.com/insights
-- DeafTawk case study: https://adnanstudios.com/case-studies/deaftawk
-- QuizWiz case study: https://adnanstudios.com/case-studies/quizwiz
-- Lockn case study: https://adnanstudios.com/case-studies/lockn
-- Moodia case study: https://adnanstudios.com/case-studies/moodia
-- Packages and pricing: https://adnanstudios.com/#packages
-- FAQ: https://adnanstudios.com/#faq
+- Homepage: https://www.adnanstudios.com/
+- Insights (articles): https://www.adnanstudios.com/insights
+- DeafTawk case study: https://www.adnanstudios.com/case-studies/deaftawk
+- QuizWiz case study: https://www.adnanstudios.com/case-studies/quizwiz
+- Stock case study: https://www.adnanstudios.com/case-studies/stock
+- Lockn case study: https://www.adnanstudios.com/case-studies/lockn
+- Moodia case study: https://www.adnanstudios.com/case-studies/moodia
+- Packages and pricing: https://www.adnanstudios.com/#packages
+- FAQ: https://www.adnanstudios.com/#faq
 - Book a call: https://calendly.com/adnanstudios
 
 ## Contact & Profiles
@@ -38,4 +40,8 @@
 
 ## Services
 
-Adnan Studios offers three packages: Starter ($5k), Professional ($15k), and Enterprise (custom). All packages include Figma design and development by the same person — Next.js, Flutter, or WordPress depending on the product. No separate developer handoff required.
+Adnan Studios offers three packages: Starter ($5k), Professional ($15k), and Enterprise (custom). All packages include Figma design and production development by the same studio — Next.js, Flutter, or WordPress depending on the product. No separate developer handoff required.
+
+## Keywords
+
+product design studio, development studio, zero handoff, figma to code, figma to next.js, flutter development studio, saas product design, fintech product design, mvp design and development, end to end product studio

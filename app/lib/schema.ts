@@ -1,21 +1,33 @@
 import { siteConfig, siteUrl } from './site'
 
 export function organizationSchema() {
+  const { aggregateRating, reviews } = reviewSchemas()
+
   return {
     '@context': 'https://schema.org',
     '@type': 'Organization',
+    '@id': `${siteUrl}/#organization`,
     name: siteConfig.name,
     url: siteUrl,
     description: siteConfig.description,
-    logo: `${siteUrl}/images/logo.png`,
+    logo: {
+      '@type': 'ImageObject',
+      url: `${siteUrl}/images/logo.png`,
+      width: 512,
+      height: 408,
+    },
+    image: `${siteUrl}/images/og-image.jpg`,
     email: siteConfig.contactEmail,
+    foundingDate: '2020',
     founder: {
       '@type': 'Person',
       name: siteConfig.owner,
+      url: siteUrl,
     },
     sameAs: Object.values(siteConfig.social),
     knowsAbout: [
       'Product Design',
+      'UI/UX Design',
       'Figma',
       'Next.js',
       'Flutter',
@@ -24,7 +36,10 @@ export function organizationSchema() {
       'SaaS Design',
       'FinTech Design',
       'Accessibility Design',
+      'MVP Development',
     ],
+    aggregateRating,
+    review: reviews.map(({ '@context': _c, ...review }) => review),
   }
 }
 
@@ -32,10 +47,12 @@ export function personSchema() {
   return {
     '@context': 'https://schema.org',
     '@type': 'Person',
+    '@id': `${siteUrl}/#founder`,
     name: siteConfig.owner,
     jobTitle: 'Founder',
     worksFor: {
       '@type': 'Organization',
+      '@id': `${siteUrl}/#organization`,
       name: siteConfig.name,
       url: siteUrl,
     },
@@ -45,12 +62,16 @@ export function personSchema() {
 }
 
 export function professionalServiceSchema() {
+  const { aggregateRating } = reviewSchemas()
+
   return {
     '@context': 'https://schema.org',
     '@type': 'ProfessionalService',
+    '@id': `${siteUrl}/#service`,
     name: siteConfig.name,
     url: siteUrl,
     description: siteConfig.description,
+    image: `${siteUrl}/images/og-image.jpg`,
     founder: {
       '@type': 'Person',
       name: siteConfig.owner,
@@ -58,6 +79,14 @@ export function professionalServiceSchema() {
     sameAs: Object.values(siteConfig.social),
     areaServed: 'Worldwide',
     priceRange: '$5000-$15000+',
+    serviceType: [
+      'Product Design',
+      'Product Development',
+      'UI/UX Design',
+      'MVP Development',
+      'SaaS Design',
+    ],
+    aggregateRating,
   }
 }
 
@@ -89,16 +118,20 @@ export function serviceSchemas() {
     name: `${service.name} Package`,
     provider: {
       '@type': 'Organization',
+      '@id': `${siteUrl}/#organization`,
       name: siteConfig.name,
       url: siteUrl,
     },
     offers: {
       '@type': 'Offer',
-      price: service.price,
+      price: service.price === '0' ? undefined : service.price,
       priceCurrency: 'USD',
+      availability: 'https://schema.org/InStock',
+      url: `${siteUrl}/#packages`,
       description: service.description,
     },
     description: service.description,
+    areaServed: 'Worldwide',
   }))
 }
 
@@ -122,7 +155,6 @@ export function reviewSchemas() {
 
   return {
     aggregateRating: {
-      '@context': 'https://schema.org',
       '@type': 'AggregateRating',
       ratingValue: '5',
       reviewCount: String(reviews.length),
@@ -146,6 +178,7 @@ export function reviewSchemas() {
       reviewBody: review.reviewBody,
       itemReviewed: {
         '@type': 'Organization',
+        '@id': `${siteUrl}/#organization`,
         name: siteConfig.name,
       },
     })),
@@ -190,19 +223,23 @@ export function articleSchema(post: {
   slug: string
   publishedAt: string
   updatedAt: string
+  image?: string
 }) {
   return {
     '@context': 'https://schema.org',
     '@type': 'Article',
     headline: post.title,
     description: post.description,
+    image: post.image || `${siteUrl}/images/og-image.jpg`,
     author: {
       '@type': 'Organization',
+      '@id': `${siteUrl}/#organization`,
       name: siteConfig.name,
       url: siteUrl,
     },
     publisher: {
       '@type': 'Organization',
+      '@id': `${siteUrl}/#organization`,
       name: siteConfig.name,
       logo: {
         '@type': 'ImageObject',
@@ -214,6 +251,61 @@ export function articleSchema(post: {
     mainEntityOfPage: {
       '@type': 'WebPage',
       '@id': `${siteUrl}/insights/${post.slug}`,
+    },
+  }
+}
+
+export function caseStudySchema(study: {
+  title: string
+  description: string
+  slug: string
+  image: string
+  datePublished: string
+  dateModified: string
+}) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'CreativeWork',
+    additionalType: 'CaseStudy',
+    name: study.title,
+    headline: study.title,
+    description: study.description,
+    image: study.image.startsWith('http')
+      ? study.image
+      : `${siteUrl}${study.image}`,
+    author: {
+      '@type': 'Organization',
+      '@id': `${siteUrl}/#organization`,
+      name: siteConfig.name,
+    },
+    creator: {
+      '@type': 'Organization',
+      name: siteConfig.name,
+    },
+    datePublished: study.datePublished,
+    dateModified: study.dateModified,
+    url: `${siteUrl}/case-studies/${study.slug}`,
+    mainEntityOfPage: {
+      '@type': 'WebPage',
+      '@id': `${siteUrl}/case-studies/${study.slug}`,
+    },
+  }
+}
+
+export function websiteSchema() {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    '@id': `${siteUrl}/#website`,
+    name: siteConfig.name,
+    url: siteUrl,
+    description: siteConfig.description,
+    inLanguage: 'en-US',
+    publisher: {
+      '@type': 'Organization',
+      '@id': `${siteUrl}/#organization`,
+      name: siteConfig.name,
+      url: siteUrl,
     },
   }
 }

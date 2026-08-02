@@ -1,10 +1,18 @@
 import type { Metadata } from 'next'
+import { caseStudySchema } from '@/app/lib/schema'
+import { buildPageMetadata } from '@/app/lib/seo'
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://adnanstudios.com'
+const path = '/case-studies/deaftawk'
+const title = 'DeafTawk Case Study - Enterprise Accessibility Platform'
+const description =
+  'Designed and led the product experience for a real-time sign language interpretation platform enabling enterprises and institutions to provide accessible communication at scale. Reduced interpreter connection time from ~60 min to <30 sec.'
+const image = '/deaftawk/dashboard-deaf.png'
 
-export const metadata: Metadata = {
-  title: 'DeafTawk Case Study - Enterprise Accessibility Platform',
-  description: 'Designed and led the product experience for a real-time sign language interpretation platform enabling enterprises and institutions to provide accessible communication at scale. Reduced interpreter connection time from ~60 min to <30 sec.',
+export const metadata: Metadata = buildPageMetadata({
+  title,
+  description,
+  path,
+  type: 'article',
   keywords: [
     'DeafTawk',
     'accessibility design',
@@ -14,63 +22,32 @@ export const metadata: Metadata = {
     'accessibility platform',
     'product design case study',
     'UX design',
-    'enterprise UX'
+    'enterprise UX',
+    'zero handoff case study',
   ],
-  openGraph: {
-    title: 'DeafTawk Case Study - Enterprise Accessibility Platform',
-    description: 'Designed and led the product experience for a real-time sign language interpretation platform. Reduced connection time from ~60 min to <30 sec.',
-    type: 'article',
-    url: `${siteUrl}/case-studies/deaftawk`,
-    images: [
-      {
-        url: `${siteUrl}/deaftawk/dashboard-deaf.png`,
-        width: 1200,
-        height: 630,
-        alt: 'DeafTawk Enterprise Dashboard',
-      },
-    ],
-  },
-  twitter: {
-    card: 'summary_large_image',
-    title: 'DeafTawk Case Study - Enterprise Accessibility Platform',
-    description: 'Designed and led the product experience for a real-time sign language interpretation platform.',
-    images: [`${siteUrl}/deaftawk/dashboard-deaf.png`],
-  },
-  alternates: {
-    canonical: `${siteUrl}/case-studies/deaftawk`,
-  },
-}
+  images: [
+    {
+      url: image,
+      width: 1200,
+      height: 630,
+      alt: 'DeafTawk Enterprise Dashboard',
+    },
+  ],
+})
 
 export default function DeafTawkLayout({
   children,
 }: {
   children: React.ReactNode
 }) {
-  const jsonLd = {
-    '@context': 'https://schema.org',
-    '@type': 'Article',
-    headline: 'DeafTawk Case Study - Enterprise Accessibility Platform',
-    description: 'Designed and led the product experience for a real-time sign language interpretation platform enabling enterprises and institutions to provide accessible communication at scale.',
-    image: `${siteUrl}/deaftawk/dashboard-deaf.png`,
-    author: {
-      '@type': 'Organization',
-      name: 'Adnan Studios',
-    },
-    publisher: {
-      '@type': 'Organization',
-      name: 'Adnan Studios',
-      logo: {
-        '@type': 'ImageObject',
-        url: `${siteUrl}/images/logo.png`,
-      },
-    },
+  const jsonLd = caseStudySchema({
+    title,
+    description,
+    slug: 'deaftawk',
+    image,
     datePublished: '2024-01-01',
-    dateModified: '2024-01-01',
-    mainEntityOfPage: {
-      '@type': 'WebPage',
-      '@id': `${siteUrl}/case-studies/deaftawk`,
-    },
-  }
+    dateModified: '2026-08-01',
+  })
 
   return (
     <>

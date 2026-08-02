@@ -3,28 +3,23 @@ import Link from 'next/link'
 import { getAllInsights } from '@/app/lib/insights-cms'
 import { siteUrl } from '@/app/lib/site'
 import { Breadcrumbs } from '@/app/components/Breadcrumbs'
+import { buildPageMetadata } from '@/app/lib/seo'
+import { Logo } from '@/app/components/Logo'
 
-export const metadata: Metadata = {
+export const metadata: Metadata = buildPageMetadata({
   title: 'Insights on Product Design, Development, and Zero Handoff',
   description:
     'Articles on Zero Handoff product design, Figma to production workflows, MVP scoping, and building digital products without a designer-to-developer gap.',
-  openGraph: {
-    title: 'Insights | Adnan Studios',
-    description:
-      'Articles on Zero Handoff product design, shipping in Next.js, Flutter, or WordPress, and building products end to end.',
-    url: `${siteUrl}/insights`,
-    type: 'website',
-  },
-  twitter: {
-    card: 'summary_large_image',
-    title: 'Insights | Adnan Studios',
-    description:
-      'Articles on Zero Handoff product design, shipping in Next.js, Flutter, or WordPress, and building products end to end.',
-  },
-  alternates: {
-    canonical: `${siteUrl}/insights`,
-  },
-}
+  path: '/insights',
+  keywords: [
+    'product design insights',
+    'zero handoff articles',
+    'figma to production',
+    'mvp scoping',
+    'saas product design blog',
+    'design and development studio blog',
+  ],
+})
 
 export const revalidate = 60
 
@@ -32,10 +27,19 @@ export default async function InsightsPage() {
   const posts = await getAllInsights()
 
   return (
-    <div className="min-h-screen bg-white font-['Space_Grotesk']">
-      <header className="border-b border-gray-200 px-6 py-6">
+    <div className="min-h-screen bg-white">
+      <header className="border-b border-foreground/10 px-6 py-5">
         <div className="max-w-4xl mx-auto flex items-center justify-between">
-          <Link href="/" className="text-sm text-gray-600 hover:text-[#34A983] transition-colors">
+          <Link href="/" className="inline-flex items-center gap-3 group">
+            <Logo className="w-7 h-5 text-brand" />
+            <span className="text-sm tracking-[0.16em] uppercase text-foreground/70 group-hover:text-brand transition-colors">
+              Adnan Studios
+            </span>
+          </Link>
+          <Link
+            href="/"
+            className="text-sm text-gray-600 hover:text-brand transition-colors"
+          >
             ← Back to home
           </Link>
         </div>
@@ -49,28 +53,33 @@ export default async function InsightsPage() {
           ]}
         />
 
-        <h1 className="text-4xl md:text-5xl mb-4">Insights</h1>
+        <p className="studio-kicker mb-4">Insights</p>
+        <h1 className="text-4xl md:text-6xl tracking-tight mb-4">Insights</h1>
         <p className="text-xl text-gray-600 mb-12 max-w-2xl">
-          Practical writing on Zero Handoff, Figma to production, and building products that ship.
+          Practical writing on Zero Handoff, Figma to production, and building
+          products that ship.
         </p>
 
-        <div className="space-y-8">
+        <div className="space-y-5">
           {posts.map((post) => (
             <article
               key={post.slug}
-              className="border border-gray-200 rounded-2xl p-6 hover:border-[#34A983]/40 transition-colors"
+              className="border border-foreground/10 p-6 hover:border-brand/40 transition-colors"
             >
-              <time dateTime={post.publishedAt} className="text-sm text-gray-500">
+              <time
+                dateTime={post.publishedAt}
+                className="text-sm text-gray-500"
+              >
                 {new Date(post.publishedAt).toLocaleDateString('en-US', {
                   year: 'numeric',
                   month: 'long',
                   day: 'numeric',
                 })}
               </time>
-              <h2 className="text-2xl mt-2 mb-3">
+              <h2 className="text-2xl mt-2 mb-3 tracking-tight">
                 <Link
                   href={`/insights/${post.slug}`}
-                  className="hover:text-[#34A983] transition-colors"
+                  className="hover:text-brand transition-colors"
                 >
                   {post.title}
                 </Link>
@@ -80,7 +89,7 @@ export default async function InsightsPage() {
                 <span>{post.readTime}</span>
                 <Link
                   href={`/insights/${post.slug}`}
-                  className="text-[#34A983] hover:underline"
+                  className="text-brand hover:underline"
                 >
                   Read article →
                 </Link>

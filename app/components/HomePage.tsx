@@ -37,7 +37,7 @@ export function HomePage({ content }: HomePageProps) {
   const closeContactModal = () => setIsContactModalOpen(false);
 
   return (
-    <div className="min-h-screen bg-white font-['Space_Grotesk']">
+    <div className="min-h-screen bg-white">
       <Navigation onContactClick={openContactModal} />
       <Hero
         onContactClick={openContactModal}

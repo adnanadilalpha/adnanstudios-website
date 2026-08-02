@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import { motion } from 'motion/react'
 import { ChevronDown } from 'lucide-react'
 import { faqSchema } from '../lib/schema'
 import { defaultFaqItems } from '@/lib/faq-defaults'
@@ -13,7 +14,7 @@ export function FAQ({ items = defaultFaqItems }: FAQProps) {
   const [openIndex, setOpenIndex] = useState<number | null>(0)
 
   return (
-    <section id="faq" className="py-24 px-6 bg-white">
+    <section id="faq" className="studio-section bg-white">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
@@ -21,12 +22,19 @@ export function FAQ({ items = defaultFaqItems }: FAQProps) {
         }}
       />
       <div className="max-w-3xl mx-auto">
-        <div className="text-center mb-12">
-          <h2 className="text-4xl md:text-5xl mb-4">Common Questions</h2>
-          <p className="text-lg text-gray-600">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="text-center mb-12"
+        >
+          <p className="studio-kicker mb-4">04 — FAQ</p>
+          <h2 className="studio-heading mb-4">Common Questions</h2>
+          <p className="studio-subhead">
             Direct answers about how Zero Handoff works.
           </p>
-        </div>
+        </motion.div>
 
         <div className="space-y-3">
           {items.map((item, index) => {
@@ -35,23 +43,25 @@ export function FAQ({ items = defaultFaqItems }: FAQProps) {
             return (
               <div
                 key={item.question}
-                className="border border-gray-200 rounded-2xl overflow-hidden"
+                className="border border-foreground/10 overflow-hidden"
               >
                 <button
                   type="button"
                   onClick={() => setOpenIndex(isOpen ? null : index)}
-                  className="w-full flex items-center justify-between gap-4 px-6 py-5 text-left hover:bg-gray-50 transition-colors"
+                  className="w-full flex items-center justify-between gap-4 px-6 py-5 text-left hover:bg-muted/70 transition-colors"
                   aria-expanded={isOpen}
                 >
-                  <span className="font-medium text-gray-900">{item.question}</span>
+                  <span className="font-medium text-foreground">
+                    {item.question}
+                  </span>
                   <ChevronDown
-                    className={`w-5 h-5 text-gray-500 flex-shrink-0 transition-transform ${
-                      isOpen ? 'rotate-180' : ''
+                    className={`w-5 h-5 text-gray-500 flex-shrink-0 transition-transform duration-300 ${
+                      isOpen ? 'rotate-180 text-brand' : ''
                     }`}
                   />
                 </button>
                 {isOpen && (
-                  <div className="px-6 pb-5 text-gray-600 leading-relaxed">
+                  <div className="px-6 pb-5 text-gray-600 leading-relaxed border-t border-foreground/5 pt-4">
                     {item.answer}
                   </div>
                 )}

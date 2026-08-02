@@ -1,4 +1,5 @@
-import type { Metadata } from 'next'
+import type { Metadata, Viewport } from 'next'
+import { Space_Grotesk } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
 import { SpeedInsights } from '@vercel/speed-insights/next'
 import { GoogleAnalytics } from './components/GoogleAnalytics'
@@ -7,9 +8,25 @@ import {
   personSchema,
   professionalServiceSchema,
   serviceSchemas,
-  reviewSchemas,
+  websiteSchema,
 } from './lib/schema'
+import { defaultOgImage, seoKeywords } from './lib/seo'
 import { siteConfig, siteUrl } from './lib/site'
+import './globals.css'
+
+const spaceGrotesk = Space_Grotesk({
+  subsets: ['latin'],
+  weight: ['300', '400', '500', '600', '700'],
+  display: 'swap',
+  variable: '--font-space-grotesk',
+})
+
+export const viewport: Viewport = {
+  themeColor: '#34A983',
+  width: 'device-width',
+  initialScale: 1,
+  colorScheme: 'light',
+}
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
@@ -18,22 +35,12 @@ export const metadata: Metadata = {
     template: '%s | Adnan Studios',
   },
   description: siteConfig.description,
-  keywords: [
-    'adnan studios',
-    'product design studio',
-    'development studio',
-    'zero handoff',
-    'figma to code',
-    'nextjs agency',
-    'flutter development studio',
-    'wordpress development',
-    'mvp design studio',
-    'saas product design',
-    'fintech design',
-  ],
+  keywords: [...seoKeywords],
   authors: [{ name: siteConfig.name, url: siteUrl }],
   creator: siteConfig.name,
   publisher: siteConfig.name,
+  applicationName: siteConfig.name,
+  referrer: 'origin-when-cross-origin',
   formatDetection: {
     email: false,
     address: false,
@@ -46,20 +53,13 @@ export const metadata: Metadata = {
     siteName: siteConfig.name,
     title: siteConfig.title,
     description: siteConfig.description,
-    images: [
-      {
-        url: `${siteUrl}/images/og-image.jpg`,
-        width: 1200,
-        height: 630,
-        alt: 'Adnan Studios Zero Handoff product design and development',
-      },
-    ],
+    images: [defaultOgImage],
   },
   twitter: {
     card: 'summary_large_image',
     title: siteConfig.title,
     description: siteConfig.description,
-    images: [`${siteUrl}/images/og-image.jpg`],
+    images: [defaultOgImage.url],
     creator: '@adnanadil',
   },
   robots: {
@@ -80,6 +80,10 @@ export const metadata: Metadata = {
     },
   },
   category: 'Professional Services',
+  icons: {
+    icon: [{ url: '/favicon.ico' }, { url: '/images/logo.png', type: 'image/png' }],
+    apple: [{ url: '/images/logo.png' }],
+  },
 }
 
 export default function RootLayout({
@@ -87,51 +91,33 @@ export default function RootLayout({
 }: {
   children: React.ReactNode
 }) {
-  const { aggregateRating, reviews } = reviewSchemas()
-
-  const websiteJsonLd = {
-    '@context': 'https://schema.org',
-    '@type': 'WebSite',
-    name: siteConfig.name,
-    url: siteUrl,
-    description: siteConfig.description,
-    publisher: {
-      '@type': 'Organization',
-      name: siteConfig.name,
-      url: siteUrl,
-    },
-  }
-
   return (
-    <html lang="en">
+    <html lang="en" className={spaceGrotesk.variable}>
       <head>
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema()) }}
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(organizationSchema()),
+          }}
         />
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(professionalServiceSchema()) }}
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(professionalServiceSchema()),
+          }}
         />
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(personSchema()) }}
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(personSchema()),
+          }}
         />
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd) }}
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(websiteSchema()),
+          }}
         />
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(aggregateRating) }}
-        />
-        {reviews.map((review, index) => (
-          <script
-            key={index}
-            type="application/ld+json"
-            dangerouslySetInnerHTML={{ __html: JSON.stringify(review) }}
-          />
-        ))}
         {serviceSchemas().map((service, index) => (
           <script
             key={index}
@@ -140,7 +126,7 @@ export default function RootLayout({
           />
         ))}
       </head>
-      <body>
+      <body className={`${spaceGrotesk.className} antialiased`}>
         {children}
         <GoogleAnalytics />
         <Analytics />
