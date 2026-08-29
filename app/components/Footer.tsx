@@ -54,7 +54,7 @@ export function Footer({ onContactClick }: FooterProps) {
     { key: 'Status', value: 'Booking 2026', live: true },
     { key: 'Local time', value: time ?? '--:--:--', mono: true },
     { key: 'Response', value: 'Under 24 hrs' },
-    { key: 'Handoffs', value: '0', mono: true },
+    { key: 'Upwork', value: 'Top Rated' },
   ];
 
   return (

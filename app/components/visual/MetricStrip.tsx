@@ -6,13 +6,20 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 gsap.registerPlugin(ScrollTrigger);
 
-const metrics = [
-  { value: 7, suffix: '+', label: 'Years' },
-  { value: 50, suffix: '+', label: 'Projects' },
-  { value: 68, suffix: 'K', label: 'Users' },
-  { value: 60, suffix: 'K', label: 'Visits/mo' },
-  { value: 1, suffix: '', label: 'Person' },
-  { value: 0, suffix: '', label: 'Handoffs', highlight: true },
+type Metric = {
+  label: string;
+  highlight?: boolean;
+  compact?: boolean;
+} & (
+  | { value: number; suffix: string; display?: never }
+  | { display: string; value?: never; suffix?: never }
+);
+
+const metrics: Metric[] = [
+  { value: 50, suffix: '+', label: 'Projects delivered' },
+  { value: 100, suffix: '%', label: 'Job success score' },
+  { display: 'Top Rated', label: 'Upwork freelancer', highlight: true, compact: true },
+  { value: 3, suffix: '×', label: 'WDA nominee' },
 ];
 
 export function MetricStrip() {
@@ -37,7 +44,6 @@ export function MetricStrip() {
         scrollTrigger: { trigger: el, start: 'top 92%', once: true },
       });
 
-      // Count-up on the numeric part of each metric
       el.querySelectorAll<HTMLElement>('.metric-num').forEach((num) => {
         const target = Number(num.dataset.value ?? 0);
         const counter = { v: 0 };
@@ -59,6 +65,7 @@ export function MetricStrip() {
   return (
     <section
       ref={ref}
+      aria-label="Credibility"
       className="relative bg-[#0a0a0a] text-white border-t border-white/[0.08] overflow-hidden"
     >
       {/* Continue the hero's faint grid */}
@@ -78,23 +85,31 @@ export function MetricStrip() {
       />
 
       <div className="site-container relative">
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6">
+        <div className="grid grid-cols-2 lg:grid-cols-4">
           {metrics.map((m, i) => (
             <div
               key={m.label}
               className={`metric-item py-10 sm:py-14 px-5 sm:px-6 border-white/[0.08] ${
-                i > 0 ? 'border-l max-sm:odd:border-l-0 max-lg:sm:[&:nth-child(3n+1)]:border-l-0' : ''
-              } max-sm:[&:nth-child(n+3)]:border-t sm:max-lg:[&:nth-child(n+4)]:border-t`}
+                i > 0 ? 'border-l max-lg:odd:border-l-0' : ''
+              } max-lg:[&:nth-child(n+3)]:border-t`}
             >
               <p
-                className={`text-4xl sm:text-5xl font-medium tracking-tight leading-none ${
-                  m.highlight ? 'text-brand' : 'text-white'
-                }`}
+                className={`font-medium tracking-tight leading-none ${
+                  m.compact
+                    ? 'text-[1.65rem] sm:text-4xl lg:text-[2.35rem]'
+                    : 'text-4xl sm:text-5xl'
+                } ${m.highlight ? 'text-brand' : 'text-white'}`}
               >
-                <span className="metric-num" data-value={m.value}>
-                  {m.value}
-                </span>
-                {m.suffix}
+                {m.value != null ? (
+                  <>
+                    <span className="metric-num" data-value={m.value}>
+                      {m.value}
+                    </span>
+                    {m.suffix}
+                  </>
+                ) : (
+                  m.display
+                )}
               </p>
               <div className="flex items-center gap-2 mt-3">
                 <span

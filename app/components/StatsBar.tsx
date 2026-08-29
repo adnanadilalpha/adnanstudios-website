@@ -3,14 +3,11 @@
 import { Marquee } from './ui/Marquee';
 
 const stats = [
-  '7+ years in product design',
   '50+ projects delivered',
-  '68k+ users served',
-  '60k+ monthly visits',
-  'US$1.5M FY23 revenue',
-  'Clients in 10+ countries',
-  'Zero Handoff workflow',
-  'Next.js · Flutter · WordPress',
+  '100% job success score',
+  'Top Rated Upwork freelancer',
+  '3× WDA nominee',
+  'Next.js · Flutter · Figma',
 ];
 
 export function StatsBar() {

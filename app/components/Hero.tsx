@@ -32,8 +32,8 @@ const clients = [
 const hudTags = [
   { label: 'Figma', className: 'left-[8%] top-[12%] lg:left-[16%] lg:top-[18%]' },
   { label: 'Code', className: 'right-[6%] top-[30%] lg:right-[15%] lg:top-[8%]' },
-  { label: 'Live · 68K users', className: 'left-[12%] bottom-[24%] lg:left-[22%] lg:bottom-[30%]' },
-  { label: 'Zero handoff', className: 'right-[10%] bottom-[14%] lg:right-[19%] lg:bottom-[22%]' },
+  { label: 'Top Rated', className: 'left-[12%] bottom-[24%] lg:left-[22%] lg:bottom-[30%]' },
+  { label: 'WDA nominee', className: 'right-[10%] bottom-[14%] lg:right-[19%] lg:bottom-[22%]' },
 ];
 
 export function Hero({
@@ -101,14 +101,6 @@ export function Hero({
 
       {/* Copy — centered upper half */}
       <div className="relative z-10 flex flex-col items-center text-center site-container pt-32 sm:pt-36 pb-4">
-        <div className="hero-eyebrow inline-flex items-center gap-2.5 mb-7 px-4 py-1.5 rounded-full border border-white/10 bg-white/[0.04] backdrop-blur-sm">
-          <span className="px-2 py-0.5 rounded-full bg-brand text-[10px] font-medium text-white uppercase tracking-wider">
-            Booking 2026
-          </span>
-          <span className="font-mono text-[10px] uppercase tracking-[0.25em] text-white/45">
-            Zero Handoff Studio
-          </span>
-        </div>
 
         <h1 className="hero-display mb-6">
           <span className="block overflow-hidden">
