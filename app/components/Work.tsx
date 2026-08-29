@@ -1,285 +1,205 @@
 'use client';
 
-import { motion, useScroll, useTransform } from 'motion/react';
-import { useRef } from 'react';
+import { useRef, useLayoutEffect, useState, useCallback } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { ArrowUpRight } from 'lucide-react';
+import { gsap } from 'gsap';
 import { trackCaseStudyLiveClick } from '../lib/analytics';
+import { useScrollReveal } from './motion/useScrollReveal';
 
 interface WorkProps {
   onContactClick: () => void;
 }
 
-interface Project {
-  id: string;
-  title: string;
-  description: string;
-  image: string;
-  metrics: { label: string; value: string }[];
-  tags: string[];
-  caseStudy?: string;
-  liveUrl: string;
-}
-
-const workData = {
-  'Landing Pages': [
-    {
-      id: 'lockn',
-      title: 'Lockn Fintech',
-      description: 'High-conversion landing page for a private FinTech product focused on secure individual and group savings, designed to communicate trust, simplicity, and escrow protection.',
-      image: '/images/lockn.webp',
-      metrics: [
-        { label: 'Conversion', value: 'High' },
-        { label: 'Trust Score', value: '95%' }
-      ],
-      tags: ['Web Design', 'Development', 'FinTech'],
-      caseStudy: '/case-studies/lockn',
-      liveUrl: 'https://locknapp.com/',
-    },
-    {
-      id: 'ican',
-      title: 'iCan Tutoring',
-      description: 'High-trust landing page for a UK tutoring provider offering premium tuition across core subjects, designed to convert parents while clearly communicating outcomes and credibility.',
-      image: '/images/ican.webp',
-      metrics: [
-        { label: 'Trust', value: 'High' },
-        { label: 'Engagement', value: '4.5min' }
-      ],
-      tags: ['Landing Page', 'UX/UI Design', 'Web Development'],
-      liveUrl: 'https://icantutoring.com/',
-    },
-    {
-      id: 'moodia',
-      title: 'Moodia Website',
-      description: 'Product website and platform experience for a UK-based mental health ecosystem, designed to clearly communicate purpose, trust, and privacy across multiple audiences.',
-      image: '/images/moodia.webp',
-      metrics: [
-        { label: 'User Trust', value: '98%' },
-        { label: 'Engagement', value: '5.2min' }
-      ],
-      tags: ['Product & Web Design', 'Information Architecture', 'Web Development'],
-      caseStudy: '/case-studies/moodia',
-      liveUrl: 'https://moodiaapp.com/',
-    }
-  ]
-};
+const workData = [
+  {
+    id: 'lockn',
+    title: 'Lockn',
+    category: 'FinTech',
+    year: "'24",
+    image: '/images/lockn.webp',
+    caseStudy: '/case-studies/lockn',
+    liveUrl: 'https://locknapp.com/',
+  },
+  {
+    id: 'ican',
+    title: 'iCan',
+    category: 'EdTech',
+    year: "'23",
+    image: '/images/ican.webp',
+    liveUrl: 'https://www.icantutoring.co.uk/',
+  },
+  {
+    id: 'moodia',
+    title: 'Moodia',
+    category: 'Health',
+    year: "'24",
+    image: '/images/moodia.webp',
+    caseStudy: '/case-studies/moodia',
+    liveUrl: 'https://moodia.co.uk/',
+  },
+];
 
 export function Work({ onContactClick }: WorkProps) {
-  const containerRef = useRef<HTMLDivElement>(null);
+  const sectionRef = useRef<HTMLElement>(null);
+  const previewRef = useRef<HTMLDivElement>(null);
+  const [activeId, setActiveId] = useState<string | null>(null);
+  const moveX = useRef<((v: number) => void) | null>(null);
+  const moveY = useRef<((v: number) => void) | null>(null);
+
+  useScrollReveal(sectionRef, { selector: '.work-row', stagger: 0.1 });
+
+  useLayoutEffect(() => {
+    const preview = previewRef.current;
+    if (!preview) return;
+
+    gsap.set(preview, { xPercent: -50, yPercent: -55 });
+    moveX.current = gsap.quickTo(preview, 'x', { duration: 0.5, ease: 'power3' });
+    moveY.current = gsap.quickTo(preview, 'y', { duration: 0.5, ease: 'power3' });
+  }, []);
+
+  const handleMouseMove = useCallback((e: React.MouseEvent) => {
+    moveX.current?.(e.clientX);
+    moveY.current?.(e.clientY);
+  }, []);
+
+  useLayoutEffect(() => {
+    const preview = previewRef.current;
+    if (!preview) return;
+
+    gsap.to(preview, {
+      opacity: activeId ? 1 : 0,
+      scale: activeId ? 1 : 0.92,
+      duration: 0.35,
+      ease: 'power2.out',
+    });
+  }, [activeId]);
 
   return (
-    <section className="py-16 sm:py-24 md:py-32 bg-gradient-to-b from-gray-50 to-white relative">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Section Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="mb-12 sm:mb-16 text-center"
-        >
-          <div className="inline-block px-4 py-2 bg-[#34A983]/10 rounded-full mb-4">
-            <span className="text-sm text-[#34A983]">Portfolio</span>
-          </div>
-          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl mb-4">Work</h2>
-          <p className="text-base sm:text-lg opacity-60 max-w-2xl mx-auto px-4">
-            Showcasing impactful design solutions across various digital platforms
-          </p>
-        </motion.div>
+    <section
+      id="work"
+      ref={sectionRef}
+      onMouseMove={handleMouseMove}
+      className="relative bg-[#0a0a0a] text-white border-t border-white/[0.08] overflow-hidden"
+    >
+      {/* Grid texture continues */}
+      <div
+        className="absolute inset-0 opacity-[0.05] pointer-events-none"
+        style={{
+          backgroundImage:
+            'linear-gradient(rgba(255,255,255,0.5) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.5) 1px, transparent 1px)',
+          backgroundSize: '72px 72px',
+        }}
+        aria-hidden
+      />
 
-        {/* Projects Stacking Container */}
-        <div ref={containerRef} className="relative min-h-screen">
-          {workData['Landing Pages'].map((project, index) => (
-            <StackingCard 
-              key={project.id} 
-              project={project} 
-              index={index}
-              total={workData['Landing Pages'].length}
-            />
-          ))}
+      <div className="site-container relative section-pad">
+        <div className="flex items-end justify-between mb-10 sm:mb-12">
+          <div>
+            <div className="flex items-center gap-2 mb-4">
+              <span className="w-1 h-1 rounded-full bg-brand" />
+              <span className="font-mono text-[10px] uppercase tracking-[0.25em] text-white/40">
+                Archive
+              </span>
+            </div>
+            <h2 className="display-lg text-white">More work</h2>
+          </div>
+          <button
+            onClick={onContactClick}
+            className="hidden sm:inline-flex text-sm text-white/40 hover:text-brand transition-colors"
+          >
+            Start a project →
+          </button>
         </div>
 
-        {/* Bottom CTA */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="mt-12 sm:mt-20 text-center px-4"
-        >
-          <p className="text-base sm:text-lg opacity-60 mb-6">
-            Like what you see? Let's create something amazing together
-          </p>
-          <motion.button 
-            whileHover={{ scale: 1.05, y: -2 }}
-            whileTap={{ scale: 0.95 }}
-            onClick={onContactClick}
-            className="px-6 sm:px-8 py-3 sm:py-4 bg-black hover:bg-gray-900 text-white rounded-full transition-all duration-300 hover:shadow-xl text-sm sm:text-base"
-          >
-            Start Your Project
-          </motion.button>
-        </motion.div>
-      </div>
-    </section>
-  );
-}
-
-function StackingCard({ project, index, total }: { project: Project; index: number; total: number }) {
-  const cardRef = useRef<HTMLDivElement>(null);
-  
-  const { scrollYProgress } = useScroll({
-    target: cardRef,
-    offset: ["start end", "end start"]
-  });
-
-  // Calculate the scale based on scroll position
-  const scale = useTransform(
-    scrollYProgress,
-    [0, 0.5, 1],
-    [0.85, 1, 1]
-  );
-
-  // Calculate the opacity
-  const opacity = useTransform(
-    scrollYProgress,
-    [0, 0.3, 0.7, 1],
-    [0, 1, 1, 1]
-  );
-
-  // Calculate vertical offset for stacking effect
-  const y = useTransform(
-    scrollYProgress,
-    [0, 0.5, 1],
-    [100, 0, 0]
-  );
-
-  return (
-    <motion.div
-      ref={cardRef}
-      style={{
-        scale,
-        opacity,
-        y,
-        zIndex: index + 10,
-      }}
-      className="group lg:sticky lg:top-20 mb-8 sm:mb-10 md:mb-12"
-    >
-      {/* Theatre Screen Container */}
-      <div className="relative bg-gradient-to-br from-teal-900 via-emerald-950 to-teal-900 rounded-2xl sm:rounded-3xl p-5 sm:p-6 md:p-8 lg:p-12 shadow-2xl overflow-hidden">
-        {/* Ambient Light Effect */}
-        <div className="absolute inset-0 bg-gradient-to-r from-teal-400/10 via-transparent to-emerald-400/10 opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
-        
-        {/* Screen Border Glow */}
-        <div className="absolute inset-0 rounded-2xl sm:rounded-3xl ring-1 ring-white/10 group-hover:ring-teal-400/30 transition-all duration-500" />
-
-        <div className="relative grid lg:grid-cols-2 gap-6 sm:gap-8 items-center">
-          {/* Content Side */}
-          <div className="space-y-4 sm:space-y-5 md:space-y-5 lg:space-y-6 order-2 lg:order-1">
-            {/* Project Number */}
-            <div className="text-5xl sm:text-6xl md:text-6xl lg:text-7xl font-light text-white/10 group-hover:text-teal-400/20 transition-colors duration-500">
-              {String(index + 1).padStart(2, '0')}
-            </div>
-
-            {/* Title */}
-            <h3 className="text-2xl sm:text-3xl lg:text-4xl text-white group-hover:text-teal-300 transition-colors duration-300">
-              {project.title}
-            </h3>
-
-            {/* Description */}
-            <p className="text-gray-300 text-sm sm:text-base lg:text-lg leading-relaxed">
-              {project.description}
-            </p>
-
-            {/* Tags */}
-            <div className="flex flex-wrap gap-2">
-              {project.tags.map((tag, i) => (
-                <motion.span
-                  key={i}
-                  whileHover={{ scale: 1.05, y: -2 }}
-                  transition={{ type: "spring", stiffness: 400, damping: 17 }}
-                  className="px-3 sm:px-4 py-1.5 sm:py-2 bg-white/5 backdrop-blur-sm border border-white/10 rounded-full text-xs text-gray-300 hover:bg-teal-400/20 hover:border-teal-400/30 transition-all duration-300 cursor-default"
-                >
-                  {tag}
-                </motion.span>
-              ))}
-            </div>
-
-            {/* Metrics */}
-            <div className="grid grid-cols-2 gap-4 sm:gap-6 pt-4 sm:pt-6 md:pt-6 lg:pt-6 border-t border-white/10">
-              {project.metrics.map((metric, i) => (
-                <motion.div 
-                  key={i}
-                  whileHover={{ scale: 1.05 }}
-                  transition={{ type: "spring", stiffness: 400, damping: 17 }}
-                >
-                  <div className="text-2xl sm:text-3xl md:text-3xl lg:text-3xl text-teal-300 mb-1">
-                    {metric.value}
-                  </div>
-                  <div className="text-xs sm:text-sm text-gray-400 uppercase tracking-wider">
-                    {metric.label}
-                  </div>
-                </motion.div>
-              ))}
-            </div>
-
-            <div className="flex flex-wrap gap-3">
-              {project.caseStudy && (
-                <Link
-                  href={project.caseStudy}
-                  className="inline-flex items-center gap-2 px-5 py-2.5 border border-white/20 hover:border-teal-400/40 text-white rounded-full text-sm transition-colors"
-                >
-                  View Case Study
-                </Link>
-              )}
-              <motion.a
+        <div className="border-t border-white/[0.08]">
+          {workData.map((project, i) => (
+            <article
+              key={project.id}
+              className="work-row group relative border-b border-white/[0.08]"
+              onMouseEnter={() => setActiveId(project.id)}
+              onMouseLeave={() => setActiveId(null)}
+            >
+              <a
                 href={project.liveUrl}
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={() => trackCaseStudyLiveClick(project.id)}
-                whileHover={{ scale: 1.05, x: 5 }}
-                whileTap={{ scale: 0.95 }}
-                className="group/btn inline-flex items-center gap-2 sm:gap-3 px-5 sm:px-6 py-2.5 sm:py-3 bg-[#34A983] hover:bg-[#2d9372] text-white rounded-full transition-all duration-300 hover:shadow-lg hover:shadow-[#34A983]/30 text-sm sm:text-base"
+                className="grid grid-cols-[auto_1fr_auto] sm:grid-cols-[3rem_1fr_auto_auto] items-center gap-4 sm:gap-8 py-7 sm:py-9"
               >
-                <span>Live Website</span>
-                <svg 
-                  className="w-4 h-4 sm:w-5 sm:h-5 group-hover/btn:translate-x-1 transition-transform" 
-                  fill="none" 
-                  viewBox="0 0 24 24" 
-                  stroke="currentColor"
-                >
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-                </svg>
-              </motion.a>
-            </div>
-          </div>
+                <span className="font-mono text-[10px] text-white/30 tabular-nums">
+                  {String(i + 1).padStart(2, '0')}
+                </span>
 
-          {/* Screen Side */}
-          <div className="order-1 lg:order-2">
-            <div className="relative aspect-[16/10] rounded-lg sm:rounded-xl overflow-hidden bg-gray-900 shadow-2xl ring-1 ring-white/20">
-              {/* Screen Image */}
+                <div className="flex items-center gap-4 min-w-0">
+                  {/* Mobile thumbnail — desktop uses the floating preview */}
+                  <div className="relative w-14 h-14 shrink-0 overflow-hidden border border-white/10 lg:hidden">
+                    <Image
+                      src={project.image}
+                      alt=""
+                      fill
+                      sizes="56px"
+                      className="object-cover object-top"
+                      loading="lazy"
+                    />
+                  </div>
+                  <h3 className="text-3xl sm:text-4xl lg:text-5xl font-medium tracking-tight text-white/80 group-hover:text-white group-hover:translate-x-2 transition-all duration-300 truncate">
+                    {project.title}
+                  </h3>
+                </div>
+
+                <div className="hidden sm:inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-white/10 bg-white/[0.04]">
+                  <span className="w-1 h-1 rounded-full bg-brand" />
+                  <span className="font-mono text-[10px] uppercase tracking-[0.18em] text-white/50 whitespace-nowrap">
+                    {project.category} · {project.year}
+                  </span>
+                </div>
+
+                <span className="inline-flex items-center justify-center w-10 h-10 rounded-full border border-white/15 text-white/50 group-hover:border-brand group-hover:text-brand group-hover:rotate-45 transition-all duration-300">
+                  <ArrowUpRight className="w-4 h-4" />
+                </span>
+              </a>
+
+              {project.caseStudy && (
+                <Link
+                  href={project.caseStudy}
+                  className="absolute bottom-3 left-[3rem] sm:left-[5rem] text-[11px] font-mono uppercase tracking-[0.15em] text-white/25 hover:text-brand transition-colors"
+                >
+                  Case study ↗
+                </Link>
+              )}
+            </article>
+          ))}
+        </div>
+      </div>
+
+      {/* Floating cursor preview — desktop only */}
+      <div
+        ref={previewRef}
+        className="fixed top-0 left-0 z-30 w-80 pointer-events-none hidden lg:block opacity-0"
+        aria-hidden
+      >
+        <div className="relative -translate-x-0 -translate-y-0 rotate-[2deg]">
+          <div className="absolute -top-2 -right-2 w-full h-full border border-brand/20" />
+          <div className="relative aspect-[4/3] overflow-hidden border border-white/15 shadow-[0_30px_80px_-10px_rgba(0,0,0,0.9)]">
+            {workData.map((project) => (
               <Image
+                key={project.id}
                 src={project.image}
-                alt={`${project.title} project screenshot showing ${project.id === 'lockn' ? 'fintech savings landing page with trust and escrow messaging' : project.id === 'moodia' ? 'mental health platform homepage with privacy-focused design' : 'UK tutoring landing page with credibility and outcomes messaging'}`}
+                alt=""
                 fill
-                sizes="(max-width: 1024px) 100vw, 50vw"
-                className="object-cover group-hover:scale-105 transition-transform duration-700"
+                sizes="320px"
+                className={`object-cover object-top transition-opacity duration-300 ${
+                  activeId === project.id ? 'opacity-100' : 'opacity-0'
+                }`}
                 loading="lazy"
               />
-              
-              {/* Screen Overlay */}
-              <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
-              
-              {/* Scanline Effect */}
-              <div className="absolute inset-0 opacity-0 group-hover:opacity-20 transition-opacity duration-500">
-                <div className="absolute inset-0 bg-gradient-to-b from-transparent via-white/5 to-transparent animate-pulse" />
-              </div>
-            </div>
-
-            {/* Theatre Base */}
-            <div className="mt-3 sm:mt-4 h-1.5 sm:h-2 bg-gradient-to-r from-transparent via-white/10 to-transparent rounded-full" />
+            ))}
+            <div className="absolute inset-0 bg-linear-to-t from-[#0a0a0a]/40 to-transparent" />
           </div>
         </div>
       </div>
-    </motion.div>
+    </section>
   );
 }

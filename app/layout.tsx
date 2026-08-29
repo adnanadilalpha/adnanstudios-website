@@ -1,12 +1,12 @@
 import type { Metadata } from 'next'
 import { Analytics } from '@vercel/analytics/next'
 import { SpeedInsights } from '@vercel/speed-insights/next'
+import { fontBody, fontDisplay, fontMono } from './fonts'
 import { GoogleAnalytics } from './components/GoogleAnalytics'
 import {
   personSchema,
   professionalServiceSchema,
   serviceSchemas,
-  reviewSchemas,
 } from './lib/schema'
 import { siteConfig, siteUrl } from './lib/site'
 
@@ -18,14 +18,21 @@ export const metadata: Metadata = {
   },
   description: siteConfig.description,
   keywords: [
-    'zero handoff',
+    'design studio',
+    'product design studio',
+    'landing page designer',
+    'landing page design',
+    'product designer',
     'figma to code',
+    'saas design',
+    'mvp design',
+    'web app design',
+    'ui ux designer',
+    'zero handoff',
     'nextjs developer',
     'flutter developer',
     'wordpress developer',
     'product designer developer',
-    'product design',
-    'mvp design',
     'fintech design',
     'adnan studios',
     'adnan adil',
@@ -86,14 +93,17 @@ export default function RootLayout({
 }: {
   children: React.ReactNode
 }) {
-  const { aggregateRating, reviews } = reviewSchemas()
-
   const websiteJsonLd = {
     '@context': 'https://schema.org',
     '@type': 'WebSite',
     name: siteConfig.name,
     url: siteUrl,
     description: siteConfig.description,
+    publisher: {
+      '@type': 'ProfessionalService',
+      '@id': `${siteUrl}/#organization`,
+      name: siteConfig.name,
+    },
     author: {
       '@type': 'Person',
       name: siteConfig.owner,
@@ -101,7 +111,10 @@ export default function RootLayout({
   }
 
   return (
-    <html lang="en">
+    <html
+      lang="en"
+      className={`${fontBody.variable} ${fontDisplay.variable} ${fontMono.variable}`}
+    >
       <head>
         <script
           type="application/ld+json"
@@ -115,17 +128,6 @@ export default function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd) }}
         />
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(aggregateRating) }}
-        />
-        {reviews.map((review, index) => (
-          <script
-            key={index}
-            type="application/ld+json"
-            dangerouslySetInnerHTML={{ __html: JSON.stringify(review) }}
-          />
-        ))}
         {serviceSchemas().map((service, index) => (
           <script
             key={index}
@@ -134,7 +136,7 @@ export default function RootLayout({
           />
         ))}
       </head>
-      <body>
+      <body className="font-sans antialiased">
         {children}
         <GoogleAnalytics />
         <Analytics />

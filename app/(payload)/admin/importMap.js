@@ -21,8 +21,10 @@ import { StrikethroughFeatureClient as StrikethroughFeatureClient_e70f5e05f09f93
 import { UnderlineFeatureClient as UnderlineFeatureClient_e70f5e05f09f93e00b997edb1ef0c864 } from '@payloadcms/richtext-lexical/client'
 import { BoldFeatureClient as BoldFeatureClient_e70f5e05f09f93e00b997edb1ef0c864 } from '@payloadcms/richtext-lexical/client'
 import { ItalicFeatureClient as ItalicFeatureClient_e70f5e05f09f93e00b997edb1ef0c864 } from '@payloadcms/richtext-lexical/client'
-import { default as default_08d379322ccc5c3eb1a6621335b1e9f0 } from '@/components/admin/Icon'
-import { default as default_7bc6ed6001fd6d47ec03e066af9ce421 } from '@/components/admin/Logo'
+import { default as default_534076e2c753ea5d539a54b05f456b1b } from '@/components/admin/Icon'
+import { default as default_a44df17d0fc3dcd873dae43dc3bf66bd } from '@/components/admin/Logo'
+import { default as default_b81acdec2f847f3a2418fa446f7762ad } from '@/components/admin/DashboardWelcome'
+import { default as default_e4f2fcb48c36ebad1da38474b36c9713 } from '@/components/admin/LoginHero'
 import { CollectionCards as CollectionCards_f9c02e79a4aed9a3924487c0cd4cafb1 } from '@payloadcms/next/rsc'
 
 /** @type import('payload').ImportMap */
@@ -50,7 +52,9 @@ export const importMap = {
   "@payloadcms/richtext-lexical/client#UnderlineFeatureClient": UnderlineFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,
   "@payloadcms/richtext-lexical/client#BoldFeatureClient": BoldFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,
   "@payloadcms/richtext-lexical/client#ItalicFeatureClient": ItalicFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,
-  "@/components/admin/Icon#default": default_08d379322ccc5c3eb1a6621335b1e9f0,
-  "@/components/admin/Logo#default": default_7bc6ed6001fd6d47ec03e066af9ce421,
+  "@/components/admin/Icon#default": default_534076e2c753ea5d539a54b05f456b1b,
+  "@/components/admin/Logo#default": default_a44df17d0fc3dcd873dae43dc3bf66bd,
+  "@/components/admin/DashboardWelcome#default": default_b81acdec2f847f3a2418fa446f7762ad,
+  "@/components/admin/LoginHero#default": default_e4f2fcb48c36ebad1da38474b36c9713,
   "@payloadcms/next/rsc#CollectionCards": CollectionCards_f9c02e79a4aed9a3924487c0cd4cafb1
 }

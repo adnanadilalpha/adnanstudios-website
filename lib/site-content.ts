@@ -5,25 +5,12 @@ import { defaultFaqItems } from '@/lib/faq-defaults'
 
 export interface SiteContent {
   heroHeadline: string
-  heroTitle: string
-  heroSubhead: string
-  packagesTitle: string
-  packagesDescription: string
   faqItems: Array<{ question: string; answer: string }>
 }
 
-import { deliveryStackOr } from '@/app/lib/site'
-
-const heroSubhead = `Design in Figma. Ship in ${deliveryStackOr}. Same person from wireframe to production.`
-const packagesDescription =
-  'Every tier includes Figma design and development by the same person — Next.js, Flutter, or WordPress. No separate developer handoff.'
-
 const defaults: SiteContent = {
-  heroHeadline: 'One person designs and ships. No handoff gap.',
-  heroTitle: 'Zero Handoff product design and development.',
-  heroSubhead,
-  packagesTitle: 'Zero Handoff Packages',
-  packagesDescription,
+  heroHeadline:
+    'Product design studio for landing pages, SaaS, and apps. One person from Figma to production.',
   faqItems: defaultFaqItems,
 }
 
@@ -36,10 +23,6 @@ async function fetchSiteContentFromDb(): Promise<SiteContent> {
 
   return {
     heroHeadline: settings.heroHeadline || defaults.heroHeadline,
-    heroTitle: settings.heroTitle || defaults.heroTitle,
-    heroSubhead: settings.heroSubhead || defaults.heroSubhead,
-    packagesTitle: settings.packagesTitle || defaults.packagesTitle,
-    packagesDescription: settings.packagesDescription || defaults.packagesDescription,
     faqItems:
       settings.faqItems && settings.faqItems.length > 0
         ? settings.faqItems.map((item: { question: string; answer: string }) => ({

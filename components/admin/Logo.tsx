@@ -5,17 +5,20 @@ export default function AdminLogo() {
   return (
     <div className="admin-brand-logo">
       <svg
-        className="graphic-logo"
+        className="graphic-logo admin-brand-logo__mark"
         xmlns="http://www.w3.org/2000/svg"
-        width={45}
-        height={36}
+        width={40}
+        height={32}
         viewBox="0 0 64 51"
         fill="none"
         aria-hidden="true"
       >
         <path d={brandPath} fill="currentColor" />
       </svg>
-      <span className="admin-brand-logo__text">Adnan Studios</span>
+      <div className="admin-brand-logo__text">
+        <span className="admin-brand-logo__title">Adnan Studios</span>
+        <span className="admin-brand-logo__subtitle">Zero Handoff</span>
+      </div>
     </div>
   )
 }

@@ -1,5 +1,33 @@
 import { siteConfig, siteUrl } from './site'
 
+export const organizationId = `${siteUrl}/#organization`
+
+const reviewedItem = {
+  '@type': 'ProfessionalService' as const,
+  '@id': organizationId,
+  name: siteConfig.name,
+  url: siteUrl,
+}
+
+function getReviews() {
+  return [
+    {
+      author: 'Ali Shabbar',
+      role: 'CEO, DeafTawk',
+      rating: 5,
+      reviewBody:
+        'We initially made sure you get the interpreter in a maximum of 60 minutes. But now just 30 seconds.',
+    },
+    {
+      author: 'Muhammad Ashar',
+      role: 'CTO, OneScreen',
+      rating: 5,
+      reviewBody:
+        'Adnan transformed our quiz app into a smart AI quiz generator, scalable, and well-executed.',
+    },
+  ]
+}
+
 export function personSchema() {
   return {
     '@context': 'https://schema.org',
@@ -8,25 +36,36 @@ export function personSchema() {
     jobTitle: 'Product Designer & Developer',
     description: siteConfig.description,
     url: siteUrl,
+    worksFor: {
+      '@type': 'ProfessionalService',
+      '@id': organizationId,
+      name: siteConfig.name,
+    },
     sameAs: Object.values(siteConfig.social),
     knowsAbout: [
       'Product Design',
+      'Landing Page Design',
+      'Design Studio',
+      'SaaS Design',
       'Figma',
       'Next.js',
       'Flutter',
       'WordPress',
       'Zero Handoff Development',
-      'SaaS Design',
       'FinTech Design',
       'Accessibility Design',
+      'UI/UX Design',
     ],
   }
 }
 
 export function professionalServiceSchema() {
+  const reviews = getReviews()
+
   return {
     '@context': 'https://schema.org',
     '@type': 'ProfessionalService',
+    '@id': organizationId,
     name: siteConfig.name,
     url: siteUrl,
     description: siteConfig.description,
@@ -37,6 +76,38 @@ export function professionalServiceSchema() {
     sameAs: Object.values(siteConfig.social),
     areaServed: 'Worldwide',
     priceRange: '$5000-$15000+',
+    serviceType: [
+      'Product Design',
+      'Landing Page Design',
+      'Design Studio',
+      'SaaS UI Design',
+      'Figma to Code',
+      'MVP Development',
+      'Web App Design',
+    ],
+    aggregateRating: {
+      '@type': 'AggregateRating',
+      ratingValue: '5',
+      reviewCount: String(reviews.length),
+      bestRating: '5',
+      worstRating: '1',
+    },
+    review: reviews.map((review) => ({
+      '@type': 'Review',
+      author: {
+        '@type': 'Person',
+        name: review.author,
+        jobTitle: review.role,
+      },
+      reviewRating: {
+        '@type': 'Rating',
+        ratingValue: String(review.rating),
+        bestRating: '5',
+        worstRating: '1',
+      },
+      reviewBody: review.reviewBody,
+      itemReviewed: reviewedItem,
+    })),
   }
 }
 
@@ -68,6 +139,7 @@ export function serviceSchemas() {
     name: `${service.name} Package`,
     provider: {
       '@type': 'ProfessionalService',
+      '@id': organizationId,
       name: siteConfig.name,
       url: siteUrl,
     },
@@ -79,56 +151,6 @@ export function serviceSchemas() {
     },
     description: service.description,
   }))
-}
-
-export function reviewSchemas() {
-  const reviews = [
-    {
-      author: 'Ali Shabbar',
-      role: 'CEO, DeafTawk',
-      rating: 5,
-      reviewBody:
-        'We initially made sure you get the interpreter in a maximum of 60 minutes. But now just 30 seconds.',
-    },
-    {
-      author: 'Muhammad Ashar',
-      role: 'CTO, OneScreen',
-      rating: 5,
-      reviewBody:
-        'Adnan transformed our quiz app into a smart AI quiz generator, scalable, and well-executed.',
-    },
-  ]
-
-  return {
-    aggregateRating: {
-      '@context': 'https://schema.org',
-      '@type': 'AggregateRating',
-      ratingValue: '5',
-      reviewCount: String(reviews.length),
-      bestRating: '5',
-      worstRating: '1',
-    },
-    reviews: reviews.map((review) => ({
-      '@context': 'https://schema.org',
-      '@type': 'Review',
-      author: {
-        '@type': 'Person',
-        name: review.author,
-        jobTitle: review.role,
-      },
-      reviewRating: {
-        '@type': 'Rating',
-        ratingValue: String(review.rating),
-        bestRating: '5',
-        worstRating: '1',
-      },
-      reviewBody: review.reviewBody,
-      itemReviewed: {
-        '@type': 'ProfessionalService',
-        name: siteConfig.name,
-      },
-    })),
-  }
 }
 
 export function faqSchema(
@@ -182,6 +204,7 @@ export function articleSchema(post: {
     },
     publisher: {
       '@type': 'Organization',
+      '@id': organizationId,
       name: siteConfig.name,
       logo: {
         '@type': 'ImageObject',

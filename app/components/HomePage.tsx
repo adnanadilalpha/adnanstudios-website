@@ -1,30 +1,20 @@
 'use client';
 
-import dynamic from 'next/dynamic';
-import { useState } from 'react';
+import { useState, useCallback, useEffect } from 'react';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { Navigation } from './Navigation';
 import { Hero } from './Hero';
+import { MetricStrip } from './visual/MetricStrip';
+import { Services } from './Services';
 import { FeaturedWork } from './FeaturedWork';
+import { Work } from './Work';
+import { Packages } from './Packages';
 import { ContactModal } from './ContactModal';
 import { Footer } from './Footer';
 import { FAQ } from './FAQ';
+import { ScrollProvider } from './providers/ScrollProvider';
+import { PageLoader } from './motion/PageLoader';
 import type { SiteContent } from '@/lib/site-content';
-
-const Work = dynamic(() => import('./Work').then((mod) => mod.Work), {
-  loading: () => <div className="min-h-[50vh]" />,
-});
-const DesignProcess = dynamic(
-  () => import('./DesignProcess').then((mod) => mod.DesignProcess),
-  { loading: () => <div className="min-h-[40vh]" /> }
-);
-const ScheduleCall = dynamic(
-  () => import('./ScheduleCall').then((mod) => mod.ScheduleCall),
-  { loading: () => <div className="min-h-[30vh]" /> }
-);
-const Packages = dynamic(
-  () => import('./Packages').then((mod) => mod.Packages),
-  { loading: () => <div className="min-h-[40vh]" /> }
-);
 
 interface HomePageProps {
   content: SiteContent;
@@ -32,32 +22,44 @@ interface HomePageProps {
 
 export function HomePage({ content }: HomePageProps) {
   const [isContactModalOpen, setIsContactModalOpen] = useState(false);
+  const [loaderDone, setLoaderDone] = useState(false);
+  const [heroReady, setHeroReady] = useState(false);
 
   const openContactModal = () => setIsContactModalOpen(true);
   const closeContactModal = () => setIsContactModalOpen(false);
 
-  return (
-    <div className="min-h-screen bg-white font-['Space_Grotesk']">
-      <Navigation onContactClick={openContactModal} />
-      <Hero
-        onContactClick={openContactModal}
-        headline={content.heroHeadline}
-        title={content.heroTitle}
-        subhead={content.heroSubhead}
-      />
-      <FeaturedWork />
-      <Work onContactClick={openContactModal} />
-      <DesignProcess />
-      <ScheduleCall />
-      <Packages
-        onContactClick={openContactModal}
-        sectionTitle={content.packagesTitle}
-        sectionDescription={content.packagesDescription}
-      />
-      <FAQ items={content.faqItems} />
-      <Footer />
+  const handleLoaderComplete = useCallback(() => {
+    setLoaderDone(true);
+    setHeroReady(true);
+  }, []);
 
-      <ContactModal isOpen={isContactModalOpen} onClose={closeContactModal} />
-    </div>
+  useEffect(() => {
+    if (!loaderDone) return;
+    const timer = window.setTimeout(() => ScrollTrigger.refresh(), 400);
+    return () => window.clearTimeout(timer);
+  }, [loaderDone]);
+
+  return (
+    <ScrollProvider>
+      {!loaderDone && <PageLoader onComplete={handleLoaderComplete} />}
+
+      <div className="min-h-screen bg-background font-sans text-foreground">
+        <Navigation onContactClick={openContactModal} />
+        <Hero
+          onContactClick={openContactModal}
+          headline={content.heroHeadline}
+          animate={heroReady}
+        />
+        <MetricStrip />
+        <Services />
+        <FeaturedWork />
+        <Work onContactClick={openContactModal} />
+        <Packages onContactClick={openContactModal} />
+        <FAQ items={content.faqItems} />
+        <Footer onContactClick={openContactModal} />
+
+        <ContactModal isOpen={isContactModalOpen} onClose={closeContactModal} />
+      </div>
+    </ScrollProvider>
   );
 }

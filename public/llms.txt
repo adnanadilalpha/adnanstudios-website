@@ -1,6 +1,16 @@
 # Adnan Studios
 
-> Adnan Adil is a product designer and developer operating as Adnan Studios. He designs in Figma and ships in Next.js, Flutter, and WordPress himself. This is called Zero Handoff: one person from wireframe to production code with no designer-to-developer gap.
+> Adnan Adil is a product designer and developer operating as Adnan Studios — a design studio specializing in landing pages, SaaS products, and web apps. He designs in Figma and ships in Next.js, Flutter, and WordPress himself. This is called Zero Handoff: one person from wireframe to production code with no designer-to-developer gap.
+
+## Search Topics
+
+- Product design studio
+- Landing page designer
+- Landing page design
+- SaaS UI design
+- Figma to code developer
+- MVP design and development
+- Web app design studio
 
 ## About
 

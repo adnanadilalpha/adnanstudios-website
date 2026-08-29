@@ -2,77 +2,48 @@ import type { GlobalConfig } from 'payload'
 
 export const SiteSettings: GlobalConfig = {
   slug: 'site-settings',
-  label: 'Site Settings',
+  label: 'Site Content',
   admin: {
     group: 'Content',
+    description: 'Homepage copy and FAQ — synced to the live site.',
   },
   access: {
     read: () => true,
   },
   fields: [
     {
-      type: 'tabs',
-      tabs: [
+      name: 'heroHeadline',
+      type: 'text',
+      label: 'Hero subheadline',
+      required: true,
+      defaultValue:
+        'Product design studio for landing pages, SaaS, and apps. One person from Figma to production.',
+      admin: {
+        description:
+          'The line below the main headline on the homepage hero.',
+      },
+    },
+    {
+      name: 'faqItems',
+      type: 'array',
+      label: 'FAQ',
+      labels: {
+        singular: 'Question',
+        plural: 'Questions',
+      },
+      admin: {
+        description: 'Frequently asked questions shown on the homepage.',
+      },
+      fields: [
         {
-          label: 'Hero',
-          fields: [
-            {
-              name: 'heroHeadline',
-              type: 'text',
-              defaultValue: 'One person designs and ships. No handoff gap.',
-            },
-            {
-              name: 'heroTitle',
-              type: 'text',
-              defaultValue: 'Zero Handoff product design and development.',
-            },
-            {
-              name: 'heroSubhead',
-              type: 'text',
-              defaultValue: 'Design in Figma. Ship in Next.js, Flutter, or WordPress. Same person from wireframe to production.',
-            },
-          ],
+          name: 'question',
+          type: 'text',
+          required: true,
         },
         {
-          label: 'Packages',
-          fields: [
-            {
-              name: 'packagesTitle',
-              type: 'text',
-              defaultValue: 'Zero Handoff Packages',
-            },
-            {
-              name: 'packagesDescription',
-              type: 'textarea',
-              defaultValue:
-                'Every tier includes Figma design and development by the same person — Next.js, Flutter, or WordPress. No separate developer handoff.',
-            },
-          ],
-        },
-        {
-          label: 'FAQ',
-          fields: [
-            {
-              name: 'faqItems',
-              type: 'array',
-              labels: {
-                singular: 'FAQ Item',
-                plural: 'FAQ Items',
-              },
-              fields: [
-                {
-                  name: 'question',
-                  type: 'text',
-                  required: true,
-                },
-                {
-                  name: 'answer',
-                  type: 'textarea',
-                  required: true,
-                },
-              ],
-            },
-          ],
+          name: 'answer',
+          type: 'textarea',
+          required: true,
         },
       ],
     },

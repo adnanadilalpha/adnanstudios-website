@@ -1,222 +1,181 @@
 'use client';
 
-import { motion } from 'motion/react';
-import { ArrowRight, ChevronDown } from 'lucide-react';
-import { deliveryStackOr } from '@/app/lib/site';
+import { useLayoutEffect, useRef } from 'react';
+import dynamic from 'next/dynamic';
+import { ArrowRight } from 'lucide-react';
+import { gsap } from 'gsap';
+import { Marquee } from './ui/Marquee';
+import { useLenis } from '@/app/hooks/useLenis';
+
+const HeroOrb = dynamic(
+  () => import('./visual/HeroOrb').then((mod) => mod.HeroOrb),
+  { ssr: false }
+);
 
 interface HeroProps {
   onContactClick: () => void;
   headline?: string;
-  title?: string;
-  subhead?: string;
+  animate?: boolean;
 }
+
+const clients = [
+  'DeafTawk',
+  'QuizWiz',
+  'OneScreen',
+  'iCan Tutoring',
+  'LockN',
+  'Letaide',
+  'ScaleX',
+  'MWS',
+];
+
+const hudTags = [
+  { label: 'Figma', className: 'left-[8%] top-[12%] lg:left-[16%] lg:top-[18%]' },
+  { label: 'Code', className: 'right-[6%] top-[30%] lg:right-[15%] lg:top-[8%]' },
+  { label: 'Live · 68K users', className: 'left-[12%] bottom-[24%] lg:left-[22%] lg:bottom-[30%]' },
+  { label: 'Zero handoff', className: 'right-[10%] bottom-[14%] lg:right-[19%] lg:bottom-[22%]' },
+];
 
 export function Hero({
   onContactClick,
-  headline = 'One person designs and ships. No handoff gap.',
-  title = 'Zero Handoff product design and development.',
-  subhead = `Design in Figma. Ship in ${deliveryStackOr}. Same person from wireframe to production.`,
+  headline = 'One studio. Figma to production.',
+  animate = true,
 }: HeroProps) {
-  const scrollToProjects = () => {
-    if (typeof window !== 'undefined') {
-      const element = document.getElementById('projects');
-      if (element) {
-        element.scrollIntoView({ behavior: 'smooth' });
-      }
-    }
-  };
+  const scopeRef = useRef<HTMLElement>(null);
+  const { scrollToSection } = useLenis();
 
-  const scrollToPackages = () => {
-    if (typeof window !== 'undefined') {
-      const element = document.getElementById('packages');
-      if (element) {
-        element.scrollIntoView({ behavior: 'smooth' });
-      }
-    }
-  };
+  useLayoutEffect(() => {
+    if (!scopeRef.current) return;
+
+    const prefersReducedMotion = window.matchMedia(
+      '(prefers-reduced-motion: reduce)'
+    ).matches;
+
+    if (!animate || prefersReducedMotion) return;
+
+    const ctx = gsap.context(() => {
+      const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
+
+      tl.from('.hero-aurora', { opacity: 0, duration: 1.6, ease: 'power2.out' }, 0)
+        .from('.hero-eyebrow', { y: 14, opacity: 0, duration: 0.5 }, 0.15)
+        .from('.hero-word', { y: '110%', duration: 0.8, stagger: 0.08 }, 0.25)
+        .from('.hero-sub', { y: 18, opacity: 0, duration: 0.5 }, 0.55)
+        .from('.hero-cta', { y: 14, opacity: 0, duration: 0.45, stagger: 0.08 }, 0.65)
+        .from('.hero-orb-wrap', { opacity: 0, scale: 0.94, duration: 1.2, ease: 'power2.out' }, 0.4)
+        .from('.hero-hud', { opacity: 0, y: 8, duration: 0.5, stagger: 0.1 }, 1.0)
+        .from('.hero-marquee-bar', { opacity: 0, duration: 0.6 }, 1.1);
+    }, scopeRef);
+
+    return () => ctx.revert();
+  }, [animate]);
 
   return (
-    <section id="hero" className="min-h-screen flex flex-col items-center justify-center px-6 pt-32 pb-20 relative overflow-hidden">
-      {/* Animated Background Gradient */}
-      <div className="absolute inset-0 bg-gradient-to-br from-[#34A983]/10 via-blue-50 to-purple-50 -z-10" />
-      
-      {/* Subtle animated shapes */}
-      <motion.div
-        className="absolute top-20 left-10 w-64 h-64 bg-gradient-to-br from-[#34A983]/20 to-transparent rounded-full blur-3xl"
-        animate={{
-          scale: [1, 1.2, 1],
-          opacity: [0.3, 0.5, 0.3],
-        }}
-        transition={{
-          duration: 8,
-          repeat: Infinity,
-          ease: "easeInOut"
-        }}
-      />
-      <motion.div
-        className="absolute bottom-20 right-10 w-80 h-80 bg-gradient-to-br from-blue-400/20 to-transparent rounded-full blur-3xl"
-        animate={{
-          scale: [1, 1.3, 1],
-          opacity: [0.3, 0.5, 0.3],
-        }}
-        transition={{
-          duration: 10,
-          repeat: Infinity,
-          ease: "easeInOut"
-        }}
-      />
-
-      <div className="max-w-4xl w-full text-center relative z-10">
-        {/* Main Headline */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.3 }}
-        >
-          <h1 className="text-6xl md:text-7xl lg:text-8xl mb-4 leading-tight tracking-tight">
-            ADNAN ADIL
-          </h1>
-          
-          <p className="text-lg md:text-xl text-gray-600 mb-6">
-            {headline}
-          </p>
-
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.5 }}
-            className="text-xl md:text-2xl mb-3 max-w-3xl mx-auto leading-relaxed"
-          >
-            {title}
-          </motion.p>
-
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.6 }}
-            className="text-lg md:text-xl text-gray-600 mb-12 max-w-2xl mx-auto leading-relaxed"
-          >
-            {subhead}
-          </motion.p>
-        </motion.div>
-
-        {/* CTA Buttons */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.8 }}
-          className="mb-8"
-        >
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <button
-              onClick={scrollToPackages}
-              className="w-full sm:w-auto bg-[#34A983] hover:bg-[#2A8A6B] text-white px-8 py-4 rounded-[12px] transition-all shadow-sm hover:shadow-lg flex items-center justify-center gap-2 group"
-            >
-              See packages
-              <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-            </button>
-            <button
-              onClick={onContactClick}
-              className="w-full sm:w-auto border-2 border-gray-900 hover:bg-gray-900 hover:text-white text-gray-900 px-8 py-4 rounded-[12px] transition-all"
-            >
-              Contact
-            </button>
-          </div>
-        </motion.div>
-
-        {/* Scroll to explore */}
-        <motion.button
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.8, delay: 0.9 }}
-          onClick={scrollToProjects}
-          className="mb-16 inline-flex items-center gap-2 text-sm text-gray-500 hover:text-gray-700 transition-colors group"
-        >
-          Scroll to explore
-          <motion.div
-            animate={{ y: [0, 5, 0] }}
-            transition={{ duration: 1.5, repeat: Infinity }}
-          >
-            <ChevronDown className="w-4 h-4" />
-          </motion.div>
-        </motion.button>
-
-        {/* Trusted by Section - Client Logos */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 1.0 }}
-          className="mt-20"
-        >
-          <p className="text-sm text-gray-500 mb-8 uppercase tracking-wider">Trusted by</p>
-          <div className="flex flex-wrap items-center justify-center gap-8 md:gap-12 opacity-60">
-            {/* Client Names/Testimonials */}
-            <div className="text-lg tracking-tight">DeafTawk</div>
-            <div className="text-lg tracking-tight">QuizWiz</div>
-            <div className="text-lg tracking-tight">OneScreen</div>
-            <div className="text-lg tracking-tight">iCan Tutoring</div>
-            <div className="text-lg tracking-tight">LockN</div>
-            <div className="text-lg tracking-tight">Letaide</div>
-            <div className="text-lg tracking-tight">ScaleX</div>
-            <div className="text-lg tracking-tight">MWS</div>
-          </div>
-        </motion.div>
+    <section
+      id="hero"
+      ref={scopeRef}
+      className="relative min-h-[100dvh] flex flex-col overflow-hidden bg-[#0a0a0a] text-white"
+    >
+      {/* Aurora — brand-green light rising from below */}
+      <div className="hero-aurora absolute inset-0 pointer-events-none" aria-hidden>
+        <div className="absolute bottom-0 left-[-4%] w-[26%] h-[70%] bg-linear-to-t from-brand/50 via-brand/15 to-transparent blur-3xl" />
+        <div className="absolute bottom-0 left-[24%] w-[16%] h-[45%] bg-linear-to-t from-brand/35 via-brand/10 to-transparent blur-3xl" />
+        <div className="absolute bottom-0 left-[46%] w-[20%] h-[60%] bg-linear-to-t from-brand-light/40 via-brand/10 to-transparent blur-3xl" />
+        <div className="absolute bottom-0 right-[12%] w-[18%] h-[50%] bg-linear-to-t from-brand/40 via-brand/12 to-transparent blur-3xl" />
+        <div className="absolute bottom-0 right-[-6%] w-[24%] h-[72%] bg-linear-to-t from-brand-dark/55 via-brand/15 to-transparent blur-3xl" />
+        {/* Glow behind the orb */}
+        <div className="absolute left-1/2 bottom-[6%] -translate-x-1/2 w-[42rem] h-[42rem] max-w-[90vw] rounded-full bg-brand/15 blur-[110px]" />
+        {/* Fade everything into black at the very bottom */}
+        <div className="absolute inset-x-0 bottom-0 h-40 bg-linear-to-t from-[#0a0a0a] to-transparent" />
       </div>
 
-      {/* Floating Testimonials - Positioned lower */}
-      <motion.div
-        initial={{ opacity: 0, y: 30 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8, delay: 1.2 }}
-        className="absolute bottom-32 left-8 hidden lg:block"
-      >
-        <div className="bg-white rounded-[16px] shadow-lg p-4 max-w-[280px]">
-          <div className="flex gap-1 mb-2">
-            {[...Array(5)].map((_, i) => (
-              <span key={i} className="text-yellow-400 text-sm">★</span>
-            ))}
-          </div>
-          <p className="text-xs text-gray-600 mb-3">
-            "Incredible work with this B2B we won the Global MediaTech Pitch Day would love to work again"
-          </p>
-          <div className="flex items-center gap-2">
-            <div className="w-8 h-8 rounded-full bg-gradient-to-br from-blue-400 to-blue-600 flex items-center justify-center text-white text-xs">
-              AS
-            </div>
-            <div>
-              <div className="text-xs">Ali Shabbar</div>
-              <div className="text-[10px] text-gray-500">CEO, DeafTawk</div>
-            </div>
-          </div>
-        </div>
-      </motion.div>
+      {/* Faint circuit grid */}
+      <div
+        className="absolute inset-0 opacity-[0.05] pointer-events-none"
+        style={{
+          backgroundImage:
+            'linear-gradient(rgba(255,255,255,0.5) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.5) 1px, transparent 1px)',
+          backgroundSize: '72px 72px',
+        }}
+        aria-hidden
+      />
 
-      <motion.div
-        initial={{ opacity: 0, y: 30 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8, delay: 1.3 }}
-        className="absolute bottom-32 right-8 hidden lg:block"
-      >
-        <div className="bg-white rounded-[16px] shadow-lg p-4 max-w-[280px]">
-          <div className="flex gap-1 mb-2">
-            {[...Array(5)].map((_, i) => (
-              <span key={i} className="text-yellow-400 text-sm">★</span>
-            ))}
-          </div>
-          <p className="text-xs text-gray-600 mb-3">
-            "Adnan transformed our app into a scalable AI quiz platform."
-          </p>
-          <div className="flex items-center gap-2">
-            <div className="w-8 h-8 rounded-full bg-gradient-to-br from-green-400 to-green-600 flex items-center justify-center text-white text-xs">
-              MA
-            </div>
-            <div>
-              <div className="text-xs">Muhammad Ashar</div>
-              <div className="text-[10px] text-gray-500">CTO, OneScreen</div>
-            </div>
-          </div>
+      {/* Copy — centered upper half */}
+      <div className="relative z-10 flex flex-col items-center text-center site-container pt-32 sm:pt-36 pb-4">
+        <div className="hero-eyebrow inline-flex items-center gap-2.5 mb-7 px-4 py-1.5 rounded-full border border-white/10 bg-white/[0.04] backdrop-blur-sm">
+          <span className="px-2 py-0.5 rounded-full bg-brand text-[10px] font-medium text-white uppercase tracking-wider">
+            Booking 2026
+          </span>
+          <span className="font-mono text-[10px] uppercase tracking-[0.25em] text-white/45">
+            Zero Handoff Studio
+          </span>
         </div>
-      </motion.div>
+
+        <h1 className="hero-display mb-6">
+          <span className="block overflow-hidden">
+            <span className="hero-word inline-block">One studio.</span>
+          </span>
+          <span className="block overflow-hidden">
+            <span className="hero-word inline-block">
+              Design <span className="text-brand">→ Ship.</span>
+            </span>
+          </span>
+        </h1>
+
+        <p className="hero-sub text-sm sm:text-base text-white/45 max-w-[44ch] leading-relaxed mb-8">
+          {headline}
+        </p>
+
+        <div className="flex flex-wrap items-center justify-center gap-3">
+          <button
+            onClick={onContactClick}
+            className="hero-cta group inline-flex items-center gap-2.5 bg-white text-[#0a0a0a] px-7 py-3.5 rounded-full text-sm font-medium hover:bg-brand hover:text-white transition-colors"
+          >
+            Start a project
+            <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
+          </button>
+          <button
+            onClick={() => scrollToSection('projects')}
+            className="hero-cta inline-flex items-center gap-2 px-7 py-3.5 rounded-full border border-white/15 text-sm font-medium text-white/70 hover:text-white hover:border-white/35 transition-colors"
+          >
+            View work
+          </button>
+        </div>
+      </div>
+
+      {/* 3D centerpiece — interlocked rings: design + code, one studio */}
+      <div className="relative flex-1 min-h-[38vh]">
+        <div className="hero-orb-wrap absolute inset-0">
+          <HeroOrb />
+        </div>
+
+        {hudTags.map((tag) => (
+          <div
+            key={tag.label}
+            className={`hero-hud absolute ${tag.className} hidden sm:inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-white/10 bg-white/[0.05] backdrop-blur-sm`}
+          >
+            <span className="w-1 h-1 rounded-full bg-brand" />
+            <span className="font-mono text-[10px] uppercase tracking-[0.18em] text-white/55 whitespace-nowrap">
+              {tag.label}
+            </span>
+          </div>
+        ))}
+      </div>
+
+      {/* Client marquee */}
+      <div className="hero-marquee-bar relative z-10 border-t border-white/[0.08]">
+        <div className="site-container py-4">
+          <Marquee speed={32}>
+            {clients.map((client, i) => (
+              <span
+                key={i}
+                className="mx-8 text-xs text-white/30 font-medium whitespace-nowrap uppercase tracking-[0.2em]"
+              >
+                {client}
+              </span>
+            ))}
+          </Marquee>
+        </div>
+      </div>
     </section>
   );
 }

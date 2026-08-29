@@ -14,15 +14,18 @@ const projectRoot = path.resolve(process.cwd())
 export default buildConfig({
   admin: {
     user: Users.slug,
+    theme: 'dark',
     importMap: {
       baseDir: projectRoot,
     },
     meta: {
-      title: 'Adnan Studios CMS',
-      titleSuffix: ' | Adnan Studios',
+      title: 'Studio CMS',
+      titleSuffix: ' · Adnan Studios',
       description: 'Manage insights, site content, and media for adnanstudios.com',
     },
     components: {
+      beforeDashboard: ['@/components/admin/DashboardWelcome'],
+      beforeLogin: ['@/components/admin/LoginHero'],
       graphics: {
         Icon: '@/components/admin/Icon',
         Logo: '@/components/admin/Logo',

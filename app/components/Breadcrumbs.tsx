@@ -1,5 +1,4 @@
 import Link from 'next/link'
-import { ChevronRight } from 'lucide-react'
 import { breadcrumbSchema } from '../lib/schema'
 
 interface BreadcrumbItem {
@@ -12,7 +11,7 @@ interface BreadcrumbsProps {
 }
 
 export function Breadcrumbs({ items }: BreadcrumbsProps) {
-  const schemaItems = items.map((item, index) => ({
+  const schemaItems = items.map((item) => ({
     name: item.label,
     url: item.href || '',
   }))
@@ -23,26 +22,21 @@ export function Breadcrumbs({ items }: BreadcrumbsProps) {
         type="application/ld+json"
         dangerouslySetInnerHTML={{
           __html: JSON.stringify(
-            breadcrumbSchema(
-              schemaItems.filter((item) => item.url.length > 0)
-            )
+            breadcrumbSchema(schemaItems.filter((item) => item.url.length > 0))
           ),
         }}
       />
       <nav aria-label="Breadcrumb" className="mb-8">
-        <ol className="flex flex-wrap items-center gap-2 text-sm text-gray-500">
+        <ol className="flex flex-wrap items-center gap-x-2 gap-y-1 font-mono text-[10px] uppercase tracking-[0.2em] text-white/35">
           {items.map((item, index) => (
             <li key={item.label} className="flex items-center gap-2">
-              {index > 0 && <ChevronRight className="w-3.5 h-3.5" />}
+              {index > 0 && <span className="text-white/20">/</span>}
               {item.href ? (
-                <Link
-                  href={item.href}
-                  className="hover:text-[#34A983] transition-colors"
-                >
+                <Link href={item.href} className="hover:text-brand transition-colors">
                   {item.label}
                 </Link>
               ) : (
-                <span className="text-gray-900">{item.label}</span>
+                <span className="text-white/60">{item.label}</span>
               )}
             </li>
           ))}

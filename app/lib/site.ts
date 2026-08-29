@@ -6,9 +6,9 @@ export const deliveryStackOr = 'Next.js, Flutter, or WordPress'
 export const siteConfig = {
   name: 'Adnan Studios',
   owner: 'Adnan Adil',
-  title: 'Adnan Adil | Zero Handoff Product Design & Development',
+  title: 'Product Design Studio & Landing Page Designer | Adnan Studios',
   description:
-    `Adnan Adil designs in Figma and ships in ${deliveryStack}. One person from wireframe to production. No handoff gap. Adnan Studios builds MVPs, SaaS, and fintech products end to end.`,
+    'Adnan Studios is a product design studio for landing pages, SaaS, and web apps. Adnan Adil designs in Figma and ships in Next.js, Flutter, and WordPress — one person from wireframe to production. No handoff gap.',
   gaId: 'G-Q8QVJBXH5Z',
   calendlyUrl: 'https://calendly.com/adnanstudios',
   contactEmail: process.env.CONTACT_EMAIL || 'hello@adnanstudios.com',

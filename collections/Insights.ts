@@ -1,11 +1,33 @@
 import type { CollectionConfig } from 'payload'
 
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'
+
+function slugify(text: string): string {
+  return text
+    .toLowerCase()
+    .trim()
+    .replace(/[^\w\s-]/g, '')
+    .replace(/[\s_-]+/g, '-')
+    .replace(/^-+|-+$/g, '')
+}
+
 export const Insights: CollectionConfig = {
   slug: 'insights',
+  labels: {
+    singular: 'Insight',
+    plural: 'Insights',
+  },
   admin: {
     useAsTitle: 'title',
-    defaultColumns: ['title', 'publishedAt', 'updatedAt'],
+    defaultColumns: ['title', '_status', 'publishedAt', 'updatedAt'],
     group: 'Content',
+    description: 'Blog posts and articles published at /insights.',
+    preview: (doc) => {
+      if (doc?.slug) {
+        return `${siteUrl}/insights/${doc.slug}`
+      }
+      return null
+    },
   },
   access: {
     read: ({ req }) => {
@@ -24,6 +46,16 @@ export const Insights: CollectionConfig = {
       },
     },
   },
+  hooks: {
+    beforeValidate: [
+      ({ data }) => {
+        if (data?.title && !data.slug) {
+          data.slug = slugify(data.title)
+        }
+        return data
+      },
+    ],
+  },
   fields: [
     {
       name: 'title',
@@ -36,7 +68,8 @@ export const Insights: CollectionConfig = {
       required: true,
       unique: true,
       admin: {
-        description: 'URL path, e.g. what-zero-handoff-means',
+        description: 'URL path — auto-generated from title if left empty.',
+        position: 'sidebar',
       },
     },
     {
@@ -44,7 +77,7 @@ export const Insights: CollectionConfig = {
       type: 'textarea',
       required: true,
       admin: {
-        description: 'Meta description for SEO and listing cards',
+        description: 'Meta description for SEO and listing cards.',
       },
     },
     {
@@ -52,6 +85,9 @@ export const Insights: CollectionConfig = {
       type: 'text',
       defaultValue: 'Adnan Adil',
       required: true,
+      admin: {
+        position: 'sidebar',
+      },
     },
     {
       name: 'publishedAt',
@@ -68,6 +104,7 @@ export const Insights: CollectionConfig = {
       name: 'content',
       type: 'richText',
       required: true,
+      label: 'Article body',
     },
   ],
 }
