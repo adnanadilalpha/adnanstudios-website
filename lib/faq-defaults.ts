@@ -29,4 +29,9 @@ export const defaultFaqItems = [
     answer:
       'The $5k Starter covers up to 10 screens with 2 revision rounds. The $15k Professional covers up to 30 screens, user testing, micro-interactions, and 2 weeks of post-launch support.',
   },
+  {
+    question: 'Do you offer hosting, and is there a discount?',
+    answer:
+      'Yes. Adnan Studios is an official Hostinger Partner. Clients can get an exclusive Hostinger discount through the studio referral link when launching or migrating a site.',
+  },
 ]

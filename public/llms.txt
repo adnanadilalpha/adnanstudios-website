@@ -23,6 +23,9 @@
 
 - DeafTawk serves 68,000+ users with 3,200+ interpreters. Interpreter connection time dropped from ~60 minutes to under 30 seconds.
 - QuizWiz receives 60,000+ monthly visits with a 4.7 star review rating.
+- Multiple WD Awards recognitions (https://wdawards.com/).
+- Official Orpetron web design award judge (https://orpetron.com/account/).
+- Official Hostinger Partner — exclusive hosting discount via https://www.hostinger.com?REFERRALCODE=1SYEDADNANA80
 - Starter package: $5,000 for up to 10 screens, 4-6 week delivery.
 - Professional package: $15,000 for up to 30 screens, 6-8 week delivery.
 - Enterprise package: custom pricing with unlimited screens and ongoing support.
@@ -30,10 +33,11 @@
 ## Important Pages
 
 - Homepage: https://adnanstudios.com/
+- Case studies index: https://adnanstudios.com/case-studies
 - Insights (articles): https://adnanstudios.com/insights
 - DeafTawk case study: https://adnanstudios.com/case-studies/deaftawk
 - QuizWiz case study: https://adnanstudios.com/case-studies/quizwiz
-- Lockn case study: https://adnanstudios.com/case-studies/lockn
+- MWS case study: https://adnanstudios.com/case-studies/stock
 - Moodia case study: https://adnanstudios.com/case-studies/moodia
 - Packages and pricing: https://adnanstudios.com/#packages
 - FAQ: https://adnanstudios.com/#faq
@@ -45,6 +49,9 @@
 - Upwork: https://www.upwork.com/freelancers/adnanux
 - Contra: https://contra.com/adnanadiil
 - GitHub: https://github.com/adnanadilalpha
+- Hostinger Partner (discount): https://www.hostinger.com?REFERRALCODE=1SYEDADNANA80
+- WD Awards: https://wdawards.com/
+- Orpetron (judge): https://orpetron.com/account/
 
 ## Services
 

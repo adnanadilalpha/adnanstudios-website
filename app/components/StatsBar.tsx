@@ -4,9 +4,10 @@ import { Marquee } from './ui/Marquee';
 
 const stats = [
   '50+ projects delivered',
-  '100% job success score',
   'Top Rated Upwork freelancer',
-  '3× WDA nominee',
+  '3× WD Awards',
+  'Orpetron award judge',
+  'Hostinger Partner',
   'Next.js · Flutter · Figma',
 ];
 

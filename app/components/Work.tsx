@@ -14,15 +14,6 @@ interface WorkProps {
 
 const workData = [
   {
-    id: 'lockn',
-    title: 'Lockn',
-    category: 'FinTech',
-    year: "'24",
-    image: '/images/lockn.webp',
-    caseStudy: '/case-studies/lockn',
-    liveUrl: 'https://locknapp.com/',
-  },
-  {
     id: 'ican',
     title: 'iCan',
     category: 'EdTech',

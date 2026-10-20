@@ -5,6 +5,7 @@ import dynamic from 'next/dynamic';
 import { ArrowRight } from 'lucide-react';
 import { gsap } from 'gsap';
 import { Marquee } from './ui/Marquee';
+import { PartnerLogoItems } from './partners/PartnerLogoItems';
 import { useLenis } from '@/app/hooks/useLenis';
 
 const HeroOrb = dynamic(
@@ -23,7 +24,6 @@ const clients = [
   'QuizWiz',
   'OneScreen',
   'iCan Tutoring',
-  'LockN',
   'Letaide',
   'ScaleX',
   'MWS',
@@ -33,12 +33,12 @@ const hudTags = [
   { label: 'Figma', className: 'left-[8%] top-[12%] lg:left-[16%] lg:top-[18%]' },
   { label: 'Code', className: 'right-[6%] top-[30%] lg:right-[15%] lg:top-[8%]' },
   { label: 'Top Rated', className: 'left-[12%] bottom-[24%] lg:left-[22%] lg:bottom-[30%]' },
-  { label: 'WDA nominee', className: 'right-[10%] bottom-[14%] lg:right-[19%] lg:bottom-[22%]' },
+  { label: 'WD Awards', className: 'right-[10%] bottom-[14%] lg:right-[19%] lg:bottom-[22%]' },
 ];
 
 export function Hero({
   onContactClick,
-  headline = 'One studio. Figma to production.',
+  headline = 'Product design studio for landing pages, SaaS, and apps. One person from Figma to production.',
   animate = true,
 }: HeroProps) {
   const scopeRef = useRef<HTMLElement>(null);
@@ -102,9 +102,16 @@ export function Hero({
       {/* Copy — centered upper half */}
       <div className="relative z-10 flex flex-col items-center text-center site-container pt-32 sm:pt-36 pb-4">
 
+        <p className="hero-eyebrow flex items-center gap-2 mb-5">
+          <span className="w-1 h-1 rounded-full bg-brand" />
+          <span className="font-mono text-[10px] uppercase tracking-[0.25em] text-white/40">
+            Product design studio
+          </span>
+        </p>
+
         <h1 className="hero-display mb-6">
           <span className="block overflow-hidden">
-            <span className="hero-word inline-block">One studio.</span>
+            <span className="hero-word inline-block">Adnan Studios</span>
           </span>
           <span className="block overflow-hidden">
             <span className="hero-word inline-block">
@@ -153,14 +160,16 @@ export function Hero({
         ))}
       </div>
 
-      {/* Client marquee */}
+      {/* Partners + clients logo strip */}
       <div className="hero-marquee-bar relative z-10 border-t border-white/[0.08]">
         <div className="site-container py-4">
-          <Marquee speed={32}>
+          <Marquee speed={36}>
+            <PartnerLogoItems />
+            <span className="mx-4 h-4 w-px bg-white/10 shrink-0" aria-hidden />
             {clients.map((client, i) => (
               <span
                 key={i}
-                className="mx-8 text-xs text-white/30 font-medium whitespace-nowrap uppercase tracking-[0.2em]"
+                className="mx-7 sm:mx-8 text-xs text-white/30 font-medium whitespace-nowrap uppercase tracking-[0.2em]"
               >
                 {client}
               </span>

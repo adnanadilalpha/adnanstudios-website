@@ -13,16 +13,16 @@ export default function DeafTawkCaseStudy() {
       {/* Navigation */}
       <nav className="border-b border-[#e5e5e5] px-4 sm:px-6 lg:px-12 py-6">
         <div className="max-w-7xl mx-auto space-y-4">
-          <Link href="/#projects" className="inline-flex items-center gap-2 text-[#525252] hover:text-[#0a0a0a] transition-colors">
+          <Link href="/case-studies" className="inline-flex items-center gap-2 text-[#525252] hover:text-[#0a0a0a] transition-colors">
             <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M12.5 15L7.5 10L12.5 5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
             </svg>
-            <span className="text-base">Back to work</span>
+            <span className="text-base">All case studies</span>
           </Link>
           <Breadcrumbs
             items={[
               { label: 'Home', href: siteUrl },
-              { label: 'Work', href: `${siteUrl}/#projects` },
+              { label: 'Case Studies', href: `${siteUrl}/case-studies` },
               { label: 'DeafTawk' },
             ]}
           />
@@ -430,7 +430,7 @@ export default function DeafTawkCaseStudy() {
               </svg>
             </TrackedCalendlyLink>
             <a
-              href="/#projects"
+              href="/case-studies"
               className="inline-flex items-center gap-2 px-8 py-4 border-2 border-gray-900 hover:bg-gray-900 hover:text-white text-gray-900 rounded-full transition-all duration-300 text-lg font-medium"
             >
               <span>View More Work</span>

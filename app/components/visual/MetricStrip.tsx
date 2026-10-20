@@ -17,9 +17,9 @@ type Metric = {
 
 const metrics: Metric[] = [
   { value: 50, suffix: '+', label: 'Projects delivered' },
-  { value: 100, suffix: '%', label: 'Job success score' },
   { display: 'Top Rated', label: 'Upwork freelancer', highlight: true, compact: true },
-  { value: 3, suffix: '×', label: 'WDA nominee' },
+  { value: 3, suffix: '×', label: 'WD Awards' },
+  { display: 'Judge', label: 'Orpetron awards', compact: true },
 ];
 
 export function MetricStrip() {

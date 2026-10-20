@@ -17,11 +17,11 @@ export function CaseStudyTemplate({ data }: CaseStudyTemplateProps) {
     <div className="bg-white min-h-screen">
       <nav className="border-b border-[#e5e5e5] px-4 sm:px-6 lg:px-12 py-6">
         <div className="max-w-7xl mx-auto">
-          <Link href="/#projects" className="inline-flex items-center gap-2 text-[#525252] hover:text-[#0a0a0a] transition-colors">
+          <Link href="/case-studies" className="inline-flex items-center gap-2 text-[#525252] hover:text-[#0a0a0a] transition-colors">
             <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M12.5 15L7.5 10L12.5 5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
             </svg>
-            <span className="text-base">Back to work</span>
+            <span className="text-base">All case studies</span>
           </Link>
         </div>
       </nav>
@@ -31,7 +31,7 @@ export function CaseStudyTemplate({ data }: CaseStudyTemplateProps) {
           <Breadcrumbs
             items={[
               { label: 'Home', href: siteUrl },
-              { label: 'Work', href: `${siteUrl}/#projects` },
+              { label: 'Case Studies', href: `${siteUrl}/case-studies` },
               { label: data.title },
             ]}
           />

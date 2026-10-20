@@ -16,6 +16,11 @@ export const metadata: Metadata = {
     description: siteConfig.description,
     url: siteUrl,
   },
+  twitter: {
+    card: 'summary_large_image',
+    title: siteConfig.title,
+    description: siteConfig.description,
+  },
 }
 
 export default async function Home() {

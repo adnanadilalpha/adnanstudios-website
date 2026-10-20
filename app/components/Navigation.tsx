@@ -32,6 +32,7 @@ export function Navigation({ onContactClick, variant = 'home' }: NavigationProps
   const pathname = usePathname();
   const isSubpage = variant === 'subpage' || pathname !== '/';
   const isInsights = pathname.startsWith('/insights');
+  const isCaseStudies = pathname.startsWith('/case-studies');
   const isArticle = pathname.startsWith('/insights/') && pathname !== '/insights';
 
   const [activeSection, setActiveSection] = useState('hero');
@@ -93,7 +94,13 @@ export function Navigation({ onContactClick, variant = 'home' }: NavigationProps
   const sectionIndex = SECTIONS.findIndex((s) => s.id === activeSection);
   const readout = SECTIONS[Math.max(sectionIndex, 0)];
 
-  const subpageReadout = isArticle ? 'Article' : isInsights ? 'Insights' : 'Page';
+  const subpageReadout = isArticle
+    ? 'Article'
+    : isInsights
+      ? 'Insights'
+      : isCaseStudies
+        ? 'Case studies'
+        : 'Page';
 
   return (
     <>
@@ -164,6 +171,17 @@ export function Navigation({ onContactClick, variant = 'home' }: NavigationProps
                   </button>
                 );
               })}
+              <Link
+                href="/case-studies"
+                className={`px-3.5 py-2 font-mono text-[11px] uppercase tracking-[0.15em] transition-colors ${
+                  pathname.startsWith('/case-studies') ? 'text-white' : 'text-white/40 hover:text-white/80'
+                }`}
+              >
+                {pathname.startsWith('/case-studies') && (
+                  <span className="inline-block w-1 h-1 rounded-full bg-brand mr-1.5 align-middle" />
+                )}
+                Cases
+              </Link>
               <Link
                 href="/insights"
                 className={`px-3.5 py-2 font-mono text-[11px] uppercase tracking-[0.15em] transition-colors ${
@@ -270,8 +288,13 @@ export function Navigation({ onContactClick, variant = 'home' }: NavigationProps
               className="relative flex-1 flex flex-col justify-center px-8 gap-1"
               aria-label="Mobile"
             >
-              {[...navItems, { label: 'Insights', id: '__insights' }].map((item, i) => {
+              {[
+                ...navItems,
+                { label: 'Case studies', id: '__cases' },
+                { label: 'Insights', id: '__insights' },
+              ].map((item, i) => {
                   const isInsightsLink = item.id === '__insights';
+                  const isCasesLink = item.id === '__cases';
                   const inner = (
                     <motion.span
                       initial={{ y: 40, opacity: 0 }}
@@ -288,6 +311,19 @@ export function Navigation({ onContactClick, variant = 'home' }: NavigationProps
                       </span>
                     </motion.span>
                   );
+
+                  if (isCasesLink) {
+                    return (
+                      <Link
+                        key={item.id}
+                        href="/case-studies"
+                        onClick={() => setMobileMenuOpen(false)}
+                        className="py-3 text-left"
+                      >
+                        {inner}
+                      </Link>
+                    );
+                  }
 
                   if (isInsightsLink) {
                     return (

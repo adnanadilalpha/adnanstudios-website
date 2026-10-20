@@ -6,6 +6,12 @@ import { Linkedin, ArrowUpRight, Github, Globe, ArrowRight } from 'lucide-react'
 import { Logo } from './Logo';
 import { TrackedLink } from './TrackedLink';
 import { TrackedCalendlyLink } from './TrackedCalendlyLink';
+import {
+  HostingerHMark,
+  OrpetronMark,
+  WDAwardsMark,
+} from './partners/PartnerMarks';
+import { hostingerReferralUrl } from '@/app/lib/partners';
 
 const UpworkIcon = ({ className }: { className?: string }) => (
   <svg viewBox="0 0 24 24" fill="currentColor" className={className} xmlns="http://www.w3.org/2000/svg">
@@ -43,18 +49,66 @@ export function Footer({ onContactClick }: FooterProps) {
     { label: 'GitHub', icon: Github, url: 'https://github.com/adnanadilalpha' },
   ];
 
-  const indexLinks = [
-    { name: 'Selected work', href: '/#projects' },
-    { name: 'Archive', href: '/#work' },
-    { name: 'Packages', href: '/#packages' },
-    { name: 'FAQ', href: '/#faq' },
+  const partnerLinks = [
+    {
+      name: 'Hostinger',
+      detail: 'Partner · hosting discount',
+      href: hostingerReferralUrl,
+      platform: 'hostinger',
+      Mark: HostingerHMark,
+    },
+    {
+      name: 'WD Awards',
+      detail: 'Multiple wins',
+      href: 'https://wdawards.com/',
+      platform: 'wd-awards',
+      Mark: WDAwardsMark,
+    },
+    {
+      name: 'Orpetron',
+      detail: 'Official judge',
+      href: 'https://orpetron.com/account/',
+      platform: 'orpetron',
+      Mark: OrpetronMark,
+    },
   ];
 
-  const statusRows = [
+  const indexLinks = [
+    { name: 'Case studies', href: '/case-studies' },
+    { name: 'Insights', href: '/insights' },
+    { name: 'Packages', href: '/#packages' },
+    { name: 'FAQ', href: '/#faq' },
+  ]
+
+  const workLinks = [
+    { name: 'DeafTawk', href: '/case-studies/deaftawk' },
+    { name: 'QuizWiz', href: '/case-studies/quizwiz' },
+    { name: 'MWS', href: '/case-studies/stock' },
+    { name: 'Moodia', href: '/case-studies/moodia' },
+  ];
+
+  const statusRows: Array<{
+    key: string
+    value: string
+    live?: boolean
+    mono?: boolean
+    href?: string
+    platform?: string
+  }> = [
     { key: 'Status', value: 'Booking 2026', live: true },
     { key: 'Local time', value: time ?? '--:--:--', mono: true },
-    { key: 'Response', value: 'Under 24 hrs' },
-    { key: 'Upwork', value: 'Top Rated' },
+    {
+      key: 'Orpetron',
+      value: 'Official Judge',
+      href: 'https://orpetron.com/account/',
+      platform: 'orpetron',
+    },
+    {
+      key: 'Hostinger',
+      value: 'Partner',
+      href: hostingerReferralUrl,
+      platform: 'hostinger',
+    },
   ];
 
   return (
@@ -127,16 +181,27 @@ export function Footer({ onContactClick }: FooterProps) {
                   <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-white/35">
                     {row.key}
                   </span>
-                  <span
-                    className={`flex items-center gap-2 text-sm ${
-                      row.mono ? 'font-mono tabular-nums text-white/80' : 'text-white/80'
-                    }`}
-                  >
-                    {row.live && (
-                      <span className="w-1.5 h-1.5 rounded-full bg-brand animate-pulse" />
-                    )}
-                    {row.value}
-                  </span>
+                  {row.href ? (
+                    <TrackedLink
+                      href={row.href}
+                      platform={row.platform ?? row.key.toLowerCase()}
+                      className="group flex items-center gap-2 text-sm text-white/80 hover:text-brand transition-colors"
+                    >
+                      {row.value}
+                      <ArrowUpRight className="w-3 h-3 opacity-40 group-hover:opacity-80 transition-opacity" />
+                    </TrackedLink>
+                  ) : (
+                    <span
+                      className={`flex items-center gap-2 text-sm ${
+                        row.mono ? 'font-mono tabular-nums text-white/80' : 'text-white/80'
+                      }`}
+                    >
+                      {row.live && (
+                        <span className="w-1.5 h-1.5 rounded-full bg-brand animate-pulse" />
+                      )}
+                      {row.value}
+                    </span>
+                  )}
                 </div>
               ))}
             </div>
@@ -144,7 +209,7 @@ export function Footer({ onContactClick }: FooterProps) {
         </div>
 
         {/* Link columns */}
-        <div className="grid sm:grid-cols-3 gap-10 sm:gap-6 border-t border-white/[0.08] pt-10 pb-14">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-5 gap-10 sm:gap-6 border-t border-white/[0.08] pt-10 pb-14">
           <div>
             <p className="font-mono text-[10px] uppercase tracking-[0.25em] text-white/30 mb-5">
               Index
@@ -161,15 +226,55 @@ export function Footer({ onContactClick }: FooterProps) {
                   </Link>
                 </li>
               ))}
-              <li>
-                <Link
-                  href="/insights"
-                  className="group inline-flex items-center gap-2 text-sm text-white/55 hover:text-white transition-colors"
-                >
-                  <span className="w-3 h-px bg-brand/0 group-hover:bg-brand transition-colors" />
-                  Insights
-                </Link>
-              </li>
+            </ul>
+          </div>
+
+          <div>
+            <p className="font-mono text-[10px] uppercase tracking-[0.25em] text-white/30 mb-5">
+              Case studies
+            </p>
+            <ul className="space-y-2.5">
+              {workLinks.map((link) => (
+                <li key={link.name}>
+                  <Link
+                    href={link.href}
+                    className="group inline-flex items-center gap-2 text-sm text-white/55 hover:text-white transition-colors"
+                  >
+                    <span className="w-3 h-px bg-brand/0 group-hover:bg-brand transition-colors" />
+                    {link.name}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div>
+            <p className="font-mono text-[10px] uppercase tracking-[0.25em] text-white/30 mb-5">
+              Recognition
+            </p>
+            <ul className="space-y-3">
+              {partnerLinks.map((link) => (
+                <li key={link.name}>
+                  <TrackedLink
+                    href={link.href}
+                    platform={link.platform}
+                    className="group inline-flex items-center gap-3 text-sm text-white/55 hover:text-white transition-colors"
+                  >
+                    <link.Mark
+                      className={`shrink-0 text-white/35 group-hover:text-brand transition-colors ${
+                        link.platform === 'wd-awards' ? 'h-4 w-auto max-w-9' : 'h-4 w-4'
+                      }`}
+                    />
+                    <span className="flex flex-col leading-tight">
+                      <span>{link.name}</span>
+                      <span className="font-mono text-[10px] uppercase tracking-[0.14em] text-white/30 group-hover:text-white/45 transition-colors">
+                        {link.detail}
+                      </span>
+                    </span>
+                    <ArrowUpRight className="w-3 h-3 opacity-0 group-hover:opacity-60 transition-opacity" />
+                  </TrackedLink>
+                </li>
+              ))}
             </ul>
           </div>
 

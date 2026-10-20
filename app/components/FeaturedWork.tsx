@@ -196,7 +196,7 @@ export function FeaturedWork() {
       >
         {/* Header — in document flow on mobile, overlays pinned stage on desktop */}
         <div className="relative z-20 lg:absolute lg:top-0 lg:inset-x-0 pointer-events-none">
-          <div className="site-container pt-14 pb-6 lg:pt-20 lg:pb-0 flex items-end justify-between">
+          <div className="site-container pt-14 pb-6 lg:pt-20 lg:pb-0 flex items-end justify-between gap-6">
             <div>
               <div className="flex items-center gap-2 mb-3">
                 <span className="w-1 h-1 rounded-full bg-brand" />
@@ -207,15 +207,24 @@ export function FeaturedWork() {
               <h2 className="display-lg text-white">Selected work</h2>
             </div>
 
-            <div className="hidden lg:flex items-center gap-4 pb-2">
-              {projects.map((p, i) => (
-                <span
-                  key={p.id}
-                  className="fw-count font-mono text-xs text-white tabular-nums"
-                >
-                  {String(i + 1).padStart(2, '0')}
-                </span>
-              ))}
+            <div className="flex items-center gap-4 pb-2 pointer-events-auto">
+              <Link
+                href="/case-studies"
+                className="hidden sm:inline-flex items-center gap-1.5 font-mono text-[10px] uppercase tracking-[0.18em] text-white/40 hover:text-brand transition-colors"
+              >
+                All case studies
+                <ArrowRight className="w-3 h-3" />
+              </Link>
+              <div className="hidden lg:flex items-center gap-4">
+                {projects.map((p, i) => (
+                  <span
+                    key={p.id}
+                    className="fw-count font-mono text-xs text-white tabular-nums"
+                  >
+                    {String(i + 1).padStart(2, '0')}
+                  </span>
+                ))}
+              </div>
             </div>
           </div>
         </div>
